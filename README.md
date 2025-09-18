@@ -24,7 +24,7 @@
 ### CLI
 
 ```bash
-pandaflow run --config config.yaml --input data.csv --output transformed.csv
+pandaflow run --config config.json --input data.csv --output transformed.csv
 ```
 
 ## Config Example
@@ -72,11 +72,11 @@ pandaflow run --config config.yaml --input data.csv --output transformed.csv
 ## 🧰 Development Setup
 
 Install Poetry
-```
+```bash
 curl -sSL https://install.python-poetry.org | python3 -`
 ```
 Install Dependencies
 
-```
+```bash
 poetry install
 ```
