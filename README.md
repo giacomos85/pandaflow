@@ -1,6 +1,6 @@
 # 📦 PandaFlow
 
-![PyPI](https://img.shields.io/pypi/v/pandaflow) ![License](https://img.shields.io/pypi/l/license/pandaflow) ![Coverage](https://codecov.io/gh/user/repo/branch/main/graph/badge.svg)
+![PyPI](https://img.shields.io/pypi/v/pandaflow) ![License](https://img.shields.io/pypi/l/license/pandaflow) ![Coverage](https://codecov.io/gh/user/repo/branch/main/graph/badge.svg) [![CI](https://github.com/giacomos85/pandaflow/actions/workflows/ci.yml/badge.svg)](https://github.com/giacomos85/pandaflow/actions/workflows/ci.yml)
 
 <img src="docs/assets/logo.png" alt="Project Logo" width="400">
 
