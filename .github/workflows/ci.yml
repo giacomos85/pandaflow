@@ -32,7 +32,7 @@ jobs:
 
       - name: ✅ Run tests
         run: |
-          poetry run pytest tests/ --disable-warnings --maxfail=1
+          poetry run pytest pandaflow/ --disable-warnings --maxfail=1
 
       - name: 🧹 Run linter
         run: |
