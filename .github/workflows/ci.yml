@@ -22,7 +22,11 @@ jobs:
           python-version: "3.13"
 
       - name: 📦 Install Poetry
-        uses: snok/install-poetry@v2.2.0
+        uses: snok/install-poetry@v1.4.1
+        with:
+          version: 2.1.3
+          virtualenvs-create: true
+          virtualenvs-in-project: false
 
       - name: 💾 Cache Poetry virtualenv
         uses: actions/cache@v3
