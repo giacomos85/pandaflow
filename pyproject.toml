@@ -1,0 +1,81 @@
+[tool.poetry]
+name = "PandaFlow"
+version = "0.1.0"
+description = "Command-line utilities for processing CSV files with regex and transformation strategies"
+authors = ["Giacomo <giacomo.spettoli@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{ include = "pandaflow" }]
+classifiers = [
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Utilities",
+    "Topic :: Text Processing",
+    "Topic :: Software Development :: Libraries",
+    "Intended Audience :: Developers"
+]
+
+[tool.poetry.dependencies]
+python = ">=3.9"
+click = "*"
+pandas = "*"
+toml = "*"
+pydantic = "*"
+uuid-extension = "^0.2.0"
+watchdog = "^6.0.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = ">=8.4.2,<9.0.0"
+coverage = ">=7.10.6,<8.0.0"
+pytest-cov = ">=7.0.0,<8.0.0"
+black = "^25.1.0"
+flake8 = "^7.3.0"
+flake8-pyproject = "^1.2.3"
+flake8-bugbear = "^24.12.12"
+
+[tool.poetry.scripts]
+pandaflow = "pandaflow.cli.main:cli"
+
+[tool.poetry.plugins."pandaflow.strategies"]
+calculate_amount = "pandaflow.strategies.calculateamount:CalculateAmountStrategy"
+calculate_unitcost = "pandaflow.strategies.calculateunitcost:UnitCostStrategy"
+constant = "pandaflow.strategies.constant:ConstantStrategy"
+copy = "pandaflow.strategies.copy:CopyStrategy"
+csvfile = "pandaflow.strategies.csvfile:CsvFileStrategy"
+debug = "pandaflow.strategies.debug:DebugStrategy"
+drop = "pandaflow.strategies.drop:DropStrategy"
+filter = "pandaflow.strategies.filter:FilterByFormulaStrategy"
+hash = "pandaflow.strategies.hash:HashStrategy"
+deduplicate = "pandaflow.strategies.deduplicate:DeDuplicateStrategy"
+merge = "pandaflow.strategies.merge:MergeStrategy"
+merge_formula = "pandaflow.strategies.mergestring:MergeStringStrategy"
+regex = "pandaflow.strategies.regex:RegExStrategy"
+replace = "pandaflow.strategies.replace:ReplaceStrategy"
+uuid = "pandaflow.strategies.uuid:UUIDStrategy"
+
+[tool.black]
+line-length = 88
+target-version = ["py38"]
+skip-string-normalization = false
+exclude = '''
+/(
+    \.git
+  | \.venv
+  | build
+  | dist
+  | __pycache__
+  | .*\.pyc
+)/
+'''
+
+[tool.flake8]
+max-line-length = 88
+extend-ignore = [
+  "E203",  # Whitespace before ':', conflicts with Black
+  "W503",   # Line break before binary operator, also conflicts with Black
+  "E501"   # Line too long (handled by Black)
+]
+select = ["E", "F", "W", "B"]
+max-complexity = 10

@@ -1,0 +1,21 @@
+import click
+from pandaflow.cli.run import run
+from pandaflow.cli.archive import archive
+from pandaflow.cli.duplicates import duplicates
+from pandaflow.cli.check import check
+from pandaflow.cli.list_strategies import list_strategies
+from pandaflow.cli.watch import watch
+
+
+@click.group()
+def cli():
+    """Utility per elaborare file di testo con regex."""
+    pass
+
+
+cli.add_command(run)
+cli.add_command(archive)
+cli.add_command(duplicates)
+cli.add_command(check)
+cli.add_command(list_strategies)
+cli.add_command(watch)
