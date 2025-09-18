@@ -22,9 +22,15 @@ jobs:
           python-version: "3.11"
 
       - name: 📦 Install Poetry
-        run: |
-          curl -sSL https://install.python-poetry.org | python3 -
-          echo "$HOME/.local/bin" >> $GITHUB_PATH
+        uses: snok/install-poetry@v1
+
+      - name: 💾 Cache Poetry virtualenv
+        uses: actions/cache@v3
+        with:
+          path: .venv
+          key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
+          restore-keys: |
+            venv-${{ runner.os }}-
 
       - name: 📚 Install dependencies
         run: |
