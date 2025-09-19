@@ -1,8 +1,6 @@
 import pytest
-import pandas as pd
-from pathlib import Path
 from click.testing import CliRunner
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 from pandaflow.cli.main import cli
 
 

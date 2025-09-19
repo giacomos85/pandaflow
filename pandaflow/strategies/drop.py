@@ -1,5 +1,4 @@
 import pandas as pd
-from typing import List
 
 from pandaflow.core.config import BaseRule
 from pandaflow.strategies.base import TransformationStrategy

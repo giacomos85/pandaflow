@@ -1,5 +1,5 @@
 import pytest
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 from pandaflow.core.factory import StrategyFactory
 from pandaflow.strategies.base import TransformationStrategy
 

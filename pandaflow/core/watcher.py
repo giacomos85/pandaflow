@@ -3,7 +3,9 @@ from watchdog.events import FileSystemEventHandler
 from pathlib import Path
 
 from pandaflow.core.log import logger
-from pandaflow.core.runner import transform_csv
+from pandaflow.core.transformer import transform_dataframe
+
+from pandaflow.core.reader import read_csv
 
 
 class CsvEventHandler(FileSystemEventHandler):
@@ -16,10 +18,12 @@ class CsvEventHandler(FileSystemEventHandler):
         if event.is_directory or not event.src_path.endswith(".csv"):
             return
         input_path = Path(event.src_path)
+        input_file = read_csv(input, self.config)
+
         output_path = self.output_dir / input_path.name
         logger.info(f"📄  Detected new file: {input_path}")
         try:
-            df = transform_csv(input_path, self.config)
+            df = transform_dataframe(input_file, self.config)
             df.to_csv(
                 output_path, sep=",", index=False, quoting=csv.QUOTE_ALL, quotechar='"'
             )
@@ -34,7 +38,8 @@ class CsvEventHandler(FileSystemEventHandler):
         output_path = self.output_dir / input_path.name
         logger.info(f"✏️  Detected modified file: {input_path}")
         try:
-            df = transform_csv(input_path, self.config)
+            input_file = read_csv(input_path, self.config)
+            df = transform_dataframe(input_file, self.config)
             df.to_csv(
                 output_path, sep=",", index=False, quoting=csv.QUOTE_ALL, quotechar='"'
             )
