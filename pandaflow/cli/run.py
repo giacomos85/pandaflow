@@ -4,7 +4,7 @@ from pandaflow.core.config import load_config
 
 from pandaflow.core.reader import read_csvs
 from pandaflow.core.transformer import transform_dataframe_mapping
-from pandaflow.core.writer import write_csvs
+from pandaflow.core.writer import writer
 
 
 @click.command()
@@ -26,4 +26,4 @@ from pandaflow.core.writer import write_csvs
 def run(input, output, config):
     input_files = read_csvs(input, load_config(config))
     results = transform_dataframe_mapping(input_files, load_config(config))
-    write_csvs(results, output)
+    writer(results, output)

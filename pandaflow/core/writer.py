@@ -6,7 +6,7 @@ from typing import Mapping
 import pandas as pd
 
 
-def write_csvs(mapping: Mapping[Path, pd.DataFrame | None], output: str):
+def writer(mapping: Mapping[Path, pd.DataFrame | None], output: str, output_format: str = "csv"):
     # Determine output destination
     output_path = Path(output) if output != "-" else None
     destination = sys.stdout if output_path is None else output_path
@@ -16,6 +16,7 @@ def write_csvs(mapping: Mapping[Path, pd.DataFrame | None], output: str):
         if output_path and output_path.exists() and output_path.is_dir():
             filename = input_path.name
             destination = output_path / filename
-        df.to_csv(
-            destination, sep=",", index=False, quoting=csv.QUOTE_ALL, quotechar='"'
-        )
+        if output_format == "csv":
+            df.to_csv(
+                destination, sep=",", index=False, quoting=csv.QUOTE_ALL, quotechar='"'
+            )
