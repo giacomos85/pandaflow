@@ -1,158 +1,111 @@
+import io
 import pandas as pd
 import pytest
 from pathlib import Path
-from tempfile import TemporaryDirectory
-from unittest.mock import patch, MagicMock
-from pandaflow.core.runner import (
-    rule_matches_file,
-    process_single_csv,
-    process_csvs,
+from unittest.mock import MagicMock, patch
+
+from pandaflow.core.runner import rule_matches_file, transform_csv, transform_csv_batch
+
+
+@pytest.mark.parametrize(
+    "match,file_name,expected",
+    [
+        ({}, "data.csv", True),
+        ({"filename": "data.csv"}, "data.csv", True),
+        ({"filename": "data.csv"}, "other.csv", False),
+        ({"glob": "*.csv"}, "data.csv", True),
+        ({"glob": "*.csv"}, "data.txt", False),
+        ({"regex": r".*/data.csv"}, "/tmp/data.csv", True),
+        ({"regex": r".*/data.csv"}, "/tmp/other.csv", False),
+    ],
 )
+def test_rule_matches_file(tmp_path, match, file_name, expected):
+    file_path = tmp_path / Path(file_name).name
+    file_path.write_text("dummy")
+    assert rule_matches_file(match, file_path) is expected
 
 
-# ---------- rule_matches_file ----------
-def test_rule_matches_filename(tmp_path):
+def sample_config():
+    return {
+        "meta": {"skiprows": 0, "csv_separator": ","},
+        "match": {},
+        "rules": [
+            {"field": "name", "strategy": "uppercase"},
+            {"field": "age", "strategy": "csvfile", "version": "v1"},
+        ],
+    }
+
+
+@pytest.fixture
+def sample_csv(tmp_path):
     file = tmp_path / "data.csv"
-    file.touch()
-    match = {"filename": "data.csv"}
-    assert rule_matches_file(match, file)
-
-
-def test_rule_matches_glob(tmp_path):
-    file = tmp_path / "data.csv"
-    file.touch()
-    match = {"glob": "*.csv"}
-    assert rule_matches_file(match, file)
-
-
-def test_rule_matches_regex(tmp_path):
-    file = tmp_path / "data.csv"
-    file.touch()
-    match = {"regex": r".*data\.csv"}
-    assert rule_matches_file(match, file)
-
-
-def test_rule_matches_filename_mismatch(tmp_path):
-    file = tmp_path / "data.csv"
-    file.touch()
-    match = {"filename": "other.csv"}
-    assert not rule_matches_file(match, file)
-
-
-def test_rule_matches_glob_mismatch(tmp_path):
-    file = tmp_path / "data.csv"
-    file.touch()
-    match = {"glob": "*.txt"}
-    assert not rule_matches_file(match, file)
-
-
-def test_rule_matches_regex_mismatch(tmp_path):
-    file = tmp_path / "data.csv"
-    file.touch()
-    match = {"regex": r".*\.txt"}
-    assert not rule_matches_file(match, file)
-
-
-# ---------- process_single_csv ----------
-@patch("pandaflow.core.runner.StrategyFactory")
-def test_process_single_csv_applies_strategy(mock_factory, tmp_path):
-    input_file = tmp_path / "input.csv"
-    output_file = tmp_path / "output.csv"
-    pd.DataFrame({"A": ["1", "2"]}).to_csv(input_file, index=False)
-
-    mock_strategy = MagicMock()
-    mock_strategy.run.side_effect = lambda df, rule, **kwargs: df.assign(B=["x", "y"])
-    mock_factory.return_value.get_strategy.return_value = mock_strategy
-
-    config = {"rules": [{"field": "B", "strategy": "dummy"}], "meta": {}, "match": {}}
-
-    process_single_csv(input_file, output_file, config, verbose=True)
-    df = pd.read_csv(output_file)
-    assert "B" in df.columns
-    assert df["B"].tolist() == ["x", "y"]
+    file.write_text("name,age\nalice,30\nbob,25")
+    return file
 
 
 @patch("pandaflow.core.runner.StrategyFactory")
-def test_process_single_csv_skips_on_match(mock_factory, tmp_path):
-    input_file = tmp_path / "input.csv"
-    output_file = tmp_path / "output.csv"
-    pd.DataFrame({"A": ["1"]}).to_csv(input_file, index=False)
+def test_transform_csv_with_path(mock_factory, sample_csv):
+    config = sample_config()
 
-    config = {"rules": [], "meta": {}, "match": {"filename": "not_this.csv"}}
+    # Mock strategies
+    strategy1 = MagicMock()
+    strategy1.run.side_effect = lambda df, rule: df.assign(name=df["name"].str.upper())
 
-    process_single_csv(input_file, output_file, config)
-    assert not output_file.exists()
+    strategy2 = MagicMock()
+    strategy2.run.side_effect = lambda df, rule, output=None: df.assign(age="X")
+
+    mock_factory.return_value.get_strategy.side_effect = [strategy1, strategy2]
+
+    df = transform_csv(sample_csv, config)
+
+    assert isinstance(df, pd.DataFrame)
+    assert df.loc[0, "name"] == "ALICE"
+    assert df.loc[1, "age"] == "X"
 
 
 @patch("pandaflow.core.runner.StrategyFactory")
-def test_process_single_csv_fallback_to_none(mock_factory, tmp_path):
-    input_file = tmp_path / "input.csv"
-    output_file = tmp_path / "output.csv"
-    pd.DataFrame({"A": ["1"]}).to_csv(input_file, index=False)
+def test_transform_csv_with_filelike(mock_factory):
+    config = sample_config()
+    csv_data = io.StringIO("name,age\nalice,30\nbob,25")
 
-    mock_factory.return_value.get_strategy.return_value = None
+    strategy1 = MagicMock()
+    strategy1.run.side_effect = lambda df, rule: df.assign(name=df["name"].str.upper())
 
-    config = {"rules": [{"field": "B", "strategy": "unknown"}], "meta": {}, "match": {}}
+    strategy2 = MagicMock()
+    strategy2.run.side_effect = lambda df, rule, output=None: df.assign(age="X")
 
-    process_single_csv(input_file, output_file, config)
-    df = pd.read_csv(output_file)
-    assert "B" in df.columns
-    assert df["B"].isnull().all()
+    mock_factory.return_value.get_strategy.side_effect = [strategy1, strategy2]
 
+    df = transform_csv(csv_data, config)
 
-# ---------- process_csvs ----------
-@patch("pandaflow.core.runner.load_config")
-@patch("pandaflow.core.runner.process_single_csv")
-def test_process_csvs_single_file(mock_process, mock_load, tmp_path):
-    input_file = tmp_path / "input.csv"
-    input_file.write_text("A,B\n1,x")
-    output_file = tmp_path / "output.csv"
-    config_file = tmp_path / "config.toml"
-    config_file.write_text("")
-
-    mock_load.return_value = {"rules": []}
-    process_csvs(input_file, output_file, config_file)
-    mock_process.assert_called_once()
+    assert isinstance(df, pd.DataFrame)
+    assert df.loc[0, "name"] == "ALICE"
+    assert df.loc[1, "age"] == "X"
 
 
-@patch("pandaflow.core.runner.load_config")
-@patch("pandaflow.core.runner.process_single_csv")
-def test_process_csvs_batch_mode(mock_process, mock_load, tmp_path):
-    input_dir = tmp_path / "input"
-    input_dir.mkdir()
-    (input_dir / "file.csv").write_text("A,B\n1,x")
-    output_dir = tmp_path / "output"
-    config_file = tmp_path / "config.toml"
-    config_file.write_text("")
+@patch("pandaflow.core.runner.StrategyFactory")
+def test_transform_csv_skipped_by_match(mock_factory, tmp_path):
+    config = sample_config()
+    config["match"] = {"filename": "not_this.csv"}
 
-    mock_load.return_value = {"rules": []}
-    process_csvs(input_dir, output_dir, config_file)
-    mock_process.assert_called_once()
+    file = tmp_path / "data.csv"
+    file.write_text("name,age\nalice,30")
+
+    df = transform_csv(file, config)
+    assert df is None
+    mock_factory.assert_not_called()
 
 
-@patch("pandaflow.core.runner.load_config")
-def test_process_csvs_invalid_output_for_batch(mock_load, tmp_path):
-    input_dir = tmp_path / "input"
-    input_dir.mkdir()
-    output_file = tmp_path / "output.csv"
-    output_file.write_text("")
-    config_file = tmp_path / "config.toml"
-    config_file.write_text("")
+@patch("pandaflow.core.runner.transform_csv")
+def test_transform_csv_batch(mock_transform):
+    file1 = Path("/tmp/file1.csv")
+    file2 = Path("/tmp/file2.csv")
 
-    mock_load.return_value = {"rules": []}
-    with pytest.raises(ValueError, match="Expected output to be a folder"):
-        process_csvs(input_dir, output_file, config_file)
+    mock_transform.side_effect = [pd.DataFrame({"a": [1]}), None]
 
+    config = {}
+    result = transform_csv_batch([file1, file2], config)
 
-@patch("pandaflow.core.runner.load_config")
-def test_process_csvs_invalid_output_for_file(mock_load, tmp_path):
-    input_file = tmp_path / "input.csv"
-    input_file.write_text("A,B\n1,x")
-    output_dir = tmp_path / "output"
-    output_dir.mkdir()
-    config_file = tmp_path / "config.toml"
-    config_file.write_text("")
-
-    mock_load.return_value = {"rules": []}
-    with pytest.raises(ValueError, match="Expected output to be a file"):
-        process_csvs(input_file, output_dir, config_file)
+    assert isinstance(result, dict)
+    assert result[file1].equals(pd.DataFrame({"a": [1]}))
+    assert result[file2] is None

@@ -1,67 +1,147 @@
+import io
+import sys
+import csv
 import pytest
+from pathlib import Path
 from click.testing import CliRunner
-from unittest.mock import patch
-from pandaflow.cli.main import cli
+from unittest.mock import patch, MagicMock
+
+from pandaflow.cli.main import cli  # adjust import to match your CLI module
 
 
 @pytest.fixture
-def runner():
-    return CliRunner()
+def temp_csv(tmp_path):
+    file = tmp_path / "data.csv"
+    file.write_text("name,age\nalice,30\nbob,25")
+    return file
 
 
-# ---------- run ----------
-@patch("pandaflow.cli.run.process_csvs")
-def test_run_command_valid(mock_process, runner, tmp_path):
-    input_file = tmp_path / "input.csv"
-    input_file.write_text("A,B\n1,x")
-    config_file = tmp_path / "config.toml"
-    config_file.write_text("")
+@pytest.fixture
+def temp_dir_with_csvs(tmp_path):
+    dir_path = tmp_path / "csvs"
+    dir_path.mkdir()
+    (dir_path / "a.csv").write_text("name,age\nx,1")
+    (dir_path / "b.csv").write_text("name,age\ny,2")
+    return dir_path
 
+
+@pytest.fixture
+def config_file(tmp_path):
+    file = tmp_path / "config.yaml"
+    file.write_text("rules: []")
+    return file
+
+
+@patch("pandaflow.cli.run.load_config")
+@patch("pandaflow.cli.run.transform_csv_batch")
+def test_run_single_file_to_stdout(mock_batch, mock_config, temp_csv, config_file):
+    mock_config.return_value = {"rules": []}
+    df_mock = MagicMock()
+    df_mock.to_csv = lambda *args, **kwargs: print("mocked csv output")
+    mock_batch.return_value = {temp_csv: df_mock}
+
+    runner = CliRunner()
     result = runner.invoke(
         cli,
         [
             "run",
-            "-i",
-            str(input_file),
-            "-o",
-            str(tmp_path / "out.csv"),
-            "-c",
+            "--input",
+            str(temp_csv),
+            "--config",
             str(config_file),
+            "--output",
+            "-",
         ],
     )
+
     assert result.exit_code == 0
-    mock_process.assert_called_once()
+    mock_batch.assert_called_once()
+    assert "mocked csv output" in result.output
 
 
-@patch("pandaflow.cli.run.process_csvs")
-def test_run_command_dir_output_mismatch(mock_process, runner, tmp_path):
-    input_dir = tmp_path / "input"
-    input_dir.mkdir()
-    output_file = tmp_path / "out.csv"
-    output_file.write_text("")
-    config_file = tmp_path / "config.toml"
-    config_file.write_text("")
+@patch("pandaflow.cli.run.load_config")
+@patch("pandaflow.cli.run.transform_csv_batch")
+def test_run_batch_to_directory(
+    mock_batch, mock_config, temp_dir_with_csvs, config_file, tmp_path
+):
+    mock_config.return_value = {"rules": []}
+    df_mock = MagicMock()
+    df_mock.to_csv = MagicMock()
+    mock_batch.return_value = {
+        temp_dir_with_csvs / "a.csv": df_mock,
+        temp_dir_with_csvs / "b.csv": df_mock,
+    }
 
-    result = runner.invoke(
-        cli,
-        ["run", "-i", str(input_dir), "-o", str(output_file), "-c", str(config_file)],
-    )
-    assert result.exit_code != 0
-    assert "must also be a directory" in result.output
-
-
-@patch("pandaflow.cli.run.process_csvs")
-def test_run_command_file_output_mismatch(mock_process, runner, tmp_path):
-    input_file = tmp_path / "input.csv"
-    input_file.write_text("A,B\n1,x")
     output_dir = tmp_path / "out"
     output_dir.mkdir()
-    config_file = tmp_path / "config.toml"
-    config_file.write_text("")
 
+    runner = CliRunner()
     result = runner.invoke(
         cli,
-        ["run", "-i", str(input_file), "-o", str(output_dir), "-c", str(config_file)],
+        [
+            "run",
+            "--input",
+            str(temp_dir_with_csvs),
+            "--config",
+            str(config_file),
+            "--output",
+            str(output_dir),
+        ],
     )
-    assert result.exit_code != 0
-    assert "must be a file" in result.output
+
+    assert result.exit_code == 0
+    assert df_mock.to_csv.call_count == 2
+
+
+@patch("pandaflow.cli.run.load_config")
+@patch("pandaflow.cli.run.transform_csv_batch")
+def test_run_skips_none_results(mock_batch, mock_config, temp_csv, config_file):
+    mock_config.return_value = {"rules": []}
+    mock_batch.return_value = {temp_csv: None}
+
+    runner = CliRunner()
+    result = runner.invoke(
+        cli,
+        [
+            "run",
+            "--input",
+            str(temp_csv),
+            "--config",
+            str(config_file),
+            "--output",
+            "-",
+        ],
+    )
+
+    assert result.exit_code == 0
+    assert result.output == ""
+
+
+@patch("pandaflow.cli.run.load_config")
+@patch("pandaflow.cli.run.transform_csv_batch")
+def test_run_output_to_file(mock_batch, mock_config, temp_csv, config_file, tmp_path):
+    mock_config.return_value = {"rules": []}
+    df_mock = MagicMock()
+    df_mock.to_csv = MagicMock()
+    mock_batch.return_value = {temp_csv: df_mock}
+
+    output_file = tmp_path / "out.csv"
+
+    runner = CliRunner()
+    result = runner.invoke(
+        cli,
+        [
+            "run",
+            "--input",
+            str(temp_csv),
+            "--config",
+            str(config_file),
+            "--output",
+            str(output_file),
+        ],
+    )
+
+    assert result.exit_code == 0
+    df_mock.to_csv.assert_called_once_with(
+        output_file, sep=",", index=False, quoting=csv.QUOTE_ALL, quotechar='"'
+    )

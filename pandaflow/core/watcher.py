@@ -1,7 +1,9 @@
+import csv
 from watchdog.events import FileSystemEventHandler
 from pathlib import Path
-from pandaflow.core.runner import process_single_csv
+
 from pandaflow.core.log import logger
+from pandaflow.core.runner import transform_csv
 
 
 class CsvEventHandler(FileSystemEventHandler):
@@ -17,8 +19,9 @@ class CsvEventHandler(FileSystemEventHandler):
         output_path = self.output_dir / input_path.name
         logger.info(f"📄  Detected new file: {input_path}")
         try:
-            process_single_csv(
-                input_path, output_path, self.config, verbose=self.verbose
+            df = transform_csv(input_path, self.config)
+            df.to_csv(
+                output_path, sep=",", index=False, quoting=csv.QUOTE_ALL, quotechar='"'
             )
             logger.info(f"✅  Processed and saved to: {output_path}")
         except Exception as e:
@@ -31,8 +34,9 @@ class CsvEventHandler(FileSystemEventHandler):
         output_path = self.output_dir / input_path.name
         logger.info(f"✏️  Detected modified file: {input_path}")
         try:
-            process_single_csv(
-                input_path, output_path, self.config, verbose=self.verbose
+            df = transform_csv(input_path, self.config)
+            df.to_csv(
+                output_path, sep=",", index=False, quoting=csv.QUOTE_ALL, quotechar='"'
             )
             logger.info(f"🔄  Reprocessed and saved to: {output_path}")
         except Exception as e:

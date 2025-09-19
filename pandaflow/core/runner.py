@@ -1,9 +1,8 @@
-from pathlib import Path
 import re
+from pathlib import Path
+from typing import Iterable, Mapping
 from pandaflow.core.factory import StrategyFactory
 import pandas as pd
-import csv
-from pandaflow.core.config import load_config
 
 
 def rule_matches_file(match: dict, file_path: Path) -> bool:
@@ -23,66 +22,67 @@ def rule_matches_file(match: dict, file_path: Path) -> bool:
     return True
 
 
-def process_single_csv(
-    input_file: Path, output_file: Path, config: dict, verbose: bool = False
-):
+def transform_csv(input_source: Path, config: dict) -> pd.DataFrame | None:
+    """Transform CSV input based on config rules.
+
+    Args:
+        input_source: Path to a CSV file or a file-like object (e.g. sys.stdin).
+        config: Dictionary containing meta, match, and rules.
+
+    Returns:
+        Transformed DataFrame, or None if skipped due to match rules.
+    """
     meta = config.get("meta", {})
     skiprows = meta.get("skiprows", 0)
     sep = meta.get("csv_separator", ",")
     match = config.get("match", {})
 
-    if not rule_matches_file(match, input_file):
-        # if verbose:
-        print(f"Skipping {input_file} due to match rules")
-        return
+    # If input is a Path, apply match rules
+    if isinstance(input_source, Path):
+        if not rule_matches_file(match, input_source):
+            return None
+        df = pd.read_csv(input_source, dtype=str, skiprows=skiprows, sep=sep)
+    else:
+        # Assume file-like object (e.g. sys.stdin)
+        df = pd.read_csv(input_source, dtype=str, skiprows=skiprows, sep=sep)
 
-    df = pd.read_csv(input_file, dtype=str, skiprows=skiprows, sep=sep)
+    factory = StrategyFactory(config)
 
     for rule in config.get("rules", {}):
         field = rule.get("field")
         strategy_name = rule.get("strategy")
         version = rule.get("version", None)
 
-        factory = StrategyFactory(config)
         strategy = factory.get_strategy(strategy_name, version=version)
 
-        try:
-            if strategy and strategy_name != "csvfile":
-                df = strategy.run(df, rule)
-            elif strategy and strategy_name == "csvfile":  # pragma: no cover
-                df = strategy.run(df, rule, output=str(output_file))
+        if strategy:
+            if strategy_name == "csvfile":
+                df = strategy.run(df, rule, output=None)
             else:
-                df[field] = None
-        except Exception as e:
-            raise Exception(
-                f"Error while processing file {input_file} rule:{rule} {str(e)}"
-            )
-    output_file.parent.mkdir(parents=True, exist_ok=True)
-    df.to_csv(output_file, sep=",", index=False, quoting=csv.QUOTE_ALL, quotechar='"')
+                df = strategy.run(df, rule)
+        else:
+            df[field] = None
 
-    if verbose:
-        print(f"Saved to {output_file}")
+    return df
 
 
-def process_csvs(
-    input_path: Path, output_path: Path, config_path: Path, verbose: bool = False
-):
-    config = load_config(config_path)
+def transform_csv_batch(
+    input_files: Iterable[Path], config: dict
+) -> Mapping[Path, pd.DataFrame | None]:
+    """Pure batch transformation of multiple CSV files.
 
-    is_batch = input_path.is_dir()
-    input_files = list(input_path.rglob("*.csv")) if is_batch else [input_path]
+    Args:
+        input_files: List of CSV file paths.
+        config: Dictionary of transformation rules.
 
-    # Validate output path
-    if is_batch:
-        if output_path.exists() and not output_path.is_dir():
-            raise ValueError(f"Expected output to be a folder, got file: {output_path}")
-        output_path.mkdir(parents=True, exist_ok=True)
-    else:
-        if output_path.exists() and output_path.is_dir():
-            raise ValueError(f"Expected output to be a file, got folder: {output_path}")
+    Returns:
+        Dict mapping each input file to its transformed DataFrame,
+        or None if the file was skipped due to match rules.
+    """
+    results = {}
 
     for input_file in input_files:
-        rel_path = input_file.relative_to(input_path) if is_batch else input_file.name
-        out_file = output_path if not is_batch else output_path / rel_path
+        df = transform_csv(input_file, config)
+        results[input_file] = df  # may be None if skipped
 
-        process_single_csv(input_file, out_file, config, verbose=verbose)
+    return results
