@@ -20,3 +20,7 @@ def writer(mapping: Mapping[Path, pd.DataFrame | None], output: str, output_form
             df.to_csv(
                 destination, sep=",", index=False, quoting=csv.QUOTE_ALL, quotechar='"'
             )
+        elif output_format == "json":
+            if output_path:
+                destination = destination.with_suffix(".json")
+            df.to_json(destination, orient="records", lines=True)

@@ -45,7 +45,7 @@ def test_run_single_file_to_stdout(
     )
 
     assert result.exit_code == 0
-    mock_write.assert_called_once_with({input_file: "df"}, "-")
+    mock_write.assert_called_once_with({input_file: "df"}, "-", output_format="csv")
 
 
 @patch("pandaflow.cli.run.load_config")
@@ -79,7 +79,7 @@ def test_run_directory_to_file(
     )
 
     assert result.exit_code == 0
-    mock_write.assert_called_once_with(mock_transform.return_value, str(output_dir))
+    mock_write.assert_called_once_with(mock_transform.return_value, str(output_dir),output_format="csv")
 
 
 @patch("pandaflow.cli.run.load_config")
@@ -99,4 +99,4 @@ def test_run_skipped_files(
     )
 
     assert result.exit_code == 0
-    mock_write.assert_called_once_with({input_file: None}, "-")
+    mock_write.assert_called_once_with({input_file: None}, "-", output_format="csv")
