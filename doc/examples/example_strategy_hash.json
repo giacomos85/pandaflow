@@ -1,0 +1,10 @@
+{
+    "rules":[
+        {
+            "field": "__md5__",
+            "strategy": "hash",
+            "source": ["id","timestamp","value","category"],
+            "function": "calculate_md5"
+        }
+    ]
+}

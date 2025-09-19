@@ -79,3 +79,10 @@ extend-ignore = [
 ]
 select = ["E", "F", "W", "B"]
 max-complexity = 10
+
+[tool.poetry.group.docs.dependencies]
+Sphinx = "^7.0"
+furo = "^2024.0.0"               # modern theme (or use sphinx-rtd-theme)
+myst-parser = "^3.0.0"           # Markdown support
+sphinx-autodoc-typehints = "^2.0"
+sphinx-copybutton = "^0.5.2"

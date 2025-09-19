@@ -1,0 +1,9 @@
+{
+    "rules":[
+        {
+            "field": "__description__",
+            "strategy": "merge_formula",
+            "formula": "'{}|{}|{}|{}'.format(id, timestamp, value, category)"
+        }
+    ]
+}

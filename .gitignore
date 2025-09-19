@@ -33,3 +33,5 @@ dist/*
 *.pyc
 *.picklecache
 .coverage
+# sphinx build directory
+doc/_build
