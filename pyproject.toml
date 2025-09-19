@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pandaflow"
-version = "0.1.0"
+version = "1.0.0"
 description = "Command-line utilities for processing CSV files with regex and transformation strategies"
 authors = ["Giacomo <giacomo.spettoli@gmail.com>"]
 license = "MIT"
