@@ -6,7 +6,9 @@ from typing import Mapping
 import pandas as pd
 
 
-def writer(mapping: Mapping[Path, pd.DataFrame | None], output: str, output_format: str = "csv"):
+def writer(
+    mapping: Mapping[Path, pd.DataFrame | None], output: str, output_format: str = "csv"
+):
     # Determine output destination
     output_path = Path(output) if output != "-" else None
     destination = sys.stdout if output_path is None else output_path

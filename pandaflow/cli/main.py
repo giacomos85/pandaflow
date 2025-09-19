@@ -4,7 +4,6 @@ from pandaflow.cli.archive import archive
 from pandaflow.cli.duplicates import duplicates
 from pandaflow.cli.check import check
 from pandaflow.cli.list_strategies import list_strategies
-from pandaflow.cli.watch import watch
 
 
 @click.group()
@@ -18,4 +17,3 @@ cli.add_command(archive)
 cli.add_command(duplicates)
 cli.add_command(check)
 cli.add_command(list_strategies)
-cli.add_command(watch)

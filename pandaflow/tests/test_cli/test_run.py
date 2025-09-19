@@ -79,7 +79,9 @@ def test_run_directory_to_file(
     )
 
     assert result.exit_code == 0
-    mock_write.assert_called_once_with(mock_transform.return_value, str(output_dir),output_format="csv")
+    mock_write.assert_called_once_with(
+        mock_transform.return_value, str(output_dir), output_format="csv"
+    )
 
 
 @patch("pandaflow.cli.run.load_config")
