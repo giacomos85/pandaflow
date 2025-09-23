@@ -2,7 +2,7 @@
 
 ![PyPI](https://img.shields.io/pypi/v/pandaflow) ![License](https://img.shields.io/pypi/l/license/pandaflow) ![Coverage](https://codecov.io/gh/user/repo/branch/main/graph/badge.svg) [![CI](https://github.com/giacomos85/pandaflow/actions/workflows/ci.yml/badge.svg)](https://github.com/giacomos85/pandaflow/actions/workflows/ci.yml)
 
-<img src="https://github.com/giacomos85/pandaflow/blob/releases/1.0.0rc1/doc/source/_static/logo.png" alt="Project Logo" width="400">
+<img src="https://github.com/giacomos85/pandaflow/blob/146de28dddbc49f7e9862d7d2eb59b4f78970bed/docs/source/_static/logo.png" alt="Project Logo" width="400">
 
 **PandaFlow** is a modular, strategy-driven CLI tool for transforming CSV files using declarative configuration. Built for maintainability, extensibility, and safety, it empowers users to define transformation pipelines with schema-aware validation and plugin-based logic.
 
