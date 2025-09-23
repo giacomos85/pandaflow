@@ -6,8 +6,10 @@ on:
     branches: [master]
 
 jobs:
-  build-docs:
+  build-and-deploy-docs:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Needed to push to gh-pages
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -27,5 +29,4 @@ jobs:
         with:
           publish_branch: gh-pages
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: _build/
-          force_orphan: true
+          publish_dir: docs/_build/html
