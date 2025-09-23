@@ -34,4 +34,4 @@ dist/*
 *.picklecache
 .coverage
 # sphinx build directory
-doc/_build
+docs/_build
