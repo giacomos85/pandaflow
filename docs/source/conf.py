@@ -31,6 +31,7 @@ exclude_patterns = []
 html_theme = 'furo'
 html_title = "pandaflow"
 html_static_path = ["_static"]
+html_css_files = ['custom.css']
 templates_path = ["_templates"]
 
 # Keep warnings clean for CI
