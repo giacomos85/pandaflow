@@ -47,6 +47,7 @@ class RegExStrategy(TransformationStrategy):
                 res = re.match(regex_patten, text)
                 if res:
                     return format_value(res.group(group_id))
+                return ""
             except IndexError:
                 return ""
 
