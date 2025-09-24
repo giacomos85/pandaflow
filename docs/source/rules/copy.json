@@ -1,0 +1,12 @@
+{
+    "rules": [
+        {
+            "field": "__total__",
+            "strategy": "copy",
+            "source": "Amount",
+            "input_rule": "default_currency",
+            "output_rule": "float_2dec",
+            "fillna": 0
+        }
+    ]
+}

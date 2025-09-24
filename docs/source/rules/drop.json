@@ -1,0 +1,8 @@
+{
+    "rules": [
+        {
+            "field": ["__email__", "__status__"],
+            "strategy": "drop"
+        }
+    ]
+}

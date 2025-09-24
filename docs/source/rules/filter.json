@@ -1,0 +1,9 @@
+{
+    "rule": [
+        {
+            "field": "description",
+            "strategy": "filter",
+            "formula": "amount > 0"
+        }
+    ]
+}

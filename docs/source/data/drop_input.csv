@@ -1,0 +1,4 @@
+__id__,__name__,__email__,__status__
+1,Alice,alice@example.com,active
+2,Bob,bob@example.com,inactive
+3,Charlie,charlie@example.com,active

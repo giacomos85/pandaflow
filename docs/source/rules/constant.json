@@ -1,0 +1,9 @@
+{
+    "rules": [
+        {
+            "field": "__source__",
+            "strategy": "constant",
+            "value": "amazon"
+        }
+    ]
+}

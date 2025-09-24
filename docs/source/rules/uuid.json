@@ -1,0 +1,8 @@
+{
+    "rules":[
+        {
+            "strategy": "uuid",
+            "field": "record_id"
+        }
+    ]
+}

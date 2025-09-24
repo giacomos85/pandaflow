@@ -1,0 +1,12 @@
+{
+    "rules": [
+        {
+            "strategy": "regex",
+            "field": "product_code",
+            "source": "description",
+            "regex": "Product\\s+(\\d+)",
+            "group_id": 1,
+            "output_rule": "str_upper"
+        }
+    ]
+}

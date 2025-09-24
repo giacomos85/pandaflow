@@ -1,0 +1,10 @@
+{
+    "rules": [
+        {
+            "strategy": "replace",
+            "field": "status",
+            "find": "inactive",
+            "replace": "archived"
+        }
+    ]
+}

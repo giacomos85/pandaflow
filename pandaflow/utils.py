@@ -104,6 +104,7 @@ def get_output_formatter(name: str):
         ),
         "iso_dashed_date": formatter_date(output_format="%Y-%m-%d", as_string=True),
         "italian_dashed_date": formatter_date(output_format="%d-%m-%Y", as_string=True),
+        "str_upper": lambda x: str(x).upper()
     }
     if name is None:
         return lambda x: x
