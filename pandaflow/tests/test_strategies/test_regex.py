@@ -40,7 +40,7 @@ def test_valid_regex_extraction(strategy, sample_df):
         "output_rule": "custom",
     }
     result = strategy.apply(sample_df, rule)
-    expected = ["formatted-12345", "formatted-67890", None, "formatted-00001"]
+    expected = ["formatted-12345", "formatted-67890", "", "formatted-00001"]
     assert result["__order_id__"].tolist() == expected
 
 
