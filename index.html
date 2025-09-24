@@ -3,13 +3,14 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Overview" href="overview.html" />
 
     <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
         <title>pandaflow</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=302659d7" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=cc1e2568" />
     
     
 
@@ -178,7 +179,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -198,7 +199,28 @@
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  
+  <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Using Pandaflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing to Pandaflow</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Strategies</span></p>
+<ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="strategies/index.html">Strategy Reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Strategy Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="strategies/calculateamount.html">CalculateAmount</a></li>
+<li class="toctree-l2"><a class="reference internal" href="strategies/constant.html">Constant</a></li>
+<li class="toctree-l2"><a class="reference internal" href="strategies/copy.html">Copy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="strategies/drop.html">Drop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="strategies/filter.html">Filter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="strategies/hash.html">Hash</a></li>
+<li class="toctree-l2"><a class="reference internal" href="strategies/regex.html">RegEx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="strategies/replace.html">Replace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="strategies/uuid.html">UUID</a></li>
+</ul>
+</li>
+</ul>
+
 </div>
 </div>
 
@@ -231,19 +253,51 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main" id="furo-main-content">
           <section id="pandaflow-documentation">
-<h1>pandaflow documentation<a class="headerlink" href="#pandaflow-documentation" title="Link to this heading">¶</a></h1>
-<p>Add your content using <code class="docutils literal notranslate"><span class="pre">reStructuredText</span></code> syntax. See the
-<a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html">reStructuredText</a>
-documentation for details.</p>
+<h1>Pandaflow Documentation<a class="headerlink" href="#pandaflow-documentation" title="Link to this heading">¶</a></h1>
+<p>Welcome to <strong>Pandaflow</strong>, a schema-driven transformation framework for pandas DataFrames.
+This documentation covers strategies, rule formats, contributor workflows, and automation guides.</p>
+<section id="contents">
+<h2>Contents<a class="headerlink" href="#contents" title="Link to this heading">¶</a></h2>
 <div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#goals">Goals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#architecture">Architecture</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Using Pandaflow</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#basic-example">Basic Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#what-you-can-do">What You Can Do</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#using-rules-from-files">Using Rules from Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#tips-for-end-users">Tips for End Users</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#need-help">Need Help?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing to Pandaflow</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#getting-started">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#strategy-development">Strategy Development</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#documentation">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#automation-ci">Automation &amp; CI</a></li>
+</ul>
+</li>
+</ul>
 </div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Strategies</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="strategies/index.html">Strategy Reference</a></li>
+</ul>
+</div>
+</section>
 </section>
 
         </article>
@@ -251,7 +305,15 @@ documentation for details.</p>
       <footer>
         
         <div class="related-pages">
-          
+          <a class="next-page" href="overview.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Overview</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
           
         </div>
         <div class="bottom-of-page">
@@ -271,8 +333,29 @@ documentation for details.</p>
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Pandaflow Documentation</a><ul>
+<li><a class="reference internal" href="#contents">Contents</a><ul>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>

@@ -1,13 +1,13 @@
 <!doctype html>
 <html class="no-js" lang="en" data-content_root="./">
-  <head>
-<meta charset="utf-8"/>
+  <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="#" />
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Contributing to Pandaflow" href="contributing.html" /><link rel="prev" title="Overview" href="overview.html" />
 
     <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
-<meta name="robots" content="noindex" />
-<title>Search - pandaflow</title><link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+        <title>Using Pandaflow - pandaflow</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=302659d7" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css?v=cc1e2568" />
@@ -179,7 +179,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -193,16 +193,16 @@
   
   <span class="sidebar-brand-text">pandaflow</span>
   
-</a><form class="sidebar-search-container" method="get" action="#" role="search">
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
-<li class="toctree-l1"><a class="reference internal" href="usage.html">Using Pandaflow</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Using Pandaflow</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing to Pandaflow</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Strategies</span></p>
@@ -238,7 +238,13 @@
           <span>Back to top</span>
         </a>
         <div class="content-icon-container">
-          <div class="theme-toggle-container theme-toggle-content">
+          <div class="view-this-page">
+  <a class="muted-link" href="_sources/usage.rst.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
@@ -247,31 +253,129 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          
-<noscript>
-<div class="admonition error">
-  <p class="admonition-title">Error</p>
-  <p>
-    Please activate JavaScript to enable the search functionality.
-  </p>
+          <section id="using-pandaflow">
+<h1>Using Pandaflow<a class="headerlink" href="#using-pandaflow" title="Link to this heading">¶</a></h1>
+<p>Pandaflow helps you transform pandas DataFrames using simple, rule-based instructions.
+No need to write custom functions — just define what you want in a JSON rule, and Pandaflow does the rest.</p>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">¶</a></h2>
+<p>Install Pandaflow using pip:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>pandaflow
+</pre></div>
 </div>
-</noscript>
+<p>Or with Poetry if you’re using it:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>poetry<span class="w"> </span>add<span class="w"> </span>pandaflow
+</pre></div>
+</div>
+</section>
+<section id="basic-example">
+<h2>Basic Example<a class="headerlink" href="#basic-example" title="Link to this heading">¶</a></h2>
+<p>Let’s say you want to copy values from one column to another and format them to two decimal places.</p>
+<ol class="arabic">
+<li><p><strong>Create a rules files</strong> (save as <cite>my_rules.json</cite>):</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;rules&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;strategy&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;copy&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;__amount__&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;source&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;__total__&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;output_rule&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;float_2dec&quot;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Prepare your data</strong>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
-<div id="search-results"></div>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;__total__&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;100.123&quot;</span><span class="p">,</span> <span class="s2">&quot;200.456&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Run PandaFlow</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pandaflow<span class="w"> </span>run<span class="w"> </span>--input<span class="w"> </span>mydata.csv<span class="w"> </span>--output<span class="w"> </span>results.csv<span class="w"> </span>--config<span class="w"> </span>my_rules.json
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="what-you-can-do">
+<h2>What You Can Do<a class="headerlink" href="#what-you-can-do" title="Link to this heading">¶</a></h2>
+<p>Pandaflow supports many built-in strategies:</p>
+<ul class="simple">
+<li><p><strong>constant</strong>: Set a column to a fixed value</p></li>
+<li><p><strong>copy</strong>: Copy and format values from another column</p></li>
+<li><p><strong>drop</strong>: Remove unwanted columns</p></li>
+<li><p><strong>filter</strong>: Keep only rows that match a condition</p></li>
+</ul>
+<p>Each strategy has its own rule format. You can find examples in the [Strategy Reference](strategies/index).</p>
+</section>
+<section id="using-rules-from-files">
+<h2>Using Rules from Files<a class="headerlink" href="#using-rules-from-files" title="Link to this heading">¶</a></h2>
+<p>You can store your rules in <cite>.json</cite> files and reuse them across projects:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pandaflow.engine</span><span class="w"> </span><span class="kn">import</span> <span class="n">apply_rule</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;rules/drop.json&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">rule</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">apply_rule</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">rule</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="tips-for-end-users">
+<h2>Tips for End Users<a class="headerlink" href="#tips-for-end-users" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>✅ You don’t need to write custom code — just edit the rule files</p></li>
+<li><p>✅ You can preview transformations before saving results</p></li>
+<li><p>✅ You can combine multiple rules in a pipeline (coming soon!)</p></li>
+<li><p>✅ You can validate rules using Pandaflow’s built-in checks</p></li>
+</ul>
+</section>
+<section id="need-help">
+<h2>Need Help?<a class="headerlink" href="#need-help" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Check the [overview](overview) for how Pandaflow works</p></li>
+<li><p>Browse the [strategy docs](strategies/index) for examples</p></li>
+<li><p>Reach out via GitHub if you run into issues</p></li>
+</ul>
+</section>
+</section>
 
         </article>
       </div>
       <footer>
         
         <div class="related-pages">
-          
-          
+          <a class="next-page" href="contributing.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Contributing to Pandaflow</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="overview.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Overview</div>
+                
+              </div>
+            </a>
         </div>
         <div class="bottom-of-page">
           <div class="left-details">
@@ -290,8 +394,32 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Using Pandaflow</a><ul>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#basic-example">Basic Example</a></li>
+<li><a class="reference internal" href="#what-you-can-do">What You Can Do</a></li>
+<li><a class="reference internal" href="#using-rules-from-files">Using Rules from Files</a></li>
+<li><a class="reference internal" href="#tips-for-end-users">Tips for End Users</a></li>
+<li><a class="reference internal" href="#need-help">Need Help?</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>
@@ -300,8 +428,5 @@
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=5fa4622c"></script>
-    
-<script src="_static/searchtools.js"></script>
-<script src="_static/language_data.js"></script>
-<script src="searchindex.js"></script></body>
+    </body>
 </html>

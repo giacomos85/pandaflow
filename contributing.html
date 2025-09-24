@@ -1,13 +1,13 @@
 <!doctype html>
 <html class="no-js" lang="en" data-content_root="./">
-  <head>
-<meta charset="utf-8"/>
+  <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="#" />
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Strategy Reference" href="strategies/index.html" /><link rel="prev" title="Using Pandaflow" href="usage.html" />
 
     <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
-<meta name="robots" content="noindex" />
-<title>Search - pandaflow</title><link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+        <title>Contributing to Pandaflow - pandaflow</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=302659d7" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css?v=cc1e2568" />
@@ -179,7 +179,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -193,17 +193,17 @@
   
   <span class="sidebar-brand-text">pandaflow</span>
   
-</a><form class="sidebar-search-container" method="get" action="#" role="search">
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Using Pandaflow</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing to Pandaflow</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Contributing to Pandaflow</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Strategies</span></p>
 <ul>
@@ -238,7 +238,13 @@
           <span>Back to top</span>
         </a>
         <div class="content-icon-container">
-          <div class="theme-toggle-container theme-toggle-content">
+          <div class="view-this-page">
+  <a class="muted-link" href="_sources/contributing.rst.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
@@ -247,31 +253,102 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          
-<noscript>
-<div class="admonition error">
-  <p class="admonition-title">Error</p>
-  <p>
-    Please activate JavaScript to enable the search functionality.
-  </p>
+          <section id="contributing-to-pandaflow">
+<h1>Contributing to Pandaflow<a class="headerlink" href="#contributing-to-pandaflow" title="Link to this heading">¶</a></h1>
+<p>We welcome contributions to <strong>Pandaflow</strong>, a schema-driven transformation framework for pandas workflows.
+Whether you’re fixing bugs, adding strategies, improving documentation, or streamlining automation, your input helps make Pandaflow better for everyone.</p>
+<section id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Link to this heading">¶</a></h2>
+<ol class="arabic">
+<li><p><strong>Fork the repository</strong> on GitHub</p></li>
+<li><p><strong>Clone your fork</strong> locally:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/your-username/pandaflow
+<span class="nb">cd</span><span class="w"> </span>pandaflow
+</pre></div>
 </div>
-</noscript>
-
-<div id="search-results"></div>
+</li>
+<li><p><strong>Install dependencies</strong> using Poetry:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>poetry<span class="w"> </span>install
+</pre></div>
+</div>
+</li>
+<li><p><strong>Run tests</strong> to verify your environment:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>poetry<span class="w"> </span>run<span class="w"> </span>pytest
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="strategy-development">
+<h2>Strategy Development<a class="headerlink" href="#strategy-development" title="Link to this heading">¶</a></h2>
+<p>To add a new transformation strategy:</p>
+<ol class="arabic simple">
+<li><p>Create a new file in <cite>pandaflow/strategies/</cite> (e.g. <cite>normalize.py</cite>)</p></li>
+<li><p>Define a <cite>BaseRule</cite> subclass for schema validation</p></li>
+<li><p>Implement a <cite>TransformationStrategy</cite> subclass with <cite>meta</cite>, <cite>validate_rule()</cite>, and <cite>apply()</cite></p></li>
+<li><p>Add test cases in <cite>tests/strategies/test_normalize.py</cite></p></li>
+<li><p>Document the strategy in <cite>docs/source/strategies/normalize.rst</cite></p></li>
+</ol>
+</section>
+<section id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Link to this heading">¶</a></h2>
+<ul>
+<li><p>Use <cite>.rst</cite> files in <cite>docs/source/</cite> with Sphinx directives (<cite>.. csv-table::</cite>, <cite>.. literalinclude::</cite>)</p></li>
+<li><p>Store example rules in <cite>docs/source/rules/</cite> and data in <cite>docs/source/data/</cite></p></li>
+<li><p>Run the docs locally:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sphinx-build<span class="w"> </span>-b<span class="w"> </span>html<span class="w"> </span>docs/source<span class="w"> </span>docs/_build/html
+python<span class="w"> </span>-m<span class="w"> </span>http.server<span class="w"> </span>--directory<span class="w"> </span>docs/_build/html
+</pre></div>
+</div>
+</li>
+<li><p>Or use live reload:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>poetry<span class="w"> </span>run<span class="w"> </span>sphinx-autobuild<span class="w"> </span>docs/source<span class="w"> </span>docs/_build/html
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="automation-ci">
+<h2>Automation &amp; CI<a class="headerlink" href="#automation-ci" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>All strategies must be covered by tests and validated in CI</p></li>
+<li><p><cite>.rst</cite>-based test cases are auto-validated using <cite>pandaflow.docs.testcases</cite></p></li>
+<li><p>Use <cite>pandaflow.cli</cite> commands to serve docs, export examples, and scaffold new strategies</p></li>
+</ul>
+</section>
+</section>
 
         </article>
       </div>
       <footer>
         
         <div class="related-pages">
-          
-          
+          <a class="next-page" href="strategies/index.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Strategy Reference</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="usage.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Using Pandaflow</div>
+                
+              </div>
+            </a>
         </div>
         <div class="bottom-of-page">
           <div class="left-details">
@@ -290,8 +367,30 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Contributing to Pandaflow</a><ul>
+<li><a class="reference internal" href="#getting-started">Getting Started</a></li>
+<li><a class="reference internal" href="#strategy-development">Strategy Development</a></li>
+<li><a class="reference internal" href="#documentation">Documentation</a></li>
+<li><a class="reference internal" href="#automation-ci">Automation &amp; CI</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>
@@ -300,8 +399,5 @@
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=5fa4622c"></script>
-    
-<script src="_static/searchtools.js"></script>
-<script src="_static/language_data.js"></script>
-<script src="searchindex.js"></script></body>
+    </body>
 </html>

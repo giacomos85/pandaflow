@@ -1,17 +1,31 @@
-.. pandaflow documentation master file, created by
-   sphinx-quickstart on Fri Sep 19 10:30:09 2025.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+Pandaflow Documentation
+========================
 
-pandaflow documentation
-=======================
+Welcome to **Pandaflow**, a schema-driven transformation framework for pandas DataFrames.  
+This documentation covers strategies, rule formats, contributor workflows, and automation guides.
 
-Add your content using ``reStructuredText`` syntax. See the
-`reStructuredText <https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html>`_
-documentation for details.
-
+Contents
+--------
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: Getting Started
 
+   overview
+   usage
+   contributing
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Strategies
+
+   strategies/index
+
+.. .. toctree::
+..    :maxdepth: 2
+..    :caption: Reference
+
+..    rules/schema
+..    testcases/index
+..    cli/index
+..    changelog
