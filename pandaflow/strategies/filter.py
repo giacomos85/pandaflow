@@ -6,7 +6,8 @@ from pandaflow.strategies.base import TransformationStrategy
 
 
 class FilterByFormulaRule(BaseRule):
-    field = str
+    field: str
+    formula: str
 
 
 class FilterByFormulaStrategy(TransformationStrategy):
@@ -23,8 +24,6 @@ class FilterByFormulaStrategy(TransformationStrategy):
 
     def apply(self, df: pd.DataFrame, rule: dict):
         config = FilterByFormulaRule(**rule)
-        if not config.formula:
-            raise ValueError("Missing 'formula' in rule")
 
         try:
             # Evaluate the formula as a boolean mask

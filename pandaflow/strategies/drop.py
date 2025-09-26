@@ -1,3 +1,4 @@
+from typing import List
 import pandas as pd
 
 from pandaflow.core.config import BaseRule
@@ -5,7 +6,7 @@ from pandaflow.strategies.base import TransformationStrategy
 
 
 class DropRule(BaseRule):
-    field = str
+    field: str|List[str]
 
 
 class DropStrategy(TransformationStrategy):
