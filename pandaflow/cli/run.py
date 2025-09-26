@@ -3,7 +3,7 @@ import time
 from pathlib import Path
 from watchdog.observers import Observer
 from pandaflow.core.config import load_config
-from pandaflow.core.transformer import transform_dataframe_mapping
+from pandaflow.core.transformer import transform
 from pandaflow.core.load import load
 from pandaflow.core.watcher import CsvEventHandler
 
@@ -83,8 +83,6 @@ def run(input, output, config, format, watch):
         observer.join()
     else:
         # One-shot mode
-        input_files = extract(input_path, config_data)
-        results = transform_dataframe_mapping(
-            input_files, config_data, output_path=output
-        )
-        load(results, output, output_format=format)
+        input_df_mapping = extract(input_path, config_data)
+        output_df_mapping = transform(input_df_mapping, config_data, output_path=output)
+        load(output_df_mapping, output, output_format=format)

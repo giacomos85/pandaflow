@@ -30,7 +30,7 @@ def input_dir(tmp_path):
 
 @patch("pandaflow.cli.run.load_config")
 @patch("pandaflow.cli.run.extract")
-@patch("pandaflow.cli.run.transform_dataframe_mapping")
+@patch("pandaflow.cli.run.transform")
 @patch("pandaflow.cli.run.load")
 def test_run_single_file_to_stdout(
     mock_write, mock_transform, mock_read, mock_config, input_file, config_file
@@ -50,7 +50,7 @@ def test_run_single_file_to_stdout(
 
 @patch("pandaflow.cli.run.load_config")
 @patch("pandaflow.cli.run.extract")
-@patch("pandaflow.cli.run.transform_dataframe_mapping")
+@patch("pandaflow.cli.run.transform")
 @patch("pandaflow.cli.run.load")
 def test_run_directory_to_file(
     mock_write, mock_transform, mock_read, mock_config, input_dir, config_file, tmp_path
@@ -86,7 +86,7 @@ def test_run_directory_to_file(
 
 @patch("pandaflow.cli.run.load_config")
 @patch("pandaflow.cli.run.extract")
-@patch("pandaflow.cli.run.transform_dataframe_mapping")
+@patch("pandaflow.cli.run.transform")
 @patch("pandaflow.cli.run.load")
 def test_run_skipped_files(
     mock_write, mock_transform, mock_read, mock_config, input_file, config_file

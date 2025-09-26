@@ -1,5 +1,6 @@
 from pathlib import Path
 import re
+from typing import Dict
 
 import pandas as pd
 
@@ -44,7 +45,7 @@ def read_csv(input_path: str, config: dict) -> pd.DataFrame | None:
     return df
 
 
-def extract(input_path: str, config: dict):
+def extract(input_path: str, config: dict) -> Dict[Path, pd.DataFrame | None]:
     results = {}
     input_path = Path(input_path)
     input_files = (
@@ -57,5 +58,5 @@ def extract(input_path: str, config: dict):
 
     for input_file in input_files:
         df = read_csv(input_file, config)
-        results[input_file] = df  # may be None if skipped
+        results[input_path] = df  # may be None if skipped
     return results

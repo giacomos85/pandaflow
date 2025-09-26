@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import Mapping
+from typing import Dict, Mapping
 from pandaflow.core.factory import StrategyFactory
 import pandas as pd
 
@@ -32,11 +32,11 @@ def transform_dataframe(
     return df
 
 
-def transform_dataframe_mapping(
+def transform(
     input_mapping: Mapping[Path, pd.DataFrame | None],
     config: dict,
     output_path: Path = None,
-) -> Mapping[Path, pd.DataFrame | None]:
+) -> Dict[Path, pd.DataFrame | None]:
     """Pure batch transformation of multiple CSV files.
 
     Args:
