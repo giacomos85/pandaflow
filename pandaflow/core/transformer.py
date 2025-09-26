@@ -4,7 +4,9 @@ from pandaflow.core.factory import StrategyFactory
 import pandas as pd
 
 
-def transform_dataframe(df: pd.DataFrame, config: dict, output_path: Path = None) -> pd.DataFrame | None:
+def transform_dataframe(
+    df: pd.DataFrame, config: dict, output_path: Path = None
+) -> pd.DataFrame | None:
     """Transform CSV input based on config rules.
 
     Args:
@@ -31,7 +33,9 @@ def transform_dataframe(df: pd.DataFrame, config: dict, output_path: Path = None
 
 
 def transform_dataframe_mapping(
-    input_mapping: Mapping[Path, pd.DataFrame | None], config: dict, output_path: Path = None
+    input_mapping: Mapping[Path, pd.DataFrame | None],
+    config: dict,
+    output_path: Path = None,
 ) -> Mapping[Path, pd.DataFrame | None]:
     """Pure batch transformation of multiple CSV files.
 

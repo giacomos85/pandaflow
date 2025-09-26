@@ -4,7 +4,7 @@ from pathlib import Path
 
 from pandaflow.core.log import logger
 from pandaflow.core.transformer import transform_dataframe
-from pandaflow.core.reader import read_csv
+from pandaflow.core.extract import read_csv
 
 
 class CsvEventHandler(FileSystemEventHandler):

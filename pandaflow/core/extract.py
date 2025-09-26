@@ -1,6 +1,5 @@
 from pathlib import Path
 import re
-from typing import Mapping
 
 import pandas as pd
 
@@ -45,9 +44,9 @@ def read_csv(input_path: str, config: dict) -> pd.DataFrame | None:
     return df
 
 
-def read_csvs(input_files: str, config: dict) -> Mapping[Path, pd.DataFrame | None]:
+def extract(input_path: str, config: dict):
     results = {}
-    input_path = Path(input_files)
+    input_path = Path(input_path)
     input_files = (
         input_path.glob("*.csv")
         if input_path.is_dir()

@@ -3,10 +3,12 @@ from pandaflow.strategies.base import TransformationStrategy
 from pandaflow.core.config import BaseRule
 from typing import Optional, List
 
+
 class DropDuplicatesRule(BaseRule):
     subset: Optional[List[str]] = None  # Columns to consider for identifying duplicates
-    keep: Optional[str] = "first"       # "first", "last", or False
-    reset_index: Optional[bool] = False # Whether to reset the index after dropping
+    keep: Optional[str] = "first"  # "first", "last", or False
+    reset_index: Optional[bool] = False  # Whether to reset the index after dropping
+
 
 class DropDuplicatesStrategy(TransformationStrategy):
     """
@@ -46,11 +48,7 @@ class DropDuplicatesStrategy(TransformationStrategy):
         2 Charlie   40
     """
 
-    meta = {
-        "name": "drop_duplicates",
-        "version": "1.0.0",
-        "author": "pandaflow team"
-    }
+    meta = {"name": "drop_duplicates", "version": "1.0.0", "author": "pandaflow team"}
 
     def validate_rule(self, rule_dict):
         return DropDuplicatesRule(**rule_dict)

@@ -29,7 +29,7 @@ def input_dir(tmp_path):
 
 
 @patch("pandaflow.cli.run.load_config")
-@patch("pandaflow.cli.run.read_csvs")
+@patch("pandaflow.cli.run.extract")
 @patch("pandaflow.cli.run.transform_dataframe_mapping")
 @patch("pandaflow.cli.run.writer")
 def test_run_single_file_to_stdout(
@@ -49,7 +49,7 @@ def test_run_single_file_to_stdout(
 
 
 @patch("pandaflow.cli.run.load_config")
-@patch("pandaflow.cli.run.read_csvs")
+@patch("pandaflow.cli.run.extract")
 @patch("pandaflow.cli.run.transform_dataframe_mapping")
 @patch("pandaflow.cli.run.writer")
 def test_run_directory_to_file(
@@ -85,7 +85,7 @@ def test_run_directory_to_file(
 
 
 @patch("pandaflow.cli.run.load_config")
-@patch("pandaflow.cli.run.read_csvs")
+@patch("pandaflow.cli.run.extract")
 @patch("pandaflow.cli.run.transform_dataframe_mapping")
 @patch("pandaflow.cli.run.writer")
 def test_run_skipped_files(

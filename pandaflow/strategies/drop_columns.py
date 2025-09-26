@@ -3,9 +3,11 @@ from pandaflow.strategies.base import TransformationStrategy
 from pandaflow.core.config import BaseRule
 from typing import List
 
+
 class DropColumnsRule(BaseRule):
-    columns: List[str]           # List of column names to drop
-    errors: str = "raise"        # "raise" or "ignore" if column is missing
+    columns: List[str]  # List of column names to drop
+    errors: str = "raise"  # "raise" or "ignore" if column is missing
+
 
 class DropColumnsStrategy(TransformationStrategy):
     """
@@ -40,11 +42,7 @@ class DropColumnsStrategy(TransformationStrategy):
         ['name', 'age']
     """
 
-    meta = {
-        "name": "drop_columns",
-        "version": "1.0.0",
-        "author": "pandaflow team"
-    }
+    meta = {"name": "drop_columns", "version": "1.0.0", "author": "pandaflow team"}
 
     def validate_rule(self, rule_dict):
         return DropColumnsRule(**rule_dict)
