@@ -1,5 +1,5 @@
-Drop Duplicates
-===============
+Drop Duplicates Strategy
+========================
 
 Drops duplicate rows from a DataFrame, optionally based on a subset of columns.
 

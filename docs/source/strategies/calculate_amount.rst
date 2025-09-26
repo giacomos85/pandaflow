@@ -1,25 +1,19 @@
-CalculateAmount
----------------
+Calculate Amount Strategy
+=========================
 
 The **calculate_amount** strategy computes a new column using a pandas-compatible formula.  
 It’s ideal for deriving values from existing columns, applying arithmetic, or generating totals.
 
-Metadata
-~~~~~~~~
+Metadata:
+   - **Name**: `calculate_amount`
+   - **Version**: `1.0.0`
+   - **Author**: Pandaflow Team
+   - **Description**: Calculates a new column using a formula and optional output formatting.
 
-- **Name**: `calculate_amount`
-- **Version**: `1.0.0`
-- **Author**: Pandaflow Team
-- **Description**: Calculates a new column using a formula and optional output formatting.
-
-Rule Format
-~~~~~~~~~~~
-
-The rule must specify:
-
-- `field`: The target column to store the result
-- `formula`: A pandas-compatible expression (e.g. `"price * quantity"`)
-- `output_rule`: Optional formatter (e.g. `"float_2dec"`)
+Rule Format:
+   - `field`: The target column to store the result
+   - `formula`: A pandas-compatible expression (e.g. `"price * quantity"`)
+   - `output_rule`: Optional formatter (e.g. `"float_2dec"`)
 
 .. literalinclude:: ../rules/calculate_amount.json
    :language: json

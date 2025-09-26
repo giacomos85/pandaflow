@@ -1,0 +1,66 @@
+Absolutely, Giacomo — here’s a curated list of additional strategy ideas for Pandaflow that align with your goals of extensibility, clarity, and contributor safety. Each one is designed to be schema-driven, testable, and easy to document with examples and rule formats.
+
+---
+
+## 🧠 Data Transformation Strategies
+
+| Strategy Name       | Purpose                                                                 |
+|---------------------|-------------------------------------------------------------------------|
+| `map_values`        | Replace values in a column using a dictionary mapping                   |
+| `fill_missing`      | Fill missing values with a constant, forward/backward fill, or column mean |
+| `rename_columns`    | Rename columns using a rule-based mapping                               |
+| `drop_duplicates`   | Drop duplicate rows based on specified subset of columns                |
+| `cast_column`       | Cast a column to a specified type (e.g. int, float, str, datetime)      |
+| `split_column`      | Split a column into multiple columns using a delimiter                  |
+| `merge_columns`     | Merge multiple columns into one using a template or delimiter           |
+
+---
+
+## 📊 Data Enrichment Strategies
+
+| Strategy Name       | Purpose                                                                 |
+|---------------------|-------------------------------------------------------------------------|
+| `add_constant_column` | Add a new column with a constant value                                 |
+| `calculate_ratio`   | Compute ratio between two columns                                       |
+| `lookup_external`   | Enrich data using an external CSV or dictionary                         |
+| `flag_outliers`     | Flag rows where values exceed thresholds or z-score                     |
+| `bucketize`         | Bin numeric values into ranges (e.g. age groups, income brackets)       |
+
+---
+
+## 🧹 Data Cleaning Strategies
+
+| Strategy Name       | Purpose                                                                 |
+|---------------------|-------------------------------------------------------------------------|
+| `strip_whitespace`  | Remove leading/trailing whitespace from string columns                  |
+| `normalize_case`    | Convert strings to lowercase, uppercase, or title case                  |
+| `remove_special_chars` | Remove non-alphanumeric characters from strings                      |
+| `validate_format`   | Flag rows where values don’t match a regex pattern                      |
+| `replace_pattern`   | Replace substrings using regex                                          |
+
+---
+
+## 🧪 Testing & Debug Strategies
+
+| Strategy Name       | Purpose                                                                 |
+|---------------------|-------------------------------------------------------------------------|
+| `echo`              | Return the input unchanged (useful for testing pipelines)               |
+| `assert_column_values` | Fail if a column contains unexpected values                          |
+| `sample_rows`       | Return a random or fixed sample of rows                                 |
+| `log_column_stats`  | Emit summary stats for a column (mean, min, max, nulls)                 |
+
+---
+
+## 🧩 Structural Strategies
+
+| Strategy Name       | Purpose                                                                 |
+|---------------------|-------------------------------------------------------------------------|
+| `pivot`             | Pivot a table from long to wide format                                  |
+| `unpivot`           | Melt a table from wide to long format                                   |
+| `groupby_aggregate` | Group by one or more columns and apply aggregation                     |
+| `sort_by_column`    | Sort rows by one or more columns                                        |
+| `reorder_columns`   | Reorder columns explicitly or alphabetically                            |
+
+---
+
+Would you like me to scaffold rule schemas and docstring templates for any of these? I can also help you prioritize based on contributor demand or end-user accessibility.

@@ -1,5 +1,5 @@
-Calculate Ratio
-===============
+Calculate Ratio Strategy
+========================
 
 Calculates the ratio between two numeric columns and stores the result in a new column.
 

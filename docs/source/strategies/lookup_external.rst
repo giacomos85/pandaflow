@@ -1,5 +1,5 @@
-Lookup External
-===============
+Lookup External Strategy
+========================
 
 Looks up values from an external CSV file based on a key column.
 

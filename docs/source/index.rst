@@ -19,11 +19,11 @@ Contents
    :maxdepth: 1
    :caption: Strategies
 
+   strategies/calculate_amount
    strategies/calculate_ratio
-   strategies/calculateamount
    strategies/constant
    strategies/copy
-   strategies/drop
+   strategies/drop_columns
    strategies/drop_duplicates
    strategies/filter
    strategies/hash
