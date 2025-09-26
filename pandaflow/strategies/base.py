@@ -10,10 +10,12 @@ class TransformationStrategy:
         "description": "Base transformation strategy",
     }
 
-    def run(self, df: pd.DataFrame, rule: dict, **kwargs) -> pd.DataFrame:
+    def __init__(self, config: dict):
+        self.config_dict = config
+
+    def run(self, df: pd.DataFrame, **kwargs) -> pd.DataFrame:
         df_copy = df.copy()
-        self.validate_rule(rule)
-        df_copy = self.apply(df_copy, rule, **kwargs)
+        df_copy = self.apply(df_copy, **kwargs)
         return df_copy
 
     def check(self, config: dict, rule: dict):

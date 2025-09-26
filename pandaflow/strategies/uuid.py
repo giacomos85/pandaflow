@@ -6,7 +6,7 @@ from pandaflow.strategies.base import TransformationStrategy
 
 
 class UUIDRule(BaseRule):
-    pass
+    field: str
 
 
 class UUIDStrategy(TransformationStrategy):
@@ -18,11 +18,11 @@ class UUIDStrategy(TransformationStrategy):
         "description": "Generates UUIDv7 values for a specified column",
     }
 
-    def validate_rule(self, rule_dict):
-        return UUIDRule(**rule_dict)
+    def validate_rule(self):
+        return UUIDRule(**self.config_dict)
 
-    def apply(self, df: pd.DataFrame, rule: dict):
-        field = rule.get("field")
+    def apply(self, df: pd.DataFrame):
+        config = UUIDRule(**self.config_dict)
 
-        df[field] = [str(uuid7()) for _ in range(len(df))]
+        df[config.field] = [str(uuid7()) for _ in range(len(df))]
         return df

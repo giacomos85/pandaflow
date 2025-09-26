@@ -14,7 +14,7 @@ def strategy(monkeypatch):
         "pandaflow.strategies.regex.get_output_formatter",
         lambda _: mock_formatter,
     )
-    return RegExStrategy()
+    return RegExStrategy({})
 
 
 @pytest.fixture
@@ -40,7 +40,8 @@ def test_valid_regex_extraction(strategy, sample_df):
         "group_id": 1,
         "output_rule": "custom",
     }
-    result = strategy.apply(sample_df, rule)
+    strategy.config_dict = rule
+    result = strategy.apply(sample_df)
     expected = ["formatted-12345", "formatted-67890", "", "formatted-00001"]
     assert result["__order_id__"].tolist() == expected
 
@@ -54,8 +55,9 @@ def test_missing_source_column_raises(strategy):
         "regex": r"(.*)",
         "group_id": 1,
     }
+    strategy.config_dict = rule
     with pytest.raises(ValueError, match="Columns 'missing' not found"):
-        strategy.apply(df, rule)
+        strategy.apply(df)
 
 
 def test_invalid_regex_returns_empty(strategy):
@@ -67,8 +69,9 @@ def test_invalid_regex_returns_empty(strategy):
         "regex": r"Order\s+#([",  # Invalid regex
         "group_id": 1,
     }
+    strategy.config_dict = rule
     with pytest.raises(Exception):
-        strategy.apply(df, rule)
+        strategy.apply(df)
 
 
 def test_group_id_out_of_range_returns_none(strategy):
@@ -80,12 +83,13 @@ def test_group_id_out_of_range_returns_none(strategy):
         "regex": r"Order\s+#(\d+)",
         "group_id": 2,  # Only one group exists
     }
-    result = strategy.apply(df, rule)
+    strategy.config_dict = rule
+    result = strategy.apply(df)
     assert result["__out__"].tolist() == [""]
 
 
 def test_validate_rule(strategy):
-    rule_dict = {
+    rule = {
         "field": "__order_id__",
         "strategy": "regex",
         "source": "raw",
@@ -93,8 +97,9 @@ def test_validate_rule(strategy):
         "group_id": 1,
         "output_rule": "custom",
     }
-    validated = strategy.validate_rule(rule_dict)
+    strategy.config_dict = rule
+    validated = strategy.validate_rule()
     assert validated.source == "raw"
-    assert validated.regex == rule_dict["regex"]
+    assert validated.regex == rule["regex"]
     assert validated.group_id == 1
     assert validated.output_rule == "custom"

@@ -1,64 +1,77 @@
 from unittest.mock import MagicMock, patch
-from pandaflow.core.registry import get_registered_strategies, load_strategies
 from pandaflow.strategies.base import TransformationStrategy
+from pandaflow.core.registry import (
+    get_registered_strategies,
+    load_strategy_classes,
+)
 
 
-# Dummy strategy class
 class DummyStrategy(TransformationStrategy):
     meta = {
         "name": "dummy",
         "version": "1.2.3",
-        "author": "Test Author",
-        "description": "A dummy strategy",
+        "author": "Giacomo",
+        "description": "Test strategy",
     }
 
+    def apply(self, df):
+        return df
 
-# Entry point mock factory
-def make_entry_point(name="dummy", cls=DummyStrategy, broken=False):
+
+def make_entry_point(name, cls=None, error=None):
     ep = MagicMock()
     ep.name = name
-    if broken:
-        ep.load.side_effect = ImportError("Failed to load")
+    if error:
+        ep.load.side_effect = error
     else:
         ep.load.return_value = cls
     return ep
 
 
-# ---------- get_registered_strategies ----------
-@patch("pandaflow.core.registry.entry_points")
-def test_get_registered_strategies_success(mock_entry_points):
-    mock_entry_points.return_value.select.return_value = [make_entry_point()]
-    strategies = get_registered_strategies()
-    assert len(strategies.items()) == 1
-    assert "dummy" in strategies
-    assert strategies["dummy"]["version"] == "1.2.3"
+def test_get_registered_strategies_success():
+    ep = make_entry_point("dummy", DummyStrategy)
+    with patch("pandaflow.core.registry.entry_points") as ep_func:
+        ep_func().select.return_value = [ep]
+        result = get_registered_strategies()
+        assert result["dummy"]["version"] == "1.2.3"
+        assert result["dummy"]["author"] == "Giacomo"
 
 
-# ---------- load_strategies ----------
-@patch("pandaflow.core.registry.entry_points")
-def test_load_strategies_success(mock_entry_points):
-    mock_entry_points.return_value.select.return_value = [make_entry_point()]
-    registry = load_strategies()
-    assert "dummy" in registry
-    assert "1.2.3" in registry["dummy"]
-    assert isinstance(registry["dummy"]["1.2.3"], DummyStrategy)
+def test_get_registered_strategies_failure():
+    ep = make_entry_point("broken", error=ImportError("Boom"))
+    with patch("pandaflow.core.registry.entry_points") as ep_func:
+        ep_func().select.return_value = [ep]
+        result = get_registered_strategies()
+        assert "error" in result["broken"]
+        assert "Boom" in result["broken"]["error"]
 
 
-@patch("pandaflow.core.registry.entry_points")
-def test_load_strategies_invalid_type(mock_entry_points):
+def test_load_strategy_classes_success():
+    ep = make_entry_point("dummy", DummyStrategy)
+    with patch("pandaflow.core.registry.entry_points") as ep_func:
+        ep_func().select.return_value = [ep]
+        registry = load_strategy_classes()
+        assert registry["dummy"]["1.2.3"] is DummyStrategy
+
+
+def test_load_strategy_classes_invalid_type(capsys):
     class NotAStrategy:
-        meta = {"name": "bad", "version": "0.0.1"}
+        pass
 
-    ep = make_entry_point(name="bad", cls=NotAStrategy)
-    mock_entry_points.return_value.select.return_value = [ep]
+    ep = make_entry_point("invalid", NotAStrategy)
+    with patch("pandaflow.core.registry.entry_points") as ep_func:
+        ep_func().select.return_value = [ep]
+        registry = load_strategy_classes()
+        captured = capsys.readouterr()
+        assert "not a valid TransformationStrategy" in captured.out
+        assert registry == {}
 
-    registry = load_strategies()
-    assert "bad" not in registry  # Should be skipped due to TypeError
 
-
-@patch("pandaflow.core.registry.entry_points")
-def test_load_strategies_attribute_error_fallback(mock_entry_points):
-    mock_entry_points.return_value.select.side_effect = AttributeError()
-    mock_entry_points.return_value.get.return_value = [make_entry_point()]
-    registry = load_strategies()
-    assert "dummy" in registry
+def test_load_strategy_classes_broken(capsys):
+    ep = make_entry_point("broken", error=ImportError("Boom"))
+    with patch("pandaflow.core.registry.entry_points") as ep_func:
+        ep_func().select.return_value = [ep]
+        registry = load_strategy_classes()
+        captured = capsys.readouterr()
+        assert "Failed to load strategy" in captured.out
+        assert registry == {}

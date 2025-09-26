@@ -42,8 +42,8 @@ class ReorderColumnsStrategy(TransformationStrategy):
 
     meta = {"name": "reorder_columns", "version": "1.0.0", "author": "pandaflow team"}
 
-    def apply(self, df: pd.DataFrame, rule: dict) -> pd.DataFrame:
-        config = ReorderColumnsRule(**rule)
+    def apply(self, df: pd.DataFrame) -> pd.DataFrame:
+        config = ReorderColumnsRule(**self.config_dict)
         missing = [col for col in config.columns if col not in df.columns]
         if missing:
             raise ValueError(f"Missing columns in DataFrame: {missing}")

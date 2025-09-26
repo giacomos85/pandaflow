@@ -1,11 +1,12 @@
 from pathlib import Path
 from typing import Dict, Mapping
-from pandaflow.core.factory import StrategyFactory
 import pandas as pd
+
+from pandaflow.core.config import PandaFlowConfig
 
 
 def transform_dataframe(
-    df: pd.DataFrame, config: dict, output_path: Path = None
+    df: pd.DataFrame, config: PandaFlowConfig, output_path: Path = None
 ) -> pd.DataFrame | None:
     """Transform CSV input based on config rules.
 
@@ -16,19 +17,8 @@ def transform_dataframe(
     Returns:
         Transformed DataFrame, or None if skipped due to match rules.
     """
-    factory = StrategyFactory(config)
-
-    for rule in config.get("rules", {}):
-        strategy_name = rule.get("strategy")
-        version = rule.get("version", None)
-
-        strategy = factory.get_strategy(strategy_name, version=version)
-
-        if strategy:
-            if strategy_name == "lookup_external":
-                df = strategy.run(df, rule, output=output_path)
-            else:
-                df = strategy.run(df, rule)
+    for rule in config.rules:
+        df = rule.run(df)
     return df
 
 

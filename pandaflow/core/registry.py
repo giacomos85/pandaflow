@@ -28,7 +28,7 @@ def get_registered_strategies(group: str = "pandaflow.strategies"):
     return strategies
 
 
-def load_strategies():
+def load_strategy_classes():
     registry = {}
     try:
         eps = entry_points().select(group="pandaflow.strategies")
@@ -45,13 +45,10 @@ def load_strategies():
             name = meta.get("name", ep.name)
             version = meta.get("version", "0.0.0")
 
-            # Instantiate strategy
-            instance = strategy_cls()
-
             # Store by name and version
             if name not in registry:  # pragma: no cover
                 registry[name] = {}
-            registry[name][version] = instance
+            registry[name][version] = strategy_cls
 
         except Exception as e:
             print(f"⚠️ Failed to load strategy '{ep.name}': {e}")

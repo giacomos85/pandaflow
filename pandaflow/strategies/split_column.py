@@ -50,10 +50,10 @@ class SplitColumnStrategy(TransformationStrategy):
     meta = {"name": "split_column", "version": "1.0.0", "author": "pandaflow team"}
 
     def validate_rule(self, rule_dict):
-        return SplitColumnRule(**rule_dict)
+        return SplitColumnRule(**self.config_dict)
 
-    def apply(self, df: pd.DataFrame, rule: dict) -> pd.DataFrame:
-        config = SplitColumnRule(**rule)
+    def apply(self, df: pd.DataFrame) -> pd.DataFrame:
+        config = SplitColumnRule(**self.config_dict)
         if config.column not in df.columns:
             raise ValueError(f"Column '{config.column}' not found in DataFrame")
 

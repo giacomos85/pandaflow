@@ -3,6 +3,7 @@ import pandas as pd
 from pathlib import Path
 import argparse
 from pandaflow.core.transformer import transform_dataframe
+from pandaflow.core.config import load_config
 
 RULES_DIR = Path("source/rules")
 DATA_DIR = Path("source/data")
@@ -15,13 +16,12 @@ def run_strategy(name: str):
     if not rule_path.exists() or not input_path.exists() or not output_path.exists():
         print(f"❌ Missing files for strategy: {name}")
         return
-
-    rule = json.loads(rule_path.read_text(encoding="utf-8"))
+    config = load_config(rule_path)
     df = pd.read_csv(input_path)
     expected = pd.read_csv(output_path, dtype={**{col: str for col in pd.read_csv(output_path, nrows=0).columns}})
 
     try:
-        result = transform_dataframe(df, rule)
+        result = transform_dataframe(df, config)
         pd.testing.assert_frame_equal(result.reset_index(drop=True).fillna("").astype(str), expected.reset_index(drop=True).fillna("").astype(str))
         print(f"\n✅ [{name}]: output matches expected")
     except Exception as e:

@@ -32,10 +32,10 @@ def read_csv(input_path: str, config: dict) -> pd.DataFrame | None:
     Returns:
         Transformed DataFrame, or None if skipped due to match rules.
     """
-    meta = config.get("meta", {})
+    meta = config.meta
     skiprows = meta.get("skiprows", 0)
     sep = meta.get("csv_separator", ",")
-    match = config.get("match", {})
+    match = meta.get("match", {})
 
     # If input is a Path, apply match rules
     input_source = Path(input_path)

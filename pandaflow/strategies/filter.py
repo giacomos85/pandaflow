@@ -8,6 +8,7 @@ from pandaflow.strategies.base import TransformationStrategy
 class FilterByFormulaRule(BaseRule):
     field: str
     formula: str
+    output_rule: str = None
 
 
 class FilterByFormulaStrategy(TransformationStrategy):
@@ -19,11 +20,11 @@ class FilterByFormulaStrategy(TransformationStrategy):
         "description": "Filters rows based on a formula",
     }
 
-    def validate_rule(self, rule_dict):
-        return FilterByFormulaRule(**rule_dict)
+    def validate_rule(self):
+        return FilterByFormulaRule(**self.config_dict)
 
-    def apply(self, df: pd.DataFrame, rule: dict):
-        config = FilterByFormulaRule(**rule)
+    def apply(self, df: pd.DataFrame):
+        config = FilterByFormulaRule(**self.config_dict)
 
         try:
             # Evaluate the formula as a boolean mask
@@ -35,7 +36,7 @@ class FilterByFormulaStrategy(TransformationStrategy):
             df_filtered = df[mask].copy()
 
             # Optional: format output field if needed
-            format_value = get_output_formatter(rule.get("output_rule"))
+            format_value = get_output_formatter(config.output_rule)
             if config.field in df_filtered.columns:
                 df_filtered[config.field] = df_filtered[config.field].apply(
                     format_value

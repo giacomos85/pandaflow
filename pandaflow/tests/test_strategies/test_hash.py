@@ -5,23 +5,19 @@ from pandaflow.strategies.hash import HashStrategy
 
 
 @pytest.fixture
-def strategy():
-    return HashStrategy()
-
-
-@pytest.fixture
 def sample_df():
     return pd.DataFrame({"A": ["foo", "bar", "baz"], "B": ["123", "456", "789"]})
 
 
-def test_hash_generation(strategy, sample_df):
+def test_hash_generation(sample_df):
     rule = {
         "field": "__md5__",
         "strategy": "hash",
         "source": ["A", "B"],
         "function": "calculate_md5",
     }
-    result = strategy.apply(sample_df, rule)
+    strategy = HashStrategy(rule)
+    result = strategy.apply(sample_df)
 
     expected = [
         hashlib.md5("foo;123".encode("utf-8")).hexdigest(),
@@ -31,7 +27,7 @@ def test_hash_generation(strategy, sample_df):
     assert result["__md5__"].tolist() == expected
 
 
-def test_missing_column_raises(strategy, sample_df):
+def test_missing_column_raises(sample_df):
     rule = {
         "field": "__md5__",
         "strategy": "hash",
@@ -39,10 +35,11 @@ def test_missing_column_raises(strategy, sample_df):
         "function": "calculate_md5",
     }
     with pytest.raises(ValueError, match="Missing columns for hash: Z"):
-        strategy.apply(sample_df, rule)
+        strategy = HashStrategy(rule)
+        strategy.apply(sample_df)
 
 
-def test_empty_string_handling(strategy):
+def test_empty_string_handling():
     df = pd.DataFrame({"A": ["", None], "B": ["x", "y"]})
     rule = {
         "field": "__md5__",
@@ -50,7 +47,8 @@ def test_empty_string_handling(strategy):
         "source": ["A", "B"],
         "function": "calculate_md5",
     }
-    result = strategy.apply(df, rule)
+    strategy = HashStrategy(rule)
+    result = strategy.apply(df)
 
     expected = [
         hashlib.md5(";x".encode("utf-8")).hexdigest(),
@@ -59,13 +57,14 @@ def test_empty_string_handling(strategy):
     assert result["__md5__"].tolist() == expected
 
 
-def test_validate_rule(strategy):
+def test_validate_rule():
     rule_dict = {
         "field": "__md5__",
         "source": ["A", "B"],
         "strategy": "hash",
         "function": "calculate_md5",
     }
-    validated = strategy.validate_rule(rule_dict)
+    strategy = HashStrategy(rule_dict)
+    validated = strategy.validate_rule()
     assert validated.source == ["A", "B"]
     assert validated.function == "calculate_md5"

@@ -1,8 +1,8 @@
 {
     "rules": [
         {
-            "field": ["__email__", "__status__"],
-            "strategy": "drop"
+            "columns": ["__email__", "__status__"],
+            "strategy": "drop_columns"
         }
     ]
 }

@@ -4,11 +4,6 @@ from pandaflow.strategies.replace import ReplaceStrategy
 
 
 @pytest.fixture
-def strategy():
-    return ReplaceStrategy()
-
-
-@pytest.fixture
 def sample_df():
     return pd.DataFrame(
         {
@@ -18,45 +13,50 @@ def sample_df():
     )
 
 
-def test_replace_string_occurrence(strategy, sample_df):
+def test_replace_string_occurrence(sample_df):
     rule = {
         "field": "text",
         "strategy": "replace",
         "find": "world",
         "replace": "planet",
     }
-    result = strategy.apply(sample_df, rule)
+    strategy = ReplaceStrategy(rule)
+    result = strategy.apply(sample_df)
     expected = ["hello planet", "planet peace", "peaceful planet"]
     assert result["text"].tolist() == expected
 
 
-def test_replace_numeric_occurrence(strategy, sample_df):
+def test_replace_numeric_occurrence(sample_df):
     rule = {"field": "numeric", "strategy": "replace", "find": "100", "replace": "999"}
-    result = strategy.apply(sample_df, rule)
+    strategy = ReplaceStrategy(rule)
+    result = strategy.apply(sample_df)
     expected = ["999", "200", "999"]
     assert result["numeric"].tolist() == expected
 
 
-def test_missing_column_raises(strategy, sample_df):
+def test_missing_column_raises(sample_df):
     rule = {"field": "missing", "strategy": "replace", "find": "x", "replace": "y"}
+    strategy = ReplaceStrategy(rule)
     with pytest.raises(ValueError, match="Column 'missing' not found"):
-        strategy.apply(sample_df, rule)
+        strategy.apply(sample_df)
 
 
-def test_replace_with_empty_from(strategy, sample_df):
+def test_replace_with_empty_from(sample_df):
     rule = {"field": "text", "strategy": "replace", "find": "", "replace": "-"}
-    result = strategy.apply(sample_df, rule)
+    strategy = ReplaceStrategy(rule)
+    result = strategy.apply(sample_df)
     # Every character gets a "-" inserted before it
     assert result["text"].str.startswith("-").all()
 
 
-def test_validate_rule_maps_keys(strategy):
-    rule_dict = {
+def test_validate_rule_maps_keys():
+    rule = {
         "field": "text",
         "strategy": "replace",
         "find": "world",
         "replace": "planet",
     }
-    validated = strategy.validate_rule(rule_dict)
+    strategy = ReplaceStrategy(rule)
+    validated = strategy.validate_rule()
     assert validated.find == "world"
     assert validated.replace == "planet"

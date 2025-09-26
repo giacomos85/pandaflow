@@ -44,9 +44,9 @@ class DropColumnsStrategy(TransformationStrategy):
 
     meta = {"name": "drop_columns", "version": "1.0.0", "author": "pandaflow team"}
 
-    def validate_rule(self, rule_dict):
-        return DropColumnsRule(**rule_dict)
+    def validate_rule(self):
+        return DropColumnsRule(**self.config_dict)
 
-    def apply(self, df: pd.DataFrame, rule: dict) -> pd.DataFrame:
-        config = DropColumnsRule(**rule)
+    def apply(self, df: pd.DataFrame) -> pd.DataFrame:
+        config = DropColumnsRule(**self.config_dict)
         return df.drop(columns=config.columns, errors=config.errors)

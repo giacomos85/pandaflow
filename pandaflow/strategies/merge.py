@@ -21,11 +21,14 @@ class MergeStrategy(TransformationStrategy):
         "description": "Merges values from multiple columns into one",
     }
 
-    def validate_rule(self, rule_dict):
-        return MergeRule(**rule_dict)
+    def validate_rule(self):
+        return MergeRule(**self.config_dict)
 
-    def apply(self, df: pd.DataFrame, rule: dict):
-        config = MergeRule(**rule)
+    def apply(
+        self,
+        df: pd.DataFrame,
+    ):
+        config = MergeRule(**self.config_dict)
         cols = (
             [
                 config.source,

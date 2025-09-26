@@ -20,16 +20,16 @@ class CalculateAmountStrategy(TransformationStrategy):
         "description": "",
     }
 
-    def validate_rule(self, rule_dict):
-        return CalculateAmountRule(**rule_dict)
+    def validate_rule(self):
+        return CalculateAmountRule(**self.config_dict)
 
-    def apply(self, df: pd.DataFrame, rule: dict):
-        config = CalculateAmountRule(**rule)
+    def apply(self, df: pd.DataFrame):
+        config = CalculateAmountRule(**self.config_dict)
 
-        format_value = get_output_formatter(rule.get("output_rule"))
+        format_value = get_output_formatter(config.output_rule)
 
         df.eval(f"{config.field} = {config.formula}", inplace=True)
-        format_value = get_output_formatter(rule.get("output_rule"))
+        format_value = get_output_formatter(config.output_rule)
 
         df[config.field] = df[config.field].apply(format_value)
         return df

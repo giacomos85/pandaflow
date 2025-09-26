@@ -24,16 +24,17 @@ class LookupExternalStrategy(TransformationStrategy):
         "description": "Looks up values from an external CSV file based on a key column",
     }
 
-    def validate_rule(self, rule_dict):
-        return LookupExternalRule(**rule_dict)
+    def validate_rule(self):
+        return LookupExternalRule(**self.config_dict)
 
-    def apply(self, df: pd.DataFrame, rule: dict, output: str = None):
-        field = rule.get("field")
-        csv_path = rule.get("file", "").replace("${output}", Path(output).stem)
+    def apply(self, df: pd.DataFrame, output: str = None):
+        config = LookupExternalRule(**self.config_dict)
+        field = config.field
+        csv_path = config.file.replace("${output}", Path(output).stem)
         csv_path = csv_path.replace("${year}", Path(output).parent.name)
-        key_col = rule.get("key")
-        value_col = rule.get("value")
-        source_col = rule.get("source", field)
+        key_col = config.key
+        value_col = config.value
+        source_col = config.source or config.field
 
         if not csv_path or not key_col or not value_col:
             raise ValueError(
@@ -41,7 +42,7 @@ class LookupExternalStrategy(TransformationStrategy):
             )
 
         if not os.path.isfile(csv_path):
-            df[field] = rule.get("not_found", "")
+            df[field] = config.not_found
             return df
 
         df_lookup = pd.read_csv(csv_path, dtype=str)
@@ -57,5 +58,5 @@ class LookupExternalStrategy(TransformationStrategy):
             raise ValueError(
                 f"Source column '{source_col}' not found in input data for field {field}"
             )
-        df[field] = df[source_col].map(lookup_dict).fillna(rule.get("not_found", ""))
+        df[field] = df[source_col].map(lookup_dict).fillna(config.not_found)
         return df

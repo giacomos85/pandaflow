@@ -25,15 +25,15 @@ class RegExStrategy(TransformationStrategy):
         "description": "Extracts data from a column using a regular expression",
     }
 
-    def validate_rule(self, rule_dict):
-        return RegexRule(**rule_dict)
+    def validate_rule(self):
+        return RegexRule(**self.config_dict)
 
-    def apply(self, df: pd.DataFrame, rule: dict):
-        config = RegexRule(**rule)
+    def apply(self, df: pd.DataFrame):
+        config = RegexRule(**self.config_dict)
 
-        source_col = rule.get("source")
+        source_col = config.source
 
-        format_value = get_output_formatter(rule.get("output_rule", None))
+        format_value = get_output_formatter(config.output_rule)
 
         if source_col not in df.columns:
             raise ValueError(

@@ -13,11 +13,11 @@ def runner():
 @patch("pandaflow.cli.strategies.get_registered_strategies")
 def test_strategies_success(mock_get, runner):
     mock_get.return_value = {
-        "drop": {"version": "1.0.0", "author": "team", "description": "desc"}
+        "drop_columns": {"version": "1.0.0", "author": "team", "description": "desc"}
     }
     result = runner.invoke(cli, ["strategies"])
     assert result.exit_code == 0
-    assert "drop" in result.output
+    assert "drop_columns" in result.output
 
 
 @patch("pandaflow.cli.strategies.get_registered_strategies")

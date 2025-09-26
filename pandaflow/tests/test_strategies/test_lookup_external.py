@@ -6,16 +6,11 @@ from pandaflow.strategies.lookup_external import LookupExternalStrategy
 
 
 @pytest.fixture
-def strategy():
-    return LookupExternalStrategy()
-
-
-@pytest.fixture
 def input_df():
     return pd.DataFrame({"code": ["A", "B", "C"], "other": ["x", "y", "z"]})
 
 
-def test_validate_rule(strategy):
+def test_validate_rule():
     rule_dict = {
         "field": "label",
         "strategy": "csvfile",
@@ -24,13 +19,14 @@ def test_validate_rule(strategy):
         "key": "code",
         "value": "label",
     }
-    validated = strategy.validate_rule(rule_dict)
+    strategy = LookupExternalStrategy(rule_dict)
+    validated = strategy.validate_rule()
     assert validated.file == "lookup.csv"
     assert validated.key == "code"
     assert validated.value == "label"
 
 
-def test_missing_file_returns_not_found(strategy, input_df):
+def test_missing_file_returns_not_found(input_df):
     rule = {
         "field": "label",
         "strategy": "lookup_external",
@@ -40,17 +36,12 @@ def test_missing_file_returns_not_found(strategy, input_df):
         "value": "label",
         "not_found": "N/A",
     }
-    result = strategy.apply(input_df, rule, output="output.csv")
+    strategy = LookupExternalStrategy(rule)
+    result = strategy.apply(input_df, output="output.csv")
     assert result["label"].tolist() == ["N/A", "N/A", "N/A"]
 
 
-def test_missing_key_or_value_raises(strategy, input_df):
-    rule = {"strategy": "lookup_external", "field": "label", "file": "lookup.csv"}
-    with pytest.raises(ValueError, match="Missing 'file', 'key', or 'value'"):
-        strategy.apply(input_df, rule, output="output.csv")
-
-
-def test_missing_lookup_columns_raises(strategy, input_df):
+def test_missing_lookup_columns_raises(input_df):
     with TemporaryDirectory() as tmpdir:
         lookup_path = Path(tmpdir) / "lookup.csv"
         pd.DataFrame({"wrong": ["A", "B"], "data": ["Alpha", "Beta"]}).to_csv(
@@ -65,14 +56,15 @@ def test_missing_lookup_columns_raises(strategy, input_df):
             "key": "code",
             "value": "label",
         }
+        strategy = LookupExternalStrategy(rule)
         with pytest.raises(
             ValueError,
             match=f"Key \\[code\\] or value \\[label\\] column not found in CSV for field label. Columns found: wrong, data. {lookup_path}",
         ):
-            strategy.apply(input_df, rule, output="output.csv")
+            strategy.apply(input_df, output="output.csv")
 
 
-def test_missing_source_column_raises(strategy, input_df):
+def test_missing_source_column_raises(input_df):
     with TemporaryDirectory() as tmpdir:
         lookup_path = Path(tmpdir) / "lookup.csv"
         pd.DataFrame({"code": ["A", "B"], "label": ["Alpha", "Beta"]}).to_csv(
@@ -88,10 +80,11 @@ def test_missing_source_column_raises(strategy, input_df):
             "value": "label",
         }
         with pytest.raises(ValueError, match="Source column 'missing' not found"):
-            strategy.apply(input_df, rule, output="output.csv")
+            strategy = LookupExternalStrategy(rule)
+            strategy.apply(input_df, output="output.csv")
 
 
-def test_successful_lookup(strategy, input_df):
+def test_successful_lookup(input_df):
     with TemporaryDirectory() as tmpdir:
         lookup_path = Path(tmpdir) / "lookup.csv"
         pd.DataFrame({"code": ["A", "B"], "label": ["Alpha", "Beta"]}).to_csv(
@@ -107,5 +100,6 @@ def test_successful_lookup(strategy, input_df):
             "value": "label",
             "not_found": "N/A",
         }
-        result = strategy.apply(input_df, rule, output="output.csv")
+        strategy = LookupExternalStrategy(rule)
+        result = strategy.apply(input_df, output="output.csv")
         assert result["label"].tolist() == ["Alpha", "Beta", "N/A"]

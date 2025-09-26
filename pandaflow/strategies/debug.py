@@ -12,5 +12,5 @@ class DebugStrategy(TransformationStrategy):
         "description": "A strategy that prints debug information",
     }
 
-    def apply(self, df: pd.DataFrame, rule: dict):
+    def apply(self, df: pd.DataFrame):
         print(df.head())

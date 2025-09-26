@@ -1,11 +1,12 @@
-from pandaflow.core.registry import load_strategies
 from pandaflow.strategies.base import TransformationStrategy
+
+from pandaflow.core.registry import load_strategy_classes
 
 
 class StrategyFactory:
     def __init__(self, config):
         self.config = config
-        self.strategies = load_strategies()
+        self.strategies = load_strategy_classes()
 
     def get_strategy(
         self, rule_type: str, version: str = None

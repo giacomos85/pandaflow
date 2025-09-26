@@ -49,11 +49,11 @@ class CalculateRatioStrategy(TransformationStrategy):
 
     meta = {"name": "calculate_ratio", "version": "1.0.0", "author": "pandaflow team"}
 
-    def validate_rule(self, rule_dict):
-        return CalculateRatioRule(**rule_dict)
+    def validate_rule(self):
+        return CalculateRatioRule(**self.config_dict)
 
-    def apply(self, df: pd.DataFrame, rule: dict) -> pd.DataFrame:
-        config = CalculateRatioRule(**rule)
+    def apply(self, df: pd.DataFrame) -> pd.DataFrame:
+        config = CalculateRatioRule(**self.config_dict)
 
         if config.numerator not in df.columns:
             raise ValueError(
