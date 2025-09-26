@@ -23,7 +23,7 @@ def transform_dataframe(df: pd.DataFrame, config: dict) -> pd.DataFrame | None:
         strategy = factory.get_strategy(strategy_name, version=version)
 
         if strategy:
-            if strategy_name == "csvfile":
+            if strategy_name == "lookup_external":
                 df = strategy.run(df, rule, output=None)
             else:
                 df = strategy.run(df, rule)
