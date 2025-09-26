@@ -2,12 +2,12 @@ import pandas as pd
 import pytest
 from pathlib import Path
 from tempfile import TemporaryDirectory
-from pandaflow.strategies.csvfile import CsvFileStrategy
+from pandaflow.strategies.lookup_external import LookupExternalStrategy
 
 
 @pytest.fixture
 def strategy():
-    return CsvFileStrategy()
+    return LookupExternalStrategy()
 
 
 @pytest.fixture
@@ -33,6 +33,7 @@ def test_validate_rule(strategy):
 def test_missing_file_returns_not_found(strategy, input_df):
     rule = {
         "field": "label",
+        "strategy": "lookup_external",
         "source": "code",
         "file": "nonexistent.csv",
         "key": "code",
@@ -44,7 +45,7 @@ def test_missing_file_returns_not_found(strategy, input_df):
 
 
 def test_missing_key_or_value_raises(strategy, input_df):
-    rule = {"field": "label", "file": "lookup.csv"}
+    rule = {"strategy": "lookup_external", "field": "label", "file": "lookup.csv"}
     with pytest.raises(ValueError, match="Missing 'file', 'key', or 'value'"):
         strategy.apply(input_df, rule, output="output.csv")
 
@@ -57,6 +58,7 @@ def test_missing_lookup_columns_raises(strategy, input_df):
         )
 
         rule = {
+            "strategy": "lookup_external",
             "field": "label",
             "source": "code",
             "file": str(lookup_path),
@@ -78,6 +80,7 @@ def test_missing_source_column_raises(strategy, input_df):
         )
 
         rule = {
+            "strategy": "lookup_external",
             "field": "label",
             "source": "missing",
             "file": str(lookup_path),
@@ -96,6 +99,7 @@ def test_successful_lookup(strategy, input_df):
         )
 
         rule = {
+            "strategy": "lookup_external",
             "field": "label",
             "source": "code",
             "file": str(lookup_path),
@@ -105,23 +109,3 @@ def test_successful_lookup(strategy, input_df):
         }
         result = strategy.apply(input_df, rule, output="output.csv")
         assert result["label"].tolist() == ["Alpha", "Beta", "N/A"]
-
-
-# def test_file_path_substitution(strategy, input_df):
-#     with TemporaryDirectory() as tmpdir:
-#         year_dir = Path(tmpdir) / "2025"
-#         year_dir.mkdir()
-#         output_path = year_dir / "output.csv"
-
-#         lookup_path = year_dir / "output.csv"
-#         pd.DataFrame({"code": ["A"], "label": ["Alpha"]}).to_csv(lookup_path, index=False)
-
-#         rule = {
-#             "field": "label",
-#             "source": "code",
-#             "file": "${year}/${output}",
-#             "key": "code",
-#             "value": "label"
-#         }
-#         result = strategy.apply(input_df, rule, output=str(output_path))
-#         assert result["label"].iloc[0] == "Alpha"

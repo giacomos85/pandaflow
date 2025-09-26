@@ -6,7 +6,7 @@ from pandaflow.core.config import BaseRule
 from pandaflow.strategies.base import TransformationStrategy
 
 
-class CsvFileRule(BaseRule):
+class LookupExternalRule(BaseRule):
     field: str
     source: str
     file: str
@@ -15,17 +15,17 @@ class CsvFileRule(BaseRule):
     not_found: str = None
 
 
-class CsvFileStrategy(TransformationStrategy):
+class LookupExternalStrategy(TransformationStrategy):
 
     meta = {
-        "name": "csvfile",
+        "name": "lookup_external",
         "version": "1.0.0",
         "author": "pandaflow team",
         "description": "Looks up values from an external CSV file based on a key column",
     }
 
     def validate_rule(self, rule_dict):
-        return CsvFileRule(**rule_dict)
+        return LookupExternalRule(**rule_dict)
 
     def apply(self, df: pd.DataFrame, rule: dict, output: str = None):
         field = rule.get("field")

@@ -3,7 +3,12 @@ from pandaflow.core.registry import get_registered_strategies
 
 
 @click.command()
-@click.option("--strategy", "-s", default="", help="Strategy to describe",)
+@click.option(
+    "--strategy",
+    "-s",
+    default="",
+    help="Strategy to describe",
+)
 def strategies(strategy):
     """List all registered transformation strategies"""
     strategies = get_registered_strategies()

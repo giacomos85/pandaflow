@@ -2,11 +2,13 @@ import pandas as pd
 from pandaflow.strategies.base import TransformationStrategy
 from pandaflow.core.config import BaseRule
 
+
 class CalculateRatioRule(BaseRule):
     field: str
     numerator: str  # Column name for numerator
     denominator: str  # Column name for denominator
     round_digits: int = None  # Optional: number of decimal places to round
+
 
 class CalculateRatioStrategy(TransformationStrategy):
     """
@@ -45,11 +47,7 @@ class CalculateRatioStrategy(TransformationStrategy):
         [2.0, 2.5, 2.5]
     """
 
-    meta = {
-        "name": "calculate_ratio",
-        "version": "1.0.0",
-        "author": "pandaflow team"
-    }
+    meta = {"name": "calculate_ratio", "version": "1.0.0", "author": "pandaflow team"}
 
     def validate_rule(self, rule_dict):
         return CalculateRatioRule(**rule_dict)
@@ -58,9 +56,13 @@ class CalculateRatioStrategy(TransformationStrategy):
         config = CalculateRatioRule(**rule)
 
         if config.numerator not in df.columns:
-            raise ValueError(f"Numerator column '{config.numerator}' not found in DataFrame")
+            raise ValueError(
+                f"Numerator column '{config.numerator}' not found in DataFrame"
+            )
         if config.denominator not in df.columns:
-            raise ValueError(f"Denominator column '{config.denominator}' not found in DataFrame")
+            raise ValueError(
+                f"Denominator column '{config.denominator}' not found in DataFrame"
+            )
 
         result = df[config.numerator] / df[config.denominator]
         if config.round_digits is not None:
