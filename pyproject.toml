@@ -54,6 +54,7 @@ merge_formula = "pandaflow.strategies.mergestring:MergeStringStrategy"
 regex = "pandaflow.strategies.regex:RegExStrategy"
 replace = "pandaflow.strategies.replace:ReplaceStrategy"
 uuid = "pandaflow.strategies.uuid:UUIDStrategy"
+reorder_columns = "pandaflow.strategies.reorder_columns:ReorderColumnsStrategy"
 
 [tool.black]
 line-length = 88
