@@ -7,7 +7,6 @@ from pydantic import BaseModel
 
 class BaseRule(BaseModel):
     strategy: str
-    field: str | list[str]
 
 
 class PreprocessConfig(BaseModel):

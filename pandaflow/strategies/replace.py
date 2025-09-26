@@ -5,6 +5,7 @@ from pandaflow.core.config import BaseRule
 
 
 class ReplaceRule(BaseRule):
+    field: str
     find: str | float
     replace: str
 
@@ -22,14 +23,15 @@ class ReplaceStrategy(TransformationStrategy):
         return ReplaceRule(**rule_dict)
 
     def apply(self, df: pd.DataFrame, rule: dict):
-        field = rule.get("field")
-        if field not in df.columns:
+        config = ReplaceRule(**rule)
+
+        if config.field not in df.columns:
             raise ValueError(
-                f"Column '{field}' not found in input data for replacement"
+                f"Column '{config.field}' not found in input data for replacement"
             )
 
         find = rule.get("find", "")
         replace = rule.get("replace", "")
 
-        df[field] = df[field].astype(str).str.replace(find, replace)
+        df[config.field] = df[config.field].astype(str).str.replace(find, replace)
         return df

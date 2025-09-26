@@ -8,6 +8,7 @@ from pandaflow.strategies.base import TransformationStrategy
 
 
 class RegexRule(BaseRule):
+    field: str
     source: str
     regex: str
     group_id: int
@@ -28,9 +29,7 @@ class RegExStrategy(TransformationStrategy):
         return RegexRule(**rule_dict)
 
     def apply(self, df: pd.DataFrame, rule: dict):
-        field = rule.get("field")
-        regex_patten = rule.get("regex")
-        group_id = rule.get("group_id")
+        config = RegexRule(**rule)
 
         source_col = rule.get("source")
 
@@ -38,18 +37,18 @@ class RegExStrategy(TransformationStrategy):
 
         if source_col not in df.columns:
             raise ValueError(
-                f"Columns '{source_col}' not found in input data for field {field}"
+                f"Columns '{source_col}' not found in input data for field {config.field}"
             )
 
         def match_regex(row):
             text = str(row[source_col])
             try:
-                res = re.match(regex_patten, text)
+                res = re.match(config.regex, text)
                 if res:
-                    return format_value(res.group(group_id))
+                    return format_value(res.group(config.group_id))
                 return ""
             except IndexError:
                 return ""
 
-        df[field] = df.apply(match_regex, axis=1)
+        df[config.field] = df.apply(match_regex, axis=1)
         return df

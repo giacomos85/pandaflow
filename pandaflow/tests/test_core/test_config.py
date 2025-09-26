@@ -22,7 +22,7 @@ def test_validate_config_accepts_valid_schema(valid_config_dict):
     result = validate_config(valid_config_dict)
     assert result.meta["author"] == "pandaflow team"
     assert result.rules[0].strategy == "drop"
-    assert isinstance(result.rules[1].field, str)
+    assert isinstance(result.rules[1].strategy, str)
 
 
 def test_load_json_config(valid_config_dict):

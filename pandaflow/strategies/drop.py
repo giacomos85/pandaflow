@@ -5,7 +5,7 @@ from pandaflow.strategies.base import TransformationStrategy
 
 
 class DropRule(BaseRule):
-    pass
+    field = str
 
 
 class DropStrategy(TransformationStrategy):
@@ -21,9 +21,5 @@ class DropStrategy(TransformationStrategy):
         return DropRule(**rule_dict)
 
     def apply(self, df: pd.DataFrame, rule: dict):
-        field = rule.get("field")
-
-        if isinstance(field, str):
-            field = [field]
-
-        return df.copy().drop(columns=field)
+        config = DropRule(**rule)
+        return df.copy().drop(columns=config.field)

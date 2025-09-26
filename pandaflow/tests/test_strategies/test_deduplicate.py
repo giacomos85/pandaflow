@@ -20,7 +20,7 @@ def sample_df():
 
 
 def test_deduplicate_by_field(strategy, sample_df):
-    rule = {"field": "id"}
+    rule = {"strategy": "deduplicate", "field": "id"}
     result = strategy.apply(sample_df, rule)
     expected_ids = [1, 2, 3]  # Keeps last occurrence of each id
     assert result["id"].tolist() == expected_ids
@@ -28,7 +28,7 @@ def test_deduplicate_by_field(strategy, sample_df):
 
 
 def test_deduplicate_by_subset(strategy, sample_df):
-    rule = {"field": "id", "subset": ["id", "name"]}
+    rule = {"strategy": "deduplicate", "field": "id", "subset": ["id", "name"]}
     result = strategy.apply(sample_df, rule)
     expected = pd.DataFrame(
         {"id": [1, 2, 3], "name": ["Alice", "Bob", "Charlie"], "value": [10, 21, 32]}
@@ -38,7 +38,7 @@ def test_deduplicate_by_subset(strategy, sample_df):
 
 def test_no_duplicates(strategy):
     df = pd.DataFrame({"id": [1, 2, 3], "value": [10, 20, 30]})
-    rule = {"field": "id"}
+    rule = {"strategy": "deduplicate", "field": "id"}
     result = strategy.apply(df, rule)
     pd.testing.assert_frame_equal(result, df)
 

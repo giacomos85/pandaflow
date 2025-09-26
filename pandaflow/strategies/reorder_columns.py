@@ -3,8 +3,10 @@ from pandaflow.strategies.base import TransformationStrategy
 from pandaflow.core.config import BaseRule
 from typing import List
 
+
 class ReorderColumnsRule(BaseRule):
     columns: List[str]  # Desired column order
+
 
 class ReorderColumnsStrategy(TransformationStrategy):
     """
@@ -38,11 +40,7 @@ class ReorderColumnsStrategy(TransformationStrategy):
         ['email', 'name', 'age']
     """
 
-    meta = {
-        "name": "reorder_columns",
-        "version": "1.0.0",
-        "author": "pandaflow team"
-    }
+    meta = {"name": "reorder_columns", "version": "1.0.0", "author": "pandaflow team"}
 
     def apply(self, df: pd.DataFrame, rule: dict) -> pd.DataFrame:
         config = ReorderColumnsRule(**rule)

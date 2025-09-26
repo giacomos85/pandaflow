@@ -8,7 +8,8 @@ from pandaflow.utils import get_output_formatter
 
 
 class CopyRule(BaseRule):
-    source: str
+    field: str
+    source: str | None
     fillna: Optional[Union[float, int]] = None
     input_rule: Optional[str] = None
     output_rule: Optional[str] = None
@@ -27,20 +28,22 @@ class CopyStrategy(TransformationStrategy):
         return CopyRule(**rule_dict)
 
     def apply(self, df: pd.DataFrame, rule: dict):
-        field = rule.get("field")
-        col = rule.get("source", field)
+        config = CopyRule(**rule)
+        col = config.source or config.field
         if col not in df.columns:
             raise ValueError(
-                f"Column '{col}' not found in input data for field {field}"
+                f"Column '{col}' not found in input data for field {config.field}"
             )
 
         parse_number = get_input_parser(rule.get("input_rule"))
         format_value = get_output_formatter(rule.get("output_rule"))
 
-        df[field] = df[col].apply(parse_number).apply(format_value)
+        df[config.field] = df[col].apply(parse_number).apply(format_value)
 
         if "fillna" in rule:
             fillna_value = rule.get("fillna")
-            df[field] = df[field].replace("", fillna_value).fillna(fillna_value)
+            df[config.field] = (
+                df[config.field].replace("", fillna_value).fillna(fillna_value)
+            )
 
         return df

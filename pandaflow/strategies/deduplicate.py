@@ -5,7 +5,7 @@ from pandaflow.core.config import BaseRule
 
 
 class DeDuplicateRule(BaseRule):
-    pass
+    field: str
 
 
 class DeDuplicateStrategy(TransformationStrategy):
@@ -21,9 +21,10 @@ class DeDuplicateStrategy(TransformationStrategy):
         return DeDuplicateRule(**rule_dict)
 
     def apply(self, df: pd.DataFrame, rule: dict):
-        field = rule.get("field")
+        config = DeDuplicateRule(**rule)
+
         # Determine which columns to check for duplicates
-        subset = rule.get("subset", [field])
+        subset = rule.get("subset", [config.field])
 
         # Create a mask: True for all but the last occurrence
         mask = df.duplicated(subset=subset, keep="last")

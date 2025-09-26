@@ -7,6 +7,7 @@ from pandaflow.strategies.base import TransformationStrategy
 
 
 class CsvFileRule(BaseRule):
+    field: str
     source: str
     file: str
     key: str

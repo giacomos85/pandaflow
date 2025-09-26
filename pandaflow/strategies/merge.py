@@ -6,9 +6,10 @@ from pandaflow.strategies.base import TransformationStrategy
 
 
 class MergeRule(BaseRule):
-    source: List[str]
+    field: str
+    source: str | List[str]
     replace: Dict[str, str] = None
-    separator: str = None
+    separator: str = " "
 
 
 class MergeStrategy(TransformationStrategy):
@@ -24,37 +25,26 @@ class MergeStrategy(TransformationStrategy):
         return MergeRule(**rule_dict)
 
     def apply(self, df: pd.DataFrame, rule: dict):
-        field = rule.get("field")
-        cols = rule.get("source", field)
-        separator = rule.get("separator", " ")
+        config = MergeRule(**rule)
+        cols = (
+            [
+                config.source,
+            ]
+            if isinstance(config.source, str)
+            else config.source
+        )
 
-        # Normalize to list
-        if isinstance(cols, str):
-            cols = [cols]
-
-        # Validate columns
+        replaced_cols = []
         for col in cols:
             if col not in df.columns:
                 raise ValueError(f"Column '{col}' not found in available columns")
-
-        # Apply replacements and remove NaNs
-        replaced_cols = []
-        for col in cols:
             series = df[col].astype(str)
-
-            # Replace NaN strings with empty string
             series = series.replace("nan", "").replace("NaN", "").replace("None", "")
-
-            if "replace" in rule:
-                from_str = rule["replace"].get("from", "")
-                to_str = rule["replace"].get("to", "")
-                series = series.str.replace(from_str, to_str, regex=False)
-
             replaced_cols.append(series)
 
         # Merge into single column
-        df[field] = pd.Series(
-            [separator.join(filter(None, row)) for row in zip(*replaced_cols)],
+        df[config.field] = pd.Series(
+            [config.separator.join(filter(None, row)) for row in zip(*replaced_cols)],
             index=df.index,
         )
         return df

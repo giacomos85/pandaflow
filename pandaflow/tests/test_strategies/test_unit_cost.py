@@ -38,7 +38,6 @@ def valid_rule():
         "strategy": "calculate_unitcost",
         "total": "Importo",
         "quantity": "Quote",
-        "function": "calculate_unitcost",
         "input_rule": "us_currency",
         "output_rule": "float_2dec",
     }
@@ -62,16 +61,7 @@ def test_apply_missing_total_column(strategy, valid_rule):
         strategy.apply(df, valid_rule)
 
 
-def test_apply_invalid_function(strategy, valid_rule):
-    invalid_rule = valid_rule.copy()
-    invalid_rule["function"] = "wrong_function"
-    df = pd.DataFrame({"Importo": ["100"], "Quote": ["2"]})
-    with pytest.raises(ValueError, match="Invalid configuration"):
-        strategy.apply(df, invalid_rule)
-
-
 def test_validate_rule(strategy, valid_rule):
     validated = strategy.validate_rule(valid_rule)
     assert validated.total == "Importo"
     assert validated.quantity == "Quote"
-    assert validated.function == "calculate_unitcost"

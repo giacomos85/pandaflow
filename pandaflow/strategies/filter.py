@@ -1,7 +1,12 @@
+from pandaflow.core.config import BaseRule
 from pandaflow.utils import get_output_formatter
 import pandas as pd
 
 from pandaflow.strategies.base import TransformationStrategy
+
+
+class FilterByFormulaRule(BaseRule):
+    field = str
 
 
 class FilterByFormulaStrategy(TransformationStrategy):
@@ -13,15 +18,17 @@ class FilterByFormulaStrategy(TransformationStrategy):
         "description": "Filters rows based on a formula",
     }
 
+    def validate_rule(self, rule_dict):
+        return FilterByFormulaRule(**rule_dict)
+
     def apply(self, df: pd.DataFrame, rule: dict):
-        field = rule.get("field")
-        formula = rule.get("formula")  # e.g., "amount > 0 and category == 'Sales'"
-        if not formula:
+        config = FilterByFormulaRule(**rule)
+        if not config.formula:
             raise ValueError("Missing 'formula' in rule")
 
         try:
             # Evaluate the formula as a boolean mask
-            mask = df.eval(formula)
+            mask = df.eval(config.formula)
             if not mask.dtype == bool:
                 raise ValueError("Formula must evaluate to a boolean mask")
 
@@ -30,8 +37,10 @@ class FilterByFormulaStrategy(TransformationStrategy):
 
             # Optional: format output field if needed
             format_value = get_output_formatter(rule.get("output_rule"))
-            if field in df_filtered.columns:
-                df_filtered[field] = df_filtered[field].apply(format_value)
+            if config.field in df_filtered.columns:
+                df_filtered[config.field] = df_filtered[config.field].apply(
+                    format_value
+                )
 
             return df_filtered
 

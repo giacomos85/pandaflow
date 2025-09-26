@@ -5,7 +5,8 @@ from pandaflow.strategies.base import TransformationStrategy
 
 
 class ConstantRule(BaseRule):
-    value: str
+    field: str
+    value: str = ""
 
 
 class ConstantStrategy(TransformationStrategy):
@@ -21,6 +22,6 @@ class ConstantStrategy(TransformationStrategy):
         return ConstantRule(**rule_dict)
 
     def apply(self, df: pd.DataFrame, rule: dict):
-        field = rule.get("field")
-        df[field] = rule.get("value", "")
+        config = ConstantRule(**rule)
+        df[config.field] = config.value
         return df

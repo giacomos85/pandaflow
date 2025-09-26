@@ -7,6 +7,7 @@ from pandaflow.strategies.base import TransformationStrategy
 
 
 class MergeFormulaRule(BaseRule):
+    field: str
     formula: str
     output_rule: Optional[str] = None
 

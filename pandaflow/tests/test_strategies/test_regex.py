@@ -33,6 +33,7 @@ def sample_df():
 
 def test_valid_regex_extraction(strategy, sample_df):
     rule = {
+        "strategy": "regex",
         "field": "__order_id__",
         "source": "raw",
         "regex": r"Order\s+#(\d+)",
@@ -46,7 +47,13 @@ def test_valid_regex_extraction(strategy, sample_df):
 
 def test_missing_source_column_raises(strategy):
     df = pd.DataFrame({"other": ["text"]})
-    rule = {"field": "__out__", "source": "missing", "regex": r"(.*)", "group_id": 1}
+    rule = {
+        "strategy": "regex",
+        "field": "__out__",
+        "source": "missing",
+        "regex": r"(.*)",
+        "group_id": 1,
+    }
     with pytest.raises(ValueError, match="Columns 'missing' not found"):
         strategy.apply(df, rule)
 
@@ -54,6 +61,7 @@ def test_missing_source_column_raises(strategy):
 def test_invalid_regex_returns_empty(strategy):
     df = pd.DataFrame({"raw": ["Order #12345"]})
     rule = {
+        "strategy": "regex",
         "field": "__out__",
         "source": "raw",
         "regex": r"Order\s+#([",  # Invalid regex
@@ -66,6 +74,7 @@ def test_invalid_regex_returns_empty(strategy):
 def test_group_id_out_of_range_returns_none(strategy):
     df = pd.DataFrame({"raw": ["Order #12345"]})
     rule = {
+        "strategy": "regex",
         "field": "__out__",
         "source": "raw",
         "regex": r"Order\s+#(\d+)",

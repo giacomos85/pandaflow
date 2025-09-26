@@ -7,6 +7,7 @@ from pandaflow.strategies.base import TransformationStrategy
 
 
 class HashRule(BaseRule):
+    field: str
     source: List[str]
     function: str
 
@@ -24,17 +25,18 @@ class HashStrategy(TransformationStrategy):
         return HashRule(**rule_dict)
 
     def apply(self, df: pd.DataFrame, rule: dict):
-        field = rule.get("field")
-        cols = rule.get("source", [])
-        missing = [col for col in cols if col not in df.columns]
+        config = HashRule(**rule)
+        # field = rule.get("field")
+        # cols = rule.get("source", [])
+        missing = [col for col in config.source if col not in df.columns]
         if missing:
             raise ValueError(
                 f"Missing columns for hash: {', '.join(missing)}. Found columns: {', '.join(df.columns)}"
             )
 
         # Generate the hash from selected columns
-        df[field] = (
-            df[cols]
+        df[config.field] = (
+            df[config.source]
             .fillna("")
             .astype(str)
             .agg(";".join, axis=1)

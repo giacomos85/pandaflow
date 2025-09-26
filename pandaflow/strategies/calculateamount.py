@@ -8,6 +8,7 @@ from pandaflow.strategies.base import TransformationStrategy
 class CalculateAmountRule(BaseRule):
     formula: str
     output_rule: str = None
+    field: str
 
 
 class CalculateAmountStrategy(TransformationStrategy):
@@ -23,13 +24,12 @@ class CalculateAmountStrategy(TransformationStrategy):
         return CalculateAmountRule(**rule_dict)
 
     def apply(self, df: pd.DataFrame, rule: dict):
-        field = rule.get("field")
-        formula = rule.get("formula")
+        config = CalculateAmountRule(**rule)
 
         format_value = get_output_formatter(rule.get("output_rule"))
 
-        df.eval(f"{field} = {formula}", inplace=True)
+        df.eval(f"{config.field} = {config.formula}", inplace=True)
         format_value = get_output_formatter(rule.get("output_rule"))
 
-        df[field] = df[field].apply(format_value)
+        df[config.field] = df[config.field].apply(format_value)
         return df

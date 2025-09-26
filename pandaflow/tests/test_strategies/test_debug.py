@@ -18,7 +18,6 @@ def test_debug_strategy_prints_field_and_head(strategy, sample_df, capsys):
     strategy.apply(sample_df, rule)
 
     captured = capsys.readouterr()
-    assert "Debugging field: A" in captured.out
     assert "A" in captured.out and "B" in captured.out
     assert "1" in captured.out and "x" in captured.out
 

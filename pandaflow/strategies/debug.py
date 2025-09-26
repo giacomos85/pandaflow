@@ -13,6 +13,4 @@ class DebugStrategy(TransformationStrategy):
     }
 
     def apply(self, df: pd.DataFrame, rule: dict):
-        field = rule.get("field")
-        print(f"Debugging field: {field}")
         print(df.head())

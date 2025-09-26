@@ -17,7 +17,6 @@ def transform_dataframe(df: pd.DataFrame, config: dict) -> pd.DataFrame | None:
     factory = StrategyFactory(config)
 
     for rule in config.get("rules", {}):
-        field = rule.get("field")
         strategy_name = rule.get("strategy")
         version = rule.get("version", None)
 
@@ -28,9 +27,6 @@ def transform_dataframe(df: pd.DataFrame, config: dict) -> pd.DataFrame | None:
                 df = strategy.run(df, rule, output=None)
             else:
                 df = strategy.run(df, rule)
-        else:
-            df[field] = None
-
     return df
 
 

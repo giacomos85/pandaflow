@@ -53,7 +53,7 @@ def test_apply_with_fillna_replaces_empty_and_null():
         "source": "Amount",
         "input_rule": "default_currency",
         "output_rule": "float_2dec",
-        "fillna": "0,00",
+        "fillna": "0.00",
     }
     result = strategy.apply(df, rule)
     expected = pd.DataFrame(
