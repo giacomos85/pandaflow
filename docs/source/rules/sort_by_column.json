@@ -1,0 +1,11 @@
+{
+    "rules": [
+        {
+            "strategy": "sort_by_column",
+            "field": "_",
+            "columns": ["score", "age"],
+            "ascending": ["False", "True"],
+            "na_position": "first"
+        }
+    ]
+}

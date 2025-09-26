@@ -19,4 +19,5 @@ Available Strategies
    hash
    regex
    replace
+   sort_by_column
    uuid
