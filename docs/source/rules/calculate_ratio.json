@@ -1,0 +1,11 @@
+{
+    "rules": [
+        {
+            "strategy": "calculate_ratio",
+            "numerator": "sales",
+            "denominator": "cost",
+            "field": "margin",
+            "round_digits": 2
+        }
+    ]
+}

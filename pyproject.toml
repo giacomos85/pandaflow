@@ -39,24 +39,24 @@ flake8-bugbear = "^24.12.12"
 pandaflow = "pandaflow.cli.main:cli"
 
 [tool.poetry.plugins."pandaflow.strategies"]
-calculate_amount = "pandaflow.strategies.calculateamount:CalculateAmountStrategy"
+calculate_amount = "pandaflow.strategies.calculate_amount:CalculateAmountStrategy"
 calculate_ratio = "pandaflow.strategies.calculate_ratio:CalculateRatioStrategy"
 constant = "pandaflow.strategies.constant:ConstantStrategy"
 copy = "pandaflow.strategies.copy:CopyStrategy"
 csvfile = "pandaflow.strategies.csvfile:CsvFileStrategy"
 debug = "pandaflow.strategies.debug:DebugStrategy"
+deduplicate = "pandaflow.strategies.deduplicate:DeDuplicateStrategy"
 drop = "pandaflow.strategies.drop:DropStrategy"
 filter = "pandaflow.strategies.filter:FilterByFormulaStrategy"
 hash = "pandaflow.strategies.hash:HashStrategy"
-deduplicate = "pandaflow.strategies.deduplicate:DeDuplicateStrategy"
 merge = "pandaflow.strategies.merge:MergeStrategy"
 merge_formula = "pandaflow.strategies.mergestring:MergeStringStrategy"
 regex = "pandaflow.strategies.regex:RegExStrategy"
-replace = "pandaflow.strategies.replace:ReplaceStrategy"
-uuid = "pandaflow.strategies.uuid:UUIDStrategy"
 reorder_columns = "pandaflow.strategies.reorder_columns:ReorderColumnsStrategy"
+replace = "pandaflow.strategies.replace:ReplaceStrategy"
 sort_by_column = "pandaflow.strategies.sort_by_column:SortByColumnStrategy"
 split_column = "pandaflow.strategies.split_column:SplitColumnStrategy"
+uuid = "pandaflow.strategies.uuid:UUIDStrategy"
 
 [tool.black]
 line-length = 88

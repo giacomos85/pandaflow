@@ -17,36 +17,23 @@ Rule Format:
 Example Rule
 ------------
 
-.. code-block:: json
+.. literalinclude:: ../rules/calculate_ratio.json
+   :language: json
+   :linenos:
+   :caption: calculate_ratio Rule Example
 
-    {
-        "strategy": "calculate_ratio",
-        "numerator": "sales",
-        "denominator": "cost",
-        "field": "margin",
-        "round_digits": 2
-    }
-
-Input DataFrame
----------------
+Input Example
+~~~~~~~~~~~~~
 
 .. csv-table:: Input DataFrame
+   :file: ../data/calculate_ratio_input.csv
    :header-rows: 1
+   :widths: auto
 
-   sales,cost
-   100,50
-   200,80
-   300,120
-   ,0
+Result
+~~~~~~
 
-Expected Output
----------------
-
-.. csv-table:: Output DataFrame
+.. csv-table:: Output with Calculated Amount
+   :file: ../data/calculate_ratio_output.csv
    :header-rows: 1
-
-   sales,cost,margin
-   100,50,2.00
-   200,80,2.50
-   300,120,2.50
-   ,0,
+   :widths: auto
