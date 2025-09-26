@@ -4,32 +4,27 @@ from typing import List, Dict
 from pandaflow.strategies.base import TransformationStrategy
 
 
-def get_registered_strategies(group: str = "pandaflow.strategies") -> List[Dict]:
+def get_registered_strategies(group: str = "pandaflow.strategies"):
     try:
         eps = entry_points().select(group=group)
     except AttributeError:
         eps = entry_points().get(group, [])
 
-    strategies = []
+    strategies = {}
     for ep in sorted(eps, key=lambda e: e.name):
         try:
             cls = ep.load()
             meta = getattr(cls, "meta", {})
-            strategies.append(
-                {
-                    "name": ep.name,
-                    "version": meta.get("version", "N/A"),
-                    "author": meta.get("author", "N/A"),
-                    "description": meta.get("description", "N/A"),
-                }
-            )
+            strategies[ep.name] = {
+                "version": meta.get("version", "N/A"),
+                "author": meta.get("author", "N/A"),
+                "description": meta.get("description", "N/A"),
+            }
         except Exception as e:
-            strategies.append(
-                {
-                    "name": ep.name,
-                    "error": str(e),
-                }
-            )
+            strategies[ep.name] = {
+                "name": ep.name,
+                "error": str(e),
+            }
 
     return strategies
 

@@ -6,7 +6,7 @@ from pandaflow.strategies.base import TransformationStrategy
 
 
 class DropRule(BaseRule):
-    field: str|List[str]
+    field: str | List[str]
 
 
 class DropStrategy(TransformationStrategy):

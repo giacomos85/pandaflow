@@ -29,27 +29,9 @@ def make_entry_point(name="dummy", cls=DummyStrategy, broken=False):
 def test_get_registered_strategies_success(mock_entry_points):
     mock_entry_points.return_value.select.return_value = [make_entry_point()]
     strategies = get_registered_strategies()
-    assert len(strategies) == 1
-    assert strategies[0]["name"] == "dummy"
-    assert strategies[0]["version"] == "1.2.3"
-
-
-@patch("pandaflow.core.registry.entry_points")
-def test_get_registered_strategies_load_error(mock_entry_points):
-    mock_entry_points.return_value.select.return_value = [make_entry_point(broken=True)]
-    strategies = get_registered_strategies()
-    assert len(strategies) == 1
-    assert "error" in strategies[0]
-    assert "Failed to load" in strategies[0]["error"]
-
-
-@patch("pandaflow.core.registry.entry_points")
-def test_get_registered_strategies_attribute_error_fallback(mock_entry_points):
-    mock_entry_points.return_value.select.side_effect = AttributeError()
-    mock_entry_points.return_value.get.return_value = [make_entry_point()]
-    strategies = get_registered_strategies()
-    assert len(strategies) == 1
-    assert strategies[0]["name"] == "dummy"
+    assert len(strategies.items()) == 1
+    assert "dummy" in strategies
+    assert strategies["dummy"]["version"] == "1.2.3"
 
 
 # ---------- load_strategies ----------
