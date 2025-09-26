@@ -24,6 +24,7 @@ Contents
    strategies/constant
    strategies/copy
    strategies/drop
+   strategies/drop_duplicates
    strategies/filter
    strategies/hash
    strategies/lookup_external
