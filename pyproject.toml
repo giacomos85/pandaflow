@@ -40,7 +40,7 @@ pandaflow = "pandaflow.cli.main:cli"
 
 [tool.poetry.plugins."pandaflow.strategies"]
 calculate_amount = "pandaflow.strategies.calculateamount:CalculateAmountStrategy"
-calculate_unitcost = "pandaflow.strategies.calculateunitcost:UnitCostStrategy"
+calculate_ratio = "pandaflow.strategies.calculate_ratio:CalculateRatioStrategy"
 constant = "pandaflow.strategies.constant:ConstantStrategy"
 copy = "pandaflow.strategies.copy:CopyStrategy"
 csvfile = "pandaflow.strategies.csvfile:CsvFileStrategy"

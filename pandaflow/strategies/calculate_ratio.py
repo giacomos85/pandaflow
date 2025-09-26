@@ -1,0 +1,70 @@
+import pandas as pd
+from pandaflow.strategies.base import TransformationStrategy
+from pandaflow.core.config import BaseRule
+
+class CalculateRatioRule(BaseRule):
+    field: str
+    numerator: str  # Column name for numerator
+    denominator: str  # Column name for denominator
+    round_digits: int = None  # Optional: number of decimal places to round
+
+class CalculateRatioStrategy(TransformationStrategy):
+    """
+    Strategy: calculate_ratio
+    --------------------------
+
+    Calculates the ratio between two numeric columns and stores the result in a new column.
+
+    Metadata:
+        - name: "calculate_ratio"
+        - version: "1.0.0"
+        - author: "pandaflow team"
+
+    Rule Format:
+        - numerator: str — Column name for numerator
+        - denominator: str — Column name for denominator
+        - result_column: Optional[str] — Name of the output column (default: "ratio")
+        - round_digits: Optional[int] — Number of decimal places to round to
+
+    Example:
+        >>> import pandas as pd
+        >>> from pandaflow.strategies.calculate_ratio import CalculateRatioStrategy
+        >>> df = pd.DataFrame({
+        ...     "sales": [100, 200, 300],
+        ...     "cost": [50, 80, 120]
+        ... })
+        >>> rule = {
+        ...     "strategy": "calculate_ratio",
+        ...     "numerator": "sales",
+        ...     "denominator": "cost",
+        ...     "result_column": "margin",
+        ...     "round_digits": 2
+        ... }
+        >>> result = CalculateRatioStrategy().apply(df, rule)
+        >>> print(result["margin"].tolist())
+        [2.0, 2.5, 2.5]
+    """
+
+    meta = {
+        "name": "calculate_ratio",
+        "version": "1.0.0",
+        "author": "pandaflow team"
+    }
+
+    def validate_rule(self, rule_dict):
+        return CalculateRatioRule(**rule_dict)
+
+    def apply(self, df: pd.DataFrame, rule: dict) -> pd.DataFrame:
+        config = CalculateRatioRule(**rule)
+
+        if config.numerator not in df.columns:
+            raise ValueError(f"Numerator column '{config.numerator}' not found in DataFrame")
+        if config.denominator not in df.columns:
+            raise ValueError(f"Denominator column '{config.denominator}' not found in DataFrame")
+
+        result = df[config.numerator] / df[config.denominator]
+        if config.round_digits is not None:
+            result = result.round(config.round_digits)
+
+        df[config.field] = result
+        return df

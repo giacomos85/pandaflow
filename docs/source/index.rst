@@ -20,6 +20,7 @@ Contents
    :caption: Strategies
 
    strategies/calculateamount
+   strategies/calculate_ratio
    strategies/constant
    strategies/copy
    strategies/drop
