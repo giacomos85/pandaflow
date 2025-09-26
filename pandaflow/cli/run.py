@@ -83,5 +83,5 @@ def run(input, output, config, format, watch):
     else:
         # One-shot mode
         input_files = read_csvs(input_path, config_data)
-        results = transform_dataframe_mapping(input_files, config_data)
+        results = transform_dataframe_mapping(input_files, config_data, output_path=output)
         writer(results, output, output_format=format)

@@ -4,7 +4,7 @@ from pandaflow.core.factory import StrategyFactory
 import pandas as pd
 
 
-def transform_dataframe(df: pd.DataFrame, config: dict) -> pd.DataFrame | None:
+def transform_dataframe(df: pd.DataFrame, config: dict, output_path: Path = None) -> pd.DataFrame | None:
     """Transform CSV input based on config rules.
 
     Args:
@@ -24,14 +24,14 @@ def transform_dataframe(df: pd.DataFrame, config: dict) -> pd.DataFrame | None:
 
         if strategy:
             if strategy_name == "lookup_external":
-                df = strategy.run(df, rule, output=None)
+                df = strategy.run(df, rule, output=output_path)
             else:
                 df = strategy.run(df, rule)
     return df
 
 
 def transform_dataframe_mapping(
-    input_mapping: Mapping[Path, pd.DataFrame | None], config: dict
+    input_mapping: Mapping[Path, pd.DataFrame | None], config: dict, output_path: Path = None
 ) -> Mapping[Path, pd.DataFrame | None]:
     """Pure batch transformation of multiple CSV files.
 
@@ -46,7 +46,7 @@ def transform_dataframe_mapping(
     results = {}
 
     for input_file, df in input_mapping.items():
-        df = transform_dataframe(df, config)
+        df = transform_dataframe(df, config, output_path=output_path)
         results[input_file] = df  # may be None if skipped
 
     return results
