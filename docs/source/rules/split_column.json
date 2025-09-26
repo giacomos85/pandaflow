@@ -1,0 +1,10 @@
+{
+    "rules": [
+        {
+            "strategy": "split_column",
+            "column": "full_name",
+            "delimiter": " ",
+            "prefix": "custom"
+        }
+    ]
+}

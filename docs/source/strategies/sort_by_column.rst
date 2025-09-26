@@ -1,5 +1,5 @@
-Sort By Column Strategy
-=======================
+Sort By Column
+==============
 
 Sorts a DataFrame by one or more columns, with optional direction and NaN positioning.
 

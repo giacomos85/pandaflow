@@ -29,6 +29,7 @@ Contents
    strategies/replace
    strategies/sort_by_column
    strategies/uuid
+   strategies/split_column
 
 .. .. toctree::
 ..    :maxdepth: 2
