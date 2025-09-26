@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Overview" href="overview.html" />
 
     <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
-        <title>pandaflow</title>
+        <title>PandaFlow</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=302659d7" />
@@ -167,7 +167,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="#"><div class="brand">pandaflow</div></a>
+      <a href="#"><div class="brand">PandaFlow</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -191,7 +191,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="#">
   
   
-  <span class="sidebar-brand-text">pandaflow</span>
+  <span class="sidebar-brand-text">PandaFlow</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -207,18 +207,20 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Strategies</span></p>
 <ul>
-<li class="toctree-l1 has-children"><a class="reference internal" href="strategies/index.html">Strategy Reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Strategy Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="strategies/calculateamount.html">CalculateAmount</a></li>
-<li class="toctree-l2"><a class="reference internal" href="strategies/constant.html">Constant</a></li>
-<li class="toctree-l2"><a class="reference internal" href="strategies/copy.html">Copy</a></li>
-<li class="toctree-l2"><a class="reference internal" href="strategies/drop.html">Drop</a></li>
-<li class="toctree-l2"><a class="reference internal" href="strategies/filter.html">Filter</a></li>
-<li class="toctree-l2"><a class="reference internal" href="strategies/hash.html">Hash</a></li>
-<li class="toctree-l2"><a class="reference internal" href="strategies/regex.html">RegEx</a></li>
-<li class="toctree-l2"><a class="reference internal" href="strategies/replace.html">Replace</a></li>
-<li class="toctree-l2"><a class="reference internal" href="strategies/uuid.html">UUID</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="strategies/calculate_amount.html">Calculate Amount Strategy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strategies/calculate_ratio.html">Calculate Ratio Strategy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strategies/constant.html">Constant Strategy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strategies/copy.html">Copy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strategies/drop_columns.html">Drop Columns Strategy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strategies/drop_duplicates.html">Drop Duplicates Strategy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strategies/filter.html">Filter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strategies/hash.html">Hash</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strategies/lookup_external.html">Lookup External Strategy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strategies/regex.html">RegEx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strategies/replace.html">Replace Strategy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strategies/sort_by_column.html">Sort By Column</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strategies/split_column.html">Split Column</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strategies/uuid.html">UUID</a></li>
 </ul>
 
 </div>
@@ -294,7 +296,20 @@ This documentation covers strategies, rule formats, contributor workflows, and a
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Strategies</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="strategies/index.html">Strategy Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strategies/calculate_amount.html">Calculate Amount Strategy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strategies/calculate_ratio.html">Calculate Ratio Strategy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strategies/constant.html">Constant Strategy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strategies/copy.html">Copy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strategies/drop_columns.html">Drop Columns Strategy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strategies/drop_duplicates.html">Drop Duplicates Strategy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strategies/filter.html">Filter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strategies/hash.html">Hash</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strategies/lookup_external.html">Lookup External Strategy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strategies/regex.html">RegEx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strategies/replace.html">Replace Strategy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strategies/sort_by_column.html">Sort By Column</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strategies/split_column.html">Split Column</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strategies/uuid.html">UUID</a></li>
 </ul>
 </div>
 </section>

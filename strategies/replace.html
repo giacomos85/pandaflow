@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="UUID" href="uuid.html" /><link rel="prev" title="RegEx" href="regex.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Sort By Column" href="sort_by_column.html" /><link rel="prev" title="RegEx" href="regex.html" />
 
     <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
-        <title>Replace - pandaflow</title>
+        <title>Replace Strategy - PandaFlow</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=302659d7" />
@@ -167,7 +167,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">pandaflow</div></a>
+      <a href="../index.html"><div class="brand">PandaFlow</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -191,7 +191,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
   
   
-  <span class="sidebar-brand-text">pandaflow</span>
+  <span class="sidebar-brand-text">PandaFlow</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -207,18 +207,20 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Strategies</span></p>
 <ul class="current">
-<li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">Strategy Reference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Strategy Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="calculateamount.html">CalculateAmount</a></li>
-<li class="toctree-l2"><a class="reference internal" href="constant.html">Constant</a></li>
-<li class="toctree-l2"><a class="reference internal" href="copy.html">Copy</a></li>
-<li class="toctree-l2"><a class="reference internal" href="drop.html">Drop</a></li>
-<li class="toctree-l2"><a class="reference internal" href="filter.html">Filter</a></li>
-<li class="toctree-l2"><a class="reference internal" href="hash.html">Hash</a></li>
-<li class="toctree-l2"><a class="reference internal" href="regex.html">RegEx</a></li>
-<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Replace</a></li>
-<li class="toctree-l2"><a class="reference internal" href="uuid.html">UUID</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="calculate_amount.html">Calculate Amount Strategy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculate_ratio.html">Calculate Ratio Strategy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="constant.html">Constant Strategy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="copy.html">Copy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="drop_columns.html">Drop Columns Strategy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="drop_duplicates.html">Drop Duplicates Strategy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filter.html">Filter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hash.html">Hash</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lookup_external.html">Lookup External Strategy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="regex.html">RegEx</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Replace Strategy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sort_by_column.html">Sort By Column</a></li>
+<li class="toctree-l1"><a class="reference internal" href="split_column.html">Split Column</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uuid.html">UUID</a></li>
 </ul>
 
 </div>
@@ -259,27 +261,25 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="replace">
-<h1>Replace<a class="headerlink" href="#replace" title="Link to this heading">¶</a></h1>
+          <section id="replace-strategy">
+<h1>Replace Strategy<a class="headerlink" href="#replace-strategy" title="Link to this heading">¶</a></h1>
 <p>The <strong>replace</strong> strategy searches for a substring or value in a column and replaces it with another string.
 This is useful for cleaning up labels, standardizing values, or removing unwanted characters.</p>
-<section id="metadata">
-<h2>Metadata<a class="headerlink" href="#metadata" title="Link to this heading">¶</a></h2>
-<ul class="simple">
+<dl class="simple">
+<dt>Metadata:</dt><dd><ul class="simple">
 <li><p><strong>Name</strong>: <cite>replace</cite></p></li>
 <li><p><strong>Version</strong>: <cite>1.0.0</cite></p></li>
 <li><p><strong>Author</strong>: Pandaflow Team</p></li>
 <li><p><strong>Description</strong>: Replaces occurrences of a substring in a specified column with another substring.</p></li>
 </ul>
-</section>
-<section id="rule-format">
-<h2>Rule Format<a class="headerlink" href="#rule-format" title="Link to this heading">¶</a></h2>
-<p>The rule must specify:</p>
-<ul class="simple">
+</dd>
+<dt>Rule Format:</dt><dd><ul class="simple">
 <li><p><cite>field</cite>: The column to apply the replacement to</p></li>
 <li><p><cite>find</cite>: The substring or value to search for</p></li>
 <li><p><cite>replace</cite>: The string to replace it with</p></li>
 </ul>
+</dd>
+</dl>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">Replace Rule Example</span><a class="headerlink" href="#id1" title="Link to this code">¶</a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="p">{</span>
@@ -295,7 +295,6 @@ This is useful for cleaning up labels, standardizing values, or removing unwante
 </pre></div>
 </div>
 </div>
-</section>
 <section id="input-example">
 <h2>Input Example<a class="headerlink" href="#input-example" title="Link to this heading">¶</a></h2>
 <div class="table-wrapper colwidths-auto docutils container" id="id2">
@@ -366,12 +365,12 @@ This is useful for cleaning up labels, standardizing values, or removing unwante
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="uuid.html">
+          <a class="next-page" href="sort_by_column.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">UUID</div>
+                <div class="title">Sort By Column</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -416,9 +415,7 @@ This is useful for cleaning up labels, standardizing values, or removing unwante
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">Replace</a><ul>
-<li><a class="reference internal" href="#metadata">Metadata</a></li>
-<li><a class="reference internal" href="#rule-format">Rule Format</a></li>
+<li><a class="reference internal" href="#">Replace Strategy</a><ul>
 <li><a class="reference internal" href="#input-example">Input Example</a></li>
 <li><a class="reference internal" href="#result">Result</a></li>
 <li><a class="reference internal" href="#behavior-notes">Behavior Notes</a></li>

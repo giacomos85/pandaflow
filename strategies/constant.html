@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Copy" href="copy.html" /><link rel="prev" title="CalculateAmount" href="calculateamount.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Copy" href="copy.html" /><link rel="prev" title="Calculate Ratio Strategy" href="calculate_ratio.html" />
 
     <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
-        <title>Constant - pandaflow</title>
+        <title>Constant Strategy - PandaFlow</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=302659d7" />
@@ -167,7 +167,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">pandaflow</div></a>
+      <a href="../index.html"><div class="brand">PandaFlow</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -191,7 +191,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
   
   
-  <span class="sidebar-brand-text">pandaflow</span>
+  <span class="sidebar-brand-text">PandaFlow</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -207,18 +207,20 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Strategies</span></p>
 <ul class="current">
-<li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">Strategy Reference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Strategy Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="calculateamount.html">CalculateAmount</a></li>
-<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Constant</a></li>
-<li class="toctree-l2"><a class="reference internal" href="copy.html">Copy</a></li>
-<li class="toctree-l2"><a class="reference internal" href="drop.html">Drop</a></li>
-<li class="toctree-l2"><a class="reference internal" href="filter.html">Filter</a></li>
-<li class="toctree-l2"><a class="reference internal" href="hash.html">Hash</a></li>
-<li class="toctree-l2"><a class="reference internal" href="regex.html">RegEx</a></li>
-<li class="toctree-l2"><a class="reference internal" href="replace.html">Replace</a></li>
-<li class="toctree-l2"><a class="reference internal" href="uuid.html">UUID</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="calculate_amount.html">Calculate Amount Strategy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculate_ratio.html">Calculate Ratio Strategy</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Constant Strategy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="copy.html">Copy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="drop_columns.html">Drop Columns Strategy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="drop_duplicates.html">Drop Duplicates Strategy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filter.html">Filter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hash.html">Hash</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lookup_external.html">Lookup External Strategy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="regex.html">RegEx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="replace.html">Replace Strategy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sort_by_column.html">Sort By Column</a></li>
+<li class="toctree-l1"><a class="reference internal" href="split_column.html">Split Column</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uuid.html">UUID</a></li>
 </ul>
 
 </div>
@@ -259,22 +261,25 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="constant">
-<h1>Constant<a class="headerlink" href="#constant" title="Link to this heading">¶</a></h1>
+          <section id="constant-strategy">
+<h1>Constant Strategy<a class="headerlink" href="#constant-strategy" title="Link to this heading">¶</a></h1>
 <p>The <strong>constant</strong> strategy sets a specified column in a DataFrame to a fixed value across all rows.
 This is useful for injecting default flags, labels, or placeholder values during data transformation.</p>
-<section id="metadata">
-<h2>Metadata<a class="headerlink" href="#metadata" title="Link to this heading">¶</a></h2>
-<ul class="simple">
+<dl class="simple">
+<dt>Metadata:</dt><dd><ul class="simple">
 <li><p><strong>Name</strong>: <cite>constant</cite></p></li>
 <li><p><strong>Version</strong>: <cite>1.0.0</cite></p></li>
 <li><p><strong>Author</strong>: Pandaflow Team</p></li>
 <li><p><strong>Description</strong>: Sets a specified column to a constant value.</p></li>
 </ul>
-</section>
-<section id="rule-format">
-<h2>Rule Format<a class="headerlink" href="#rule-format" title="Link to this heading">¶</a></h2>
-<p>Rules for this strategy must define the target field and the constant value to assign.</p>
+</dd>
+<dt>Rule Format:</dt><dd><ul class="simple">
+<li><p>Rules for this strategy must define the target field and the constant value to assign.</p></li>
+</ul>
+</dd>
+</dl>
+<section id="example-rule">
+<h2>Example Rule<a class="headerlink" href="#example-rule" title="Link to this heading">¶</a></h2>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">Example Rule Definition</span><a class="headerlink" href="#id1" title="Link to this code">¶</a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="p">{</span>
@@ -343,14 +348,14 @@ This is useful for injecting default flags, labels, or placeholder values during
 </tbody>
 </table>
 </div>
-</section>
 <section id="usage-notes">
-<h2>Usage Notes<a class="headerlink" href="#usage-notes" title="Link to this heading">¶</a></h2>
+<h3>Usage Notes<a class="headerlink" href="#usage-notes" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>If the target field already exists, its values will be overwritten.</p></li>
 <li><p>If no <cite>value</cite> is provided in the rule, an empty string (<cite>“”</cite>) will be used by default.</p></li>
 <li><p>This strategy is schema-safe and does not alter other columns.</p></li>
 </ul>
+</section>
 </section>
 </section>
 
@@ -368,14 +373,14 @@ This is useful for injecting default flags, labels, or placeholder values during
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="calculateamount.html">
+          <a class="prev-page" href="calculate_ratio.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">CalculateAmount</div>
+                <div class="title">Calculate Ratio Strategy</div>
                 
               </div>
             </a>
@@ -409,12 +414,13 @@ This is useful for injecting default flags, labels, or placeholder values during
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">Constant</a><ul>
-<li><a class="reference internal" href="#metadata">Metadata</a></li>
-<li><a class="reference internal" href="#rule-format">Rule Format</a></li>
+<li><a class="reference internal" href="#">Constant Strategy</a><ul>
+<li><a class="reference internal" href="#example-rule">Example Rule</a></li>
 <li><a class="reference internal" href="#input-data">Input Data</a></li>
-<li><a class="reference internal" href="#result">Result</a></li>
+<li><a class="reference internal" href="#result">Result</a><ul>
 <li><a class="reference internal" href="#usage-notes">Usage Notes</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
