@@ -1,3 +1,4 @@
+from pandaflow import __version__
 import click
 from pandaflow.cli.run import run
 from pandaflow.cli.archive import archive
@@ -7,6 +8,7 @@ from pandaflow.cli.list_strategies import list_strategies
 
 
 @click.group()
+@click.version_option(__version__, prog_name="Pandaflow")
 def cli():
     """Utility per elaborare file di testo con regex."""
     pass
