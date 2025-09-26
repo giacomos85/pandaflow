@@ -41,7 +41,7 @@ class DropColumnsStrategy(TransformationStrategy):
     """
 
     meta = {
-        "name": "dropcolumns",
+        "name": "drop_columns",
         "version": "1.0.0",
         "author": "pandaflow team"
     }
