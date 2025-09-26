@@ -4,7 +4,7 @@ from pathlib import Path
 from watchdog.observers import Observer
 from pandaflow.core.config import load_config
 from pandaflow.core.transformer import transform_dataframe_mapping
-from pandaflow.core.writer import writer
+from pandaflow.core.load import load
 from pandaflow.core.watcher import CsvEventHandler
 
 from pandaflow.core.extract import extract
@@ -87,4 +87,4 @@ def run(input, output, config, format, watch):
         results = transform_dataframe_mapping(
             input_files, config_data, output_path=output
         )
-        writer(results, output, output_format=format)
+        load(results, output, output_format=format)

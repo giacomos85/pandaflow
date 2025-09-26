@@ -6,7 +6,7 @@ from typing import Mapping
 import pandas as pd
 
 
-def writer(
+def load(
     mapping: Mapping[Path, pd.DataFrame | None], output: str, output_format: str = "csv"
 ):
     # Determine output destination
