@@ -16,16 +16,10 @@ Rule Format:
 Example Rule
 ------------
 
-.. literalinclude:: ../rules/replace.json
+.. literalinclude:: ../rules/sort_by_column.json
    :language: json
    :linenos:
-
-    {
-        "strategy": "sort_by_column",
-        "columns": ["score", "age"],
-        "ascending": [False, True],
-        "na_position": "last"
-    }
+   :caption: Sort_by_column Rule Example
 
 Input DataFrame
 ---------------

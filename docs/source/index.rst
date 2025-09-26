@@ -19,7 +19,16 @@ Contents
    :maxdepth: 1
    :caption: Strategies
 
-   strategies/index
+   strategies/calculateamount
+   strategies/constant
+   strategies/copy
+   strategies/drop
+   strategies/filter
+   strategies/hash
+   strategies/regex
+   strategies/replace
+   strategies/sort_by_column
+   strategies/uuid
 
 .. .. toctree::
 ..    :maxdepth: 2

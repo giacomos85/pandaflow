@@ -6,7 +6,7 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'pandaflow'
+project = 'PandaFlow'
 copyright = '2025, Giacomo Spettoli'
 author = 'Giacomo Spettoli'
 release = '1.0.0'
@@ -29,7 +29,7 @@ exclude_patterns = []
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = 'furo'
-html_title = "pandaflow"
+html_title = "PandaFlow"
 html_static_path = ["_static"]
 html_css_files = ['custom.css']
 templates_path = ["_templates"]
