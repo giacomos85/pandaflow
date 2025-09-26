@@ -1,7 +1,7 @@
 import pandas as pd
 from pandaflow.strategies.base import TransformationStrategy
 from pandaflow.core.config import BaseRule
-from typing import Literal
+
 
 class SplitColumnRule(BaseRule):
     column: str  # Column to split
@@ -9,6 +9,7 @@ class SplitColumnRule(BaseRule):
     maxsplit: int = -1  # Optional: max number of splits (-1 = no limit)
     prefix: str = "split"  # Optional: prefix for new columns
     drop_original: bool = False  # Optional: whether to drop the original column
+
 
 class SplitColumnStrategy(TransformationStrategy):
     """
@@ -54,7 +55,6 @@ class SplitColumnStrategy(TransformationStrategy):
 
     def validate_rule(self, rule_dict):
         return SplitColumnRule(**rule_dict)
-
 
     def apply(self, df: pd.DataFrame, rule: dict) -> pd.DataFrame:
         config = SplitColumnRule(**rule)

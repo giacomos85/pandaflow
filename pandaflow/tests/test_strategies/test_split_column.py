@@ -2,11 +2,13 @@ import pytest
 import pandas as pd
 from pandaflow.strategies.split_column import SplitColumnStrategy
 
+
 @pytest.fixture
 def sample_df():
     return pd.DataFrame({
         "full_name": ["Alice Smith", "Bob Jones", "Charlie", None]
     })
+
 
 def test_split_basic(sample_df):
     rule = {
@@ -21,6 +23,7 @@ def test_split_basic(sample_df):
     assert result.loc[0, "name_0"] == "Alice"
     assert result.loc[0, "name_1"] == "Smith"
 
+
 def test_split_with_maxsplit(sample_df):
     rule = {
         "strategy": "split_column",
@@ -34,6 +37,7 @@ def test_split_with_maxsplit(sample_df):
     assert result.loc[1, "part_0"] == "Bob"
     assert result.loc[1, "part_1"] == "Jones"
 
+
 def test_split_drop_original(sample_df):
     rule = {
         "strategy": "split_column",
@@ -44,6 +48,7 @@ def test_split_drop_original(sample_df):
     result = SplitColumnStrategy().apply(sample_df, rule)
     assert "full_name" not in result.columns
 
+
 def test_split_column_missing(sample_df):
     rule = {
         "strategy": "split_column",
@@ -52,6 +57,7 @@ def test_split_column_missing(sample_df):
     }
     with pytest.raises(ValueError, match="Column 'nonexistent' not found"):
         SplitColumnStrategy().apply(sample_df, rule)
+
 
 def test_split_empty_string():
     df = pd.DataFrame({"text": ["", "a b", None]})
@@ -63,6 +69,7 @@ def test_split_empty_string():
     }
     result = SplitColumnStrategy().apply(df, rule)
     assert result.columns.tolist()[-2:] == ["split_0", "split_1"]
+
 
 def test_split_custom_prefix(sample_df):
     rule = {
