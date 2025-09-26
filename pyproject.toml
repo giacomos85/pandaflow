@@ -55,6 +55,7 @@ regex = "pandaflow.strategies.regex:RegExStrategy"
 replace = "pandaflow.strategies.replace:ReplaceStrategy"
 uuid = "pandaflow.strategies.uuid:UUIDStrategy"
 reorder_columns = "pandaflow.strategies.reorder_columns:ReorderColumnsStrategy"
+sort_by_column = "pandaflow.strategies.sort_by_column:SortByColumnStrategy"
 
 [tool.black]
 line-length = 88
