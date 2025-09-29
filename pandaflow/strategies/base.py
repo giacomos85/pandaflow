@@ -14,7 +14,7 @@ class TransformationStrategy:
         self.config_dict = config_dict
 
     def run(self, df: pd.DataFrame, **kwargs) -> pd.DataFrame:
-        if hasattr(self,"strategy_model"):
+        if hasattr(self, "strategy_model"):
             self.config = self.strategy_model(**self.config_dict)
         df_copy = df.copy()
         df_copy = self.apply(df_copy, **kwargs)
