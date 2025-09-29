@@ -1,7 +1,7 @@
 import pandas as pd
 from typing import List, Dict
 
-from pandaflow.core.config import BaseRule
+from pandaflow.models.config import BaseRule
 from pandaflow.strategies.base import TransformationStrategy
 
 

@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 import pandas as pd
 
-from pandaflow.core.config import BaseRule
+from pandaflow.models.config import BaseRule
 from pandaflow.strategies.base import TransformationStrategy
 
 

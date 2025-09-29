@@ -1,4 +1,4 @@
-from pandaflow.core.config import BaseRule
+from pandaflow.models.config import BaseRule
 import pandas as pd
 from uuid_extension import uuid7
 

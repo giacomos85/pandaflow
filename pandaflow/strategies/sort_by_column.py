@@ -1,6 +1,6 @@
 import pandas as pd
 from pandaflow.strategies.base import TransformationStrategy
-from pandaflow.core.config import BaseRule
+from pandaflow.models.config import BaseRule
 from typing import List, Literal
 
 

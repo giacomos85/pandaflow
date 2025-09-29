@@ -2,7 +2,7 @@ import pandas as pd
 from typing import Optional, Union
 
 from pandaflow.strategies.base import TransformationStrategy
-from pandaflow.core.config import BaseRule
+from pandaflow.models.config import BaseRule
 from pandaflow.utils import get_input_parser
 from pandaflow.utils import get_output_formatter
 

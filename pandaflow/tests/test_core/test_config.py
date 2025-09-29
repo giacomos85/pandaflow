@@ -1,11 +1,12 @@
 import json
+from pandaflow.models.config import PandaFlowConfig
 import toml
 import pytest
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from unittest.mock import patch
 
-from pandaflow.core.config import load_config, PandaFlowConfig
+from pandaflow.core.config import load_config
 from pandaflow.strategies.base import TransformationStrategy
 
 

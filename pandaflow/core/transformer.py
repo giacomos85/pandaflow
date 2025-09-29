@@ -1,8 +1,7 @@
 from pathlib import Path
 from typing import Dict, Mapping
+from pandaflow.models.config import PandaFlowConfig
 import pandas as pd
-
-from pandaflow.core.config import PandaFlowConfig
 
 
 def transform_dataframe(
