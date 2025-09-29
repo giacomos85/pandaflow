@@ -9,12 +9,12 @@ def mock_formatter(value):
 
 
 @pytest.fixture
-def strategy(monkeypatch):
+def strategy_cls(monkeypatch):
     monkeypatch.setattr(
         "pandaflow.strategies.regex.get_output_formatter",
         lambda _: mock_formatter,
     )
-    return RegExStrategy({})
+    return RegExStrategy
 
 
 @pytest.fixture
@@ -31,7 +31,7 @@ def sample_df():
     )
 
 
-def test_valid_regex_extraction(strategy, sample_df):
+def test_valid_regex_extraction(strategy_cls, sample_df):
     rule = {
         "strategy": "regex",
         "field": "__order_id__",
@@ -40,13 +40,13 @@ def test_valid_regex_extraction(strategy, sample_df):
         "group_id": 1,
         "output_rule": "custom",
     }
-    strategy.config_dict = rule
+    strategy = strategy_cls(rule)
     result = strategy.run(sample_df)
     expected = ["formatted-12345", "formatted-67890", "", "formatted-00001"]
     assert result["__order_id__"].tolist() == expected
 
 
-def test_missing_source_column_raises(strategy):
+def test_missing_source_column_raises(strategy_cls):
     df = pd.DataFrame({"other": ["text"]})
     rule = {
         "strategy": "regex",
@@ -55,12 +55,12 @@ def test_missing_source_column_raises(strategy):
         "regex": r"(.*)",
         "group_id": 1,
     }
-    strategy.config_dict = rule
+    strategy = strategy_cls(rule)
     with pytest.raises(ValueError, match="Columns 'missing' not found"):
         strategy.run(df)
 
 
-def test_invalid_regex_returns_empty(strategy):
+def test_invalid_regex_returns_empty(strategy_cls):
     df = pd.DataFrame({"raw": ["Order #12345"]})
     rule = {
         "strategy": "regex",
@@ -69,12 +69,12 @@ def test_invalid_regex_returns_empty(strategy):
         "regex": r"Order\s+#([",  # Invalid regex
         "group_id": 1,
     }
-    strategy.config_dict = rule
+    strategy = strategy_cls(rule)
     with pytest.raises(Exception):
         strategy.run(df)
 
 
-def test_group_id_out_of_range_returns_none(strategy):
+def test_group_id_out_of_range_returns_none(strategy_cls):
     df = pd.DataFrame({"raw": ["Order #12345"]})
     rule = {
         "strategy": "regex",
@@ -83,12 +83,12 @@ def test_group_id_out_of_range_returns_none(strategy):
         "regex": r"Order\s+#(\d+)",
         "group_id": 2,  # Only one group exists
     }
-    strategy.config_dict = rule
+    strategy = strategy_cls(rule)
     result = strategy.run(df)
     assert result["__out__"].tolist() == [""]
 
 
-def test_validate_rule(strategy):
+def test_validate_rule(strategy_cls):
     rule = {
         "field": "__order_id__",
         "strategy": "regex",
@@ -97,7 +97,7 @@ def test_validate_rule(strategy):
         "group_id": 1,
         "output_rule": "custom",
     }
-    strategy.config_dict = rule
+    strategy = strategy_cls(rule)
     validated = strategy.validate_rule()
     assert validated.source == "raw"
     assert validated.regex == rule["regex"]
