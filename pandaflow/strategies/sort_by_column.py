@@ -14,14 +14,15 @@ class SortByColumnStrategy(TransformationStrategy):
 
     meta = {"name": "sort_by_column", "version": "1.0.0", "author": "pandaflow team"}
 
+    strategy_model = SortByColumnRule
+
     def validate_rule(self):
         return SortByColumnRule(**self.config_dict)
 
     def apply(self, df: pd.DataFrame) -> pd.DataFrame:
-        config = SortByColumnRule(**self.config_dict)
-        asc = config.ascending if config.ascending else [True] * len(config.columns)
-        if len(asc) != len(config.columns):
+        asc = self.config.ascending if self.config.ascending else [True] * len(self.config.columns)
+        if len(asc) != len(self.config.columns):
             raise ValueError("Length of 'ascending' must match 'columns'")
         return df.sort_values(
-            by=config.columns, ascending=asc, na_position=config.na_position
+            by=self.config.columns, ascending=asc, na_position=self.config.na_position
         )

@@ -21,7 +21,7 @@ def test_merge_with_formula(sample_df):
         "formula": "first_name + ' ' + last_name",
     }
     strategy = MergeStringStrategy(rule)
-    result = strategy.apply(sample_df)
+    result = strategy.run(sample_df)
     expected = ["Alice Smith", "Bob Jones", "Charlie Brown"]
     assert result["__full_name__"].tolist() == expected
 
@@ -34,7 +34,7 @@ def test_merge_with_source_columns(sample_df):
         "separator": " - ",
     }
     strategy = MergeStringStrategy(rule)
-    result = strategy.apply(sample_df)
+    result = strategy.run(sample_df)
     expected = ["Alice - Admin", "Bob - User", "Charlie - Guest"]
     assert result["__identity__"].tolist() == expected
 
@@ -48,7 +48,7 @@ def test_missing_formula_and_source_raises(sample_df):
         ValueError, match="Either 'formula' or 'source' must be provided"
     ):
         strategy = MergeStringStrategy(rule)
-        strategy.apply(sample_df)
+        strategy.run(sample_df)
 
 
 def test_validate_rule():
@@ -72,4 +72,4 @@ def test_merge_with_missing_column_in_formula(sample_df):
     }
     with pytest.raises(NameError):
         strategy = MergeStringStrategy(rule)
-        strategy.apply(sample_df)
+        strategy.run(sample_df)

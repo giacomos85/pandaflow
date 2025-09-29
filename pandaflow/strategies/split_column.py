@@ -49,30 +49,32 @@ class SplitColumnStrategy(TransformationStrategy):
 
     meta = {"name": "split_column", "version": "1.0.0", "author": "pandaflow team"}
 
+    strategy_model = SplitColumnRule
+
     def validate_rule(self, rule_dict):
         return SplitColumnRule(**self.config_dict)
 
     def apply(self, df: pd.DataFrame) -> pd.DataFrame:
-        config = SplitColumnRule(**self.config_dict)
-        if config.column not in df.columns:
-            raise ValueError(f"Column '{config.column}' not found in DataFrame")
+
+        if self.config.column not in df.columns:
+            raise ValueError(f"Column '{self.config.column}' not found in DataFrame")
 
         split_cols = (
-            df[config.column]
+            df[self.config.column]
             .astype(str)
             .str.split(
-                config.delimiter,
-                n=config.maxsplit if config.maxsplit >= 0 else None,
+                self.config.delimiter,
+                n=self.config.maxsplit if self.config.maxsplit >= 0 else None,
                 expand=True,
             )
         )
         split_cols.columns = [
-            f"{config.prefix}_{i}" for i in range(split_cols.shape[1])
+            f"{self.config.prefix}_{i}" for i in range(split_cols.shape[1])
         ]
 
         result = pd.concat(
             [
-                df.drop(columns=[config.column]) if config.drop_original else df,
+                df.drop(columns=[self.config.column]) if self.config.drop_original else df,
                 split_cols,
             ],
             axis=1,

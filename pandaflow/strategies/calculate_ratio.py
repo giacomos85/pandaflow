@@ -49,24 +49,25 @@ class CalculateRatioStrategy(TransformationStrategy):
 
     meta = {"name": "calculate_ratio", "version": "1.0.0", "author": "pandaflow team"}
 
+    strategy_model = CalculateRatioRule
+
     def validate_rule(self):
         return CalculateRatioRule(**self.config_dict)
 
     def apply(self, df: pd.DataFrame) -> pd.DataFrame:
-        config = CalculateRatioRule(**self.config_dict)
 
-        if config.numerator not in df.columns:
+        if self.config.numerator not in df.columns:
             raise ValueError(
-                f"Numerator column '{config.numerator}' not found in DataFrame"
+                f"Numerator column '{self.config.numerator}' not found in DataFrame"
             )
-        if config.denominator not in df.columns:
+        if self.config.denominator not in df.columns:
             raise ValueError(
-                f"Denominator column '{config.denominator}' not found in DataFrame"
+                f"Denominator column '{self.config.denominator}' not found in DataFrame"
             )
 
-        result = df[config.numerator] / df[config.denominator]
-        if config.round_digits is not None:
-            result = result.round(config.round_digits)
+        result = df[self.config.numerator] / df[self.config.denominator]
+        if self.config.round_digits is not None:
+            result = result.round(self.config.round_digits)
 
-        df[config.field] = result
+        df[self.config.field] = result
         return df

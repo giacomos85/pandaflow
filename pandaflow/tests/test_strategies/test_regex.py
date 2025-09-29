@@ -41,7 +41,7 @@ def test_valid_regex_extraction(strategy, sample_df):
         "output_rule": "custom",
     }
     strategy.config_dict = rule
-    result = strategy.apply(sample_df)
+    result = strategy.run(sample_df)
     expected = ["formatted-12345", "formatted-67890", "", "formatted-00001"]
     assert result["__order_id__"].tolist() == expected
 
@@ -57,7 +57,7 @@ def test_missing_source_column_raises(strategy):
     }
     strategy.config_dict = rule
     with pytest.raises(ValueError, match="Columns 'missing' not found"):
-        strategy.apply(df)
+        strategy.run(df)
 
 
 def test_invalid_regex_returns_empty(strategy):
@@ -71,7 +71,7 @@ def test_invalid_regex_returns_empty(strategy):
     }
     strategy.config_dict = rule
     with pytest.raises(Exception):
-        strategy.apply(df)
+        strategy.run(df)
 
 
 def test_group_id_out_of_range_returns_none(strategy):
@@ -84,7 +84,7 @@ def test_group_id_out_of_range_returns_none(strategy):
         "group_id": 2,  # Only one group exists
     }
     strategy.config_dict = rule
-    result = strategy.apply(df)
+    result = strategy.run(df)
     assert result["__out__"].tolist() == [""]
 
 

@@ -21,7 +21,7 @@ def test_valid_formula_filters_rows(sample_df):
         "formula": "amount > 0 and category == 'Sales'",
     }
     strategy = FilterByFormulaStrategy(rule)
-    result = strategy.apply(sample_df)
+    result = strategy.run(sample_df)
     assert len(result) == 2
     assert result["description"].tolist() == ["A", "C"]
 
@@ -34,13 +34,13 @@ def test_non_boolean_formula_raises_error(sample_df):
     }  # Not a boolean mask
     with pytest.raises(ValueError, match="Formula must evaluate to a boolean mask"):
         strategy = FilterByFormulaStrategy(rule)
-        strategy.apply(sample_df)
+        strategy.run(sample_df)
 
 
 def test_field_not_in_df_does_not_format(sample_df):
     rule = {"strategy": "filter", "field": "nonexistent", "formula": "amount > 0"}
     strategy = FilterByFormulaStrategy(rule)
-    result = strategy.apply(sample_df)
+    result = strategy.run(sample_df)
     assert "nonexistent" not in result.columns
 
 
@@ -51,7 +51,7 @@ def test_formula_with_multiple_conditions(sample_df):
         "formula": "(amount > 0) & (category == 'Sales')",
     }
     strategy = FilterByFormulaStrategy(rule)
-    result = strategy.apply(sample_df)
+    result = strategy.run(sample_df)
     assert len(result) == 2
     assert result["description"].tolist() == ["A", "C"]
 

@@ -15,7 +15,7 @@ def test_apply_sets_constant_value():
     df = pd.DataFrame({"order_id": [1, 2, 3]})
     rule = {"field": "__source__", "strategy": "constant", "value": "amazon"}
     strategy = ConstantStrategy(rule)
-    result = strategy.apply(df)
+    result = strategy.run(df)
     expected = pd.DataFrame(
         {"order_id": [1, 2, 3], "__source__": ["amazon", "amazon", "amazon"]}
     )
@@ -30,7 +30,7 @@ def test_apply_with_missing_value_defaults_to_empty():
         # no "value" key
     }
     strategy = ConstantStrategy(rule)
-    result = strategy.apply(df)
+    result = strategy.run(df)
     expected = pd.DataFrame({"order_id": [1, 2], "__source__": ["", ""]})
     assert_frame_equal(result, expected)
 

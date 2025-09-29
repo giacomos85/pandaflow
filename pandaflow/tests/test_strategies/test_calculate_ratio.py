@@ -16,7 +16,7 @@ def test_basic_ratio(sample_df):
         "denominator": "cost",
         "field": "margin",
     }
-    result = CalculateRatioStrategy(rule).apply(sample_df)
+    result = CalculateRatioStrategy(rule).run(sample_df)
     assert result["margin"].iloc[0] == 2.0
     assert pd.isna(result["margin"].iloc[3])  # None / 0 → NaN
 
@@ -29,7 +29,7 @@ def test_ratio_with_rounding(sample_df):
         "field": "margin",
         "round_digits": 1,
     }
-    result = CalculateRatioStrategy(rule).apply(sample_df)
+    result = CalculateRatioStrategy(rule).run(sample_df)
     assert result["margin"].iloc[1] == 2.5
     assert result["margin"].iloc[2] == 2.5
 
@@ -42,7 +42,7 @@ def test_missing_numerator(sample_df):
         "field": "margin",
     }
     with pytest.raises(ValueError, match="Numerator column 'revenue' not found"):
-        CalculateRatioStrategy(rule).apply(sample_df)
+        CalculateRatioStrategy(rule).run(sample_df)
 
 
 def test_missing_denominator(sample_df):
@@ -53,7 +53,7 @@ def test_missing_denominator(sample_df):
         "field": "margin",
     }
     with pytest.raises(ValueError, match="Denominator column 'expenses' not found"):
-        CalculateRatioStrategy(rule).apply(sample_df)
+        CalculateRatioStrategy(rule).run(sample_df)
 
 
 def test_division_by_zero():
@@ -64,7 +64,7 @@ def test_division_by_zero():
         "denominator": "b",
         "field": "ratio",
     }
-    result = CalculateRatioStrategy(rule).apply(df)
+    result = CalculateRatioStrategy(rule).run(df)
     assert result["ratio"].iloc[0] == 5.0
     assert np.isinf(result["ratio"].iloc[1])  # 20 / 0 → inf
 
@@ -76,5 +76,5 @@ def test_custom_field_name(sample_df):
         "denominator": "cost",
         "field": "custom_ratio",
     }
-    result = CalculateRatioStrategy(rule).apply(sample_df)
+    result = CalculateRatioStrategy(rule).run(sample_df)
     assert "custom_ratio" in result.columns

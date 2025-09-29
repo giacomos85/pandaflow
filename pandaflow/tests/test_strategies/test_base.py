@@ -10,7 +10,7 @@ class DummyStrategy(TransformationStrategy):
             raise ValueError("Missing 'field'")
         return rule_dict
 
-    def apply(self, df: pd.DataFrame, **kwargs) -> pd.DataFrame:
+    def run(self, df: pd.DataFrame, **kwargs) -> pd.DataFrame:
         df_copy = df.copy()
         df_copy[self.config_dict["field"]] = "debug"
         return df_copy

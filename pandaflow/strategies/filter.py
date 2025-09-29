@@ -20,15 +20,16 @@ class FilterByFormulaStrategy(TransformationStrategy):
         "description": "Filters rows based on a formula",
     }
 
+    strategy_model = FilterByFormulaRule
+
     def validate_rule(self):
         return FilterByFormulaRule(**self.config_dict)
 
     def apply(self, df: pd.DataFrame):
-        config = FilterByFormulaRule(**self.config_dict)
 
         try:
             # Evaluate the formula as a boolean mask
-            mask = df.eval(config.formula)
+            mask = df.eval(self.config.formula)
             if not mask.dtype == bool:
                 raise ValueError("Formula must evaluate to a boolean mask")
 
@@ -36,9 +37,9 @@ class FilterByFormulaStrategy(TransformationStrategy):
             df_filtered = df[mask].copy()
 
             # Optional: format output field if needed
-            format_value = get_output_formatter(config.output_rule)
-            if config.field in df_filtered.columns:
-                df_filtered[config.field] = df_filtered[config.field].apply(
+            format_value = get_output_formatter(self.config.output_rule)
+            if self.config.field in df_filtered.columns:
+                df_filtered[self.config.field] = df_filtered[self.config.field].apply(
                     format_value
                 )
 

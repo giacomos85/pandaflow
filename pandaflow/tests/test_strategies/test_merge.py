@@ -23,7 +23,7 @@ def test_merge_multiple_columns_with_separator(sample_df):
         "separator": " | ",
     }
     strategy = MergeStrategy(rule)
-    result = strategy.apply(sample_df)
+    result = strategy.run(sample_df)
     expected = ["Alice | Smith", "Bob | Jones", "Charlie | Brown"]
     assert result["__merged__"].tolist() == expected
 
@@ -36,7 +36,7 @@ def test_merge_with_nan_like_strings(sample_df):
         "separator": " ",
     }
     strategy = MergeStrategy(rule)
-    result = strategy.apply(sample_df)
+    result = strategy.run(sample_df)
     expected = ["Alice", "Bob", "Charlie"]
     assert result["__merged__"].tolist() == expected
 
@@ -44,7 +44,7 @@ def test_merge_with_nan_like_strings(sample_df):
 def test_merge_with_source_as_string(sample_df):
     rule = {"strategy": "merge", "field": "__merged__", "source": "first"}
     strategy = MergeStrategy(rule)
-    result = strategy.apply(sample_df)
+    result = strategy.run(sample_df)
     assert result["__merged__"].tolist() == sample_df["first"].tolist()
 
 
@@ -52,7 +52,7 @@ def test_merge_missing_column_raises(sample_df):
     rule = {"strategy": "merge", "field": "__merged__", "source": ["first", "missing"]}
     with pytest.raises(ValueError, match="Column 'missing' not found"):
         strategy = MergeStrategy(rule)
-        strategy.apply(sample_df)
+        strategy.run(sample_df)
 
 
 def test_validate_rule():

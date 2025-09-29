@@ -15,7 +15,7 @@ def test_split_basic(sample_df):
         "delimiter": " ",
         "prefix": "name",
     }
-    result = SplitColumnStrategy(rule).apply(sample_df)
+    result = SplitColumnStrategy(rule).run(sample_df)
     assert "name_0" in result.columns
     assert "name_1" in result.columns
     assert result.loc[0, "name_0"] == "Alice"
@@ -30,7 +30,7 @@ def test_split_with_maxsplit(sample_df):
         "maxsplit": 1,
         "prefix": "part",
     }
-    result = SplitColumnStrategy(rule).apply(sample_df)
+    result = SplitColumnStrategy(rule).run(sample_df)
     assert result.columns.tolist()[-2:] == ["part_0", "part_1"]
     assert result.loc[1, "part_0"] == "Bob"
     assert result.loc[1, "part_1"] == "Jones"
@@ -43,14 +43,14 @@ def test_split_drop_original(sample_df):
         "delimiter": " ",
         "drop_original": True,
     }
-    result = SplitColumnStrategy(rule).apply(sample_df)
+    result = SplitColumnStrategy(rule).run(sample_df)
     assert "full_name" not in result.columns
 
 
 def test_split_column_missing(sample_df):
     rule = {"strategy": "split_column", "column": "nonexistent", "delimiter": " "}
     with pytest.raises(ValueError, match="Column 'nonexistent' not found"):
-        SplitColumnStrategy(rule).apply(sample_df)
+        SplitColumnStrategy(rule).run(sample_df)
 
 
 def test_split_empty_string():
@@ -61,7 +61,7 @@ def test_split_empty_string():
         "delimiter": " ",
         "prefix": "split",
     }
-    result = SplitColumnStrategy(rule).apply(df)
+    result = SplitColumnStrategy(rule).run(df)
     assert result.columns.tolist()[-2:] == ["split_0", "split_1"]
 
 
@@ -72,5 +72,5 @@ def test_split_custom_prefix(sample_df):
         "delimiter": " ",
         "prefix": "custom",
     }
-    result = SplitColumnStrategy(rule).apply(sample_df)
+    result = SplitColumnStrategy(rule).run(sample_df)
     assert "custom_0" in result.columns

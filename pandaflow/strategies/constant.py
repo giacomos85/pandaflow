@@ -18,10 +18,11 @@ class ConstantStrategy(TransformationStrategy):
         "description": "Sets a specified column to a constant value",
     }
 
+    strategy_model = ConstantRule
+
     def validate_rule(self):
         return ConstantRule(**self.config_dict)
 
     def apply(self, df: pd.DataFrame):
-        config = ConstantRule(**self.config_dict)
-        df[config.field] = config.value
+        df[self.config.field] = self.config.value
         return df

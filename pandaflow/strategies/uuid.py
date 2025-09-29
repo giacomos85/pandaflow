@@ -18,11 +18,12 @@ class UUIDStrategy(TransformationStrategy):
         "description": "Generates UUIDv7 values for a specified column",
     }
 
+    strategy_model = UUIDRule
+
     def validate_rule(self):
         return UUIDRule(**self.config_dict)
 
     def apply(self, df: pd.DataFrame):
-        config = UUIDRule(**self.config_dict)
 
-        df[config.field] = [str(uuid7()) for _ in range(len(df))]
+        df[self.config.field] = [str(uuid7()) for _ in range(len(df))]
         return df

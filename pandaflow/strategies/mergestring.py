@@ -23,25 +23,26 @@ class MergeStringStrategy(TransformationStrategy):
         "description": "Merges values from multiple columns into one using a formula or concatenation.",
     }
 
+    strategy_model = MergeFormulaRule
+
     def validate_rule(self):
         return MergeFormulaRule(**self.config_dict)
 
     def apply(self, df: pd.DataFrame):
-        config = MergeFormulaRule(**self.config_dict)
-        field = config.field
+        field = self.config.field
         # Get the formula or list of columns to merge
-        formula = config.formula  # e.g., "first_name + ' ' + last_name"
-        source_cols = config.source
+        formula = self.config.formula  # e.g., "first_name + ' ' + last_name"
+        source_cols = self.config.source
 
         # Get formatter if needed
-        format_value = get_output_formatter(config.output_rule)
+        format_value = get_output_formatter(self.config.output_rule)
 
         if formula:
             # Use apply with eval-like string formatting
             df[field] = df.apply(lambda row: eval(formula, {}, row.to_dict()), axis=1)
         elif source_cols:
             # Merge specified columns with a separator
-            separator = config.separator
+            separator = self.config.separator
             df[field] = (
                 df[source_cols].fillna("").astype(str).agg(separator.join, axis=1)
             )

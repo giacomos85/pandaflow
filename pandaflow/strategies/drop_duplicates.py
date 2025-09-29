@@ -50,12 +50,13 @@ class DropDuplicatesStrategy(TransformationStrategy):
 
     meta = {"name": "drop_duplicates", "version": "1.0.0", "author": "pandaflow team"}
 
+    strategy_model = DropDuplicatesRule
+
     def validate_rule(self):
         return DropDuplicatesRule(**self.config_dict)
 
     def apply(self, df: pd.DataFrame) -> pd.DataFrame:
-        config = DropDuplicatesRule(**self.config_dict)
-        result = df.drop_duplicates(subset=config.subset, keep=config.keep)
-        if config.reset_index:
+        result = df.drop_duplicates(subset=self.config.subset, keep=self.config.keep)
+        if self.config.reset_index:
             result = result.reset_index(drop=True)
         return result

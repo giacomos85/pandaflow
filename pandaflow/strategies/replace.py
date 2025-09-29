@@ -19,19 +19,20 @@ class ReplaceStrategy(TransformationStrategy):
         "description": "Replaces occurrences of a substring in a specified column with another substring",
     }
 
+    strategy_model = ReplaceRule
+
     def validate_rule(self):
         return ReplaceRule(**self.config_dict)
 
     def apply(self, df: pd.DataFrame):
-        config = ReplaceRule(**self.config_dict)
 
-        if config.field not in df.columns:
+        if self.config.field not in df.columns:
             raise ValueError(
-                f"Column '{config.field}' not found in input data for replacement"
+                f"Column '{self.config.field}' not found in input data for replacement"
             )
 
-        find = config.find
-        replace = config.replace
+        find = self.config.find
+        replace = self.config.replace
 
-        df[config.field] = df[config.field].astype(str).str.replace(find, replace)
+        df[self.config.field] = df[self.config.field].astype(str).str.replace(find, replace)
         return df

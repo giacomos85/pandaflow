@@ -25,30 +25,31 @@ class RegExStrategy(TransformationStrategy):
         "description": "Extracts data from a column using a regular expression",
     }
 
+    strategy_model = RegexRule
+
     def validate_rule(self):
         return RegexRule(**self.config_dict)
 
     def apply(self, df: pd.DataFrame):
-        config = RegexRule(**self.config_dict)
 
-        source_col = config.source
+        source_col = self.config.source
 
-        format_value = get_output_formatter(config.output_rule)
+        format_value = get_output_formatter(self.config.output_rule)
 
         if source_col not in df.columns:
             raise ValueError(
-                f"Columns '{source_col}' not found in input data for field {config.field}"
+                f"Columns '{source_col}' not found in input data for field {self.config.field}"
             )
 
         def match_regex(row):
             text = str(row[source_col])
             try:
-                res = re.match(config.regex, text)
+                res = re.match(self.config.regex, text)
                 if res:
-                    return format_value(res.group(config.group_id))
+                    return format_value(res.group(self.config.group_id))
                 return ""
             except IndexError:
                 return ""
 
-        df[config.field] = df.apply(match_regex, axis=1)
+        df[self.config.field] = df.apply(match_regex, axis=1)
         return df

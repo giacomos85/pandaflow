@@ -37,7 +37,7 @@ def test_missing_file_returns_not_found(input_df):
         "not_found": "N/A",
     }
     strategy = LookupExternalStrategy(rule)
-    result = strategy.apply(input_df, output="output.csv")
+    result = strategy.run(input_df, output="output.csv")
     assert result["label"].tolist() == ["N/A", "N/A", "N/A"]
 
 
@@ -61,7 +61,7 @@ def test_missing_lookup_columns_raises(input_df):
             ValueError,
             match=f"Key \\[code\\] or value \\[label\\] column not found in CSV for field label. Columns found: wrong, data. {lookup_path}",
         ):
-            strategy.apply(input_df, output="output.csv")
+            strategy.run(input_df, output="output.csv")
 
 
 def test_missing_source_column_raises(input_df):
@@ -81,7 +81,7 @@ def test_missing_source_column_raises(input_df):
         }
         with pytest.raises(ValueError, match="Source column 'missing' not found"):
             strategy = LookupExternalStrategy(rule)
-            strategy.apply(input_df, output="output.csv")
+            strategy.run(input_df, output="output.csv")
 
 
 def test_successful_lookup(input_df):
@@ -101,5 +101,5 @@ def test_successful_lookup(input_df):
             "not_found": "N/A",
         }
         strategy = LookupExternalStrategy(rule)
-        result = strategy.apply(input_df, output="output.csv")
+        result = strategy.run(input_df, output="output.csv")
         assert result["label"].tolist() == ["Alpha", "Beta", "N/A"]

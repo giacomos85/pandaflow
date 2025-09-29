@@ -24,25 +24,26 @@ class CopyStrategy(TransformationStrategy):
         "description": "Copies values from one column to another",
     }
 
+    strategy_model = CopyRule
+
     def validate_rule(self):
         return CopyRule(**self.config_dict)
 
     def apply(self, df: pd.DataFrame):
-        config = CopyRule(**self.config_dict)
-        col = config.source or config.field
+        col = self.config.source or self.config.field
         if col not in df.columns:
             raise ValueError(
-                f"Column '{col}' not found in input data for field {config.field}"
+                f"Column '{col}' not found in input data for field {self.config.field}"
             )
 
-        parse_number = get_input_parser(config.input_rule)
-        format_value = get_output_formatter(config.output_rule)
+        parse_number = get_input_parser(self.config.input_rule)
+        format_value = get_output_formatter(self.config.output_rule)
 
-        df[config.field] = df[col].apply(parse_number).apply(format_value)
+        df[self.config.field] = df[col].apply(parse_number).apply(format_value)
 
-        if config.fillna:
-            df[config.field] = (
-                df[config.field].replace("", config.fillna).fillna(config.fillna)
+        if self.config.fillna:
+            df[self.config.field] = (
+                df[self.config.field].replace("", self.config.fillna).fillna(self.config.fillna)
             )
 
         return df

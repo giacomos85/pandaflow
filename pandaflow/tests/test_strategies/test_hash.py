@@ -17,7 +17,7 @@ def test_hash_generation(sample_df):
         "function": "calculate_md5",
     }
     strategy = HashStrategy(rule)
-    result = strategy.apply(sample_df)
+    result = strategy.run(sample_df)
 
     expected = [
         hashlib.md5("foo;123".encode("utf-8")).hexdigest(),
@@ -36,7 +36,7 @@ def test_missing_column_raises(sample_df):
     }
     with pytest.raises(ValueError, match="Missing columns for hash: Z"):
         strategy = HashStrategy(rule)
-        strategy.apply(sample_df)
+        strategy.run(sample_df)
 
 
 def test_empty_string_handling():
@@ -48,7 +48,7 @@ def test_empty_string_handling():
         "function": "calculate_md5",
     }
     strategy = HashStrategy(rule)
-    result = strategy.apply(df)
+    result = strategy.run(df)
 
     expected = [
         hashlib.md5(";x".encode("utf-8")).hexdigest(),

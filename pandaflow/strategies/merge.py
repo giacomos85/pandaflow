@@ -21,20 +21,18 @@ class MergeStrategy(TransformationStrategy):
         "description": "Merges values from multiple columns into one",
     }
 
+    strategy_model = MergeRule
+
     def validate_rule(self):
         return MergeRule(**self.config_dict)
 
-    def apply(
-        self,
-        df: pd.DataFrame,
-    ):
-        config = MergeRule(**self.config_dict)
+    def apply(self, df: pd.DataFrame):
         cols = (
             [
-                config.source,
+                self.config.source,
             ]
-            if isinstance(config.source, str)
-            else config.source
+            if isinstance(self.config.source, str)
+            else self.config.source
         )
 
         replaced_cols = []
@@ -46,8 +44,8 @@ class MergeStrategy(TransformationStrategy):
             replaced_cols.append(series)
 
         # Merge into single column
-        df[config.field] = pd.Series(
-            [config.separator.join(filter(None, row)) for row in zip(*replaced_cols)],
+        df[self.config.field] = pd.Series(
+            [self.config.separator.join(filter(None, row)) for row in zip(*replaced_cols)],
             index=df.index,
         )
         return df

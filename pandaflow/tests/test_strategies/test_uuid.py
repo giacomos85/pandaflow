@@ -17,7 +17,7 @@ def sample_df():
 def test_uuid_column_created(sample_df):
     rule = {"strategy": "uuid", "field": "__uuid__"}
     strategy = UUIDStrategy(rule)
-    result = strategy.apply(sample_df)
+    result = strategy.run(sample_df)
     assert "__uuid__" in result.columns
     assert len(result["__uuid__"]) == len(sample_df)
 
@@ -25,7 +25,7 @@ def test_uuid_column_created(sample_df):
 def test_uuid_values_are_unique(sample_df):
     rule = {"strategy": "uuid", "field": "__uuid__"}
     strategy = UUIDStrategy(rule)
-    result = strategy.apply(sample_df)
+    result = strategy.run(sample_df)
     uuids = result["__uuid__"].tolist()
     assert len(set(uuids)) == len(uuids)
 
@@ -33,7 +33,7 @@ def test_uuid_values_are_unique(sample_df):
 def test_uuid_format(sample_df):
     rule = {"strategy": "uuid", "field": "__uuid__"}
     strategy = UUIDStrategy(rule)
-    result = strategy.apply(sample_df)
+    result = strategy.run(sample_df)
     for val in result["__uuid__"]:
         assert isinstance(val, str)
         assert len(val) >= 36  # UUIDv7 string length

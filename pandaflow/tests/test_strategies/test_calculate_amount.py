@@ -14,7 +14,7 @@ def test_apply_calculates_and_formats_amount():
         "output_rule": "float_2dec",
     }
     strategy = CalculateAmountStrategy(rule)
-    result = strategy.apply(df)
+    result = strategy.run(df)
     expected = pd.DataFrame(
         {
             "__total__": [100.123, 200.456],
@@ -33,7 +33,7 @@ def test_apply_without_output_rule():
         "formula": "__total__ - __refund__",
     }
     strategy = CalculateAmountStrategy(rule)
-    result = strategy.apply(df)
+    result = strategy.run(df)
     expected = pd.DataFrame(
         {"__total__": [50, 75], "__refund__": [5, 10], "__amount__": [45, 65]}
     )
@@ -50,7 +50,7 @@ def test_apply_with_invalid_formula_raises():
     }
     strategy = CalculateAmountStrategy(rule)
     with pytest.raises(pd.errors.UndefinedVariableError):
-        strategy.apply(df)
+        strategy.run(df)
 
 
 def test_validate_rule():

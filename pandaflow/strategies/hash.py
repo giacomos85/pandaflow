@@ -21,20 +21,21 @@ class HashStrategy(TransformationStrategy):
         "description": "Generates a hash from specified columns",
     }
 
+    strategy_model = HashRule
+
     def validate_rule(self):
         return HashRule(**self.config_dict)
 
     def apply(self, df: pd.DataFrame):
-        config = HashRule(**self.config_dict)
-        missing = [col for col in config.source if col not in df.columns]
+        missing = [col for col in self.config.source if col not in df.columns]
         if missing:
             raise ValueError(
                 f"Missing columns for hash: {', '.join(missing)}. Found columns: {', '.join(df.columns)}"
             )
 
         # Generate the hash from selected columns
-        df[config.field] = (
-            df[config.source]
+        df[self.config.field] = (
+            df[self.config.source]
             .fillna("")
             .astype(str)
             .agg(";".join, axis=1)
