@@ -34,5 +34,7 @@ class ReplaceStrategy(TransformationStrategy):
         find = self.config.find
         replace = self.config.replace
 
-        df[self.config.field] = df[self.config.field].astype(str).str.replace(find, replace)
+        df[self.config.field] = (
+            df[self.config.field].astype(str).str.replace(find, replace)
+        )
         return df

@@ -74,7 +74,11 @@ class SplitColumnStrategy(TransformationStrategy):
 
         result = pd.concat(
             [
-                df.drop(columns=[self.config.column]) if self.config.drop_original else df,
+                (
+                    df.drop(columns=[self.config.column])
+                    if self.config.drop_original
+                    else df
+                ),
                 split_cols,
             ],
             axis=1,

@@ -45,7 +45,10 @@ class MergeStrategy(TransformationStrategy):
 
         # Merge into single column
         df[self.config.field] = pd.Series(
-            [self.config.separator.join(filter(None, row)) for row in zip(*replaced_cols)],
+            [
+                self.config.separator.join(filter(None, row))
+                for row in zip(*replaced_cols)
+            ],
             index=df.index,
         )
         return df

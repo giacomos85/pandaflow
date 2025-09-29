@@ -43,7 +43,9 @@ class CopyStrategy(TransformationStrategy):
 
         if self.config.fillna:
             df[self.config.field] = (
-                df[self.config.field].replace("", self.config.fillna).fillna(self.config.fillna)
+                df[self.config.field]
+                .replace("", self.config.fillna)
+                .fillna(self.config.fillna)
             )
 
         return df

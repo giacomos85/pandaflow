@@ -20,7 +20,11 @@ class SortByColumnStrategy(TransformationStrategy):
         return SortByColumnRule(**self.config_dict)
 
     def apply(self, df: pd.DataFrame) -> pd.DataFrame:
-        asc = self.config.ascending if self.config.ascending else [True] * len(self.config.columns)
+        asc = (
+            self.config.ascending
+            if self.config.ascending
+            else [True] * len(self.config.columns)
+        )
         if len(asc) != len(self.config.columns):
             raise ValueError("Length of 'ascending' must match 'columns'")
         return df.sort_values(
