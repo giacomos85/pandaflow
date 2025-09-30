@@ -1,10 +1,11 @@
 import pandas as pd
 from pandaflow.strategies.base import TransformationStrategy
 from pandaflow.models.config import BaseRule
-from typing import Optional, List
+from typing import Literal, Optional, List
 
 
 class DropDuplicatesRule(BaseRule):
+    strategy: Literal["drop_duplicates"]
     subset: Optional[List[str]] = None  # Columns to consider for identifying duplicates
     keep: Optional[str] = "first"  # "first", "last", or False
     reset_index: Optional[bool] = False  # Whether to reset the index after dropping

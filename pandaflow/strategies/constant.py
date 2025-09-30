@@ -1,3 +1,4 @@
+from typing import Literal
 import pandas as pd
 
 from pandaflow.models.config import BaseRule
@@ -5,6 +6,7 @@ from pandaflow.strategies.base import TransformationStrategy
 
 
 class ConstantRule(BaseRule):
+    strategy: Literal["constant"]
     field: str
     value: str = ""
 

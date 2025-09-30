@@ -1,0 +1,1058 @@
+{
+  "$defs": {
+    "BaseRule": {
+      "properties": {
+        "strategy": {
+          "title": "Strategy",
+          "type": "string"
+        },
+        "version": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Version"
+        }
+      },
+      "required": [
+        "strategy"
+      ],
+      "title": "BaseRule",
+      "type": "object"
+    },
+    "ExtractConfig": {
+      "properties": {
+        "path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Path"
+        },
+        "skiprows": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": 0,
+          "title": "Skiprows"
+        },
+        "sep": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": ",",
+          "title": "Sep"
+        },
+        "match": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": {},
+          "title": "Match"
+        }
+      },
+      "title": "ExtractConfig",
+      "type": "object"
+    },
+    "LoadConfig": {
+      "properties": {
+        "output": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Output"
+        }
+      },
+      "title": "LoadConfig",
+      "type": "object"
+    }
+  },
+  "properties": {
+    "meta": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ExtractConfig"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": {}
+    },
+    "rules": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/calculate_amount:1.0.0"
+          },
+          {
+            "$ref": "#/components/schemas/calculate_ratio:1.0.0"
+          },
+          {
+            "$ref": "#/components/schemas/constant:1.0.0"
+          },
+          {
+            "$ref": "#/components/schemas/copy:1.0.0"
+          },
+          {
+            "$ref": "#/components/schemas/drop_columns:1.0.0"
+          },
+          {
+            "$ref": "#/components/schemas/drop_duplicates:1.0.0"
+          },
+          {
+            "$ref": "#/components/schemas/filter:1.0.0"
+          },
+          {
+            "$ref": "#/components/schemas/hash:1.0.0"
+          },
+          {
+            "$ref": "#/components/schemas/lookup_external:1.0.0"
+          },
+          {
+            "$ref": "#/components/schemas/merge:1.0.0"
+          },
+          {
+            "$ref": "#/components/schemas/merge_formula:1.0.0"
+          },
+          {
+            "$ref": "#/components/schemas/regex:1.0.0"
+          },
+          {
+            "$ref": "#/components/schemas/reorder_columns:1.0.0"
+          },
+          {
+            "$ref": "#/components/schemas/replace:1.0.0"
+          },
+          {
+            "$ref": "#/components/schemas/sort_by_column:1.0.0"
+          },
+          {
+            "$ref": "#/components/schemas/split_column:1.0.0"
+          },
+          {
+            "$ref": "#/components/schemas/uuid:1.0.0"
+          }
+        ]
+      }
+    },
+    "load": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/LoadConfig"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": {}
+    }
+  },
+  "required": [
+    "rules"
+  ],
+  "title": "PandaFlowConfig",
+  "type": "object",
+  "components": {
+    "schemas": {
+      "calculate_amount:1.0.0": {
+        "properties": {
+          "strategy": {
+            "const": "calculate_amount",
+            "title": "Strategy",
+            "type": "string"
+          },
+          "version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Version"
+          },
+          "formula": {
+            "title": "Formula",
+            "type": "string"
+          },
+          "output_rule": {
+            "default": null,
+            "title": "Output Rule",
+            "type": "string"
+          },
+          "field": {
+            "title": "Field",
+            "type": "string"
+          }
+        },
+        "required": [
+          "strategy",
+          "formula",
+          "field"
+        ],
+        "title": "CalculateAmountRule",
+        "type": "object"
+      },
+      "calculate_ratio:1.0.0": {
+        "properties": {
+          "strategy": {
+            "const": "calculate_ratio",
+            "title": "Strategy",
+            "type": "string"
+          },
+          "version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Version"
+          },
+          "field": {
+            "title": "Field",
+            "type": "string"
+          },
+          "numerator": {
+            "title": "Numerator",
+            "type": "string"
+          },
+          "denominator": {
+            "title": "Denominator",
+            "type": "string"
+          },
+          "round_digits": {
+            "default": null,
+            "title": "Round Digits",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "strategy",
+          "field",
+          "numerator",
+          "denominator"
+        ],
+        "title": "CalculateRatioRule",
+        "type": "object"
+      },
+      "constant:1.0.0": {
+        "properties": {
+          "strategy": {
+            "const": "constant",
+            "title": "Strategy",
+            "type": "string"
+          },
+          "version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Version"
+          },
+          "field": {
+            "title": "Field",
+            "type": "string"
+          },
+          "value": {
+            "default": "",
+            "title": "Value",
+            "type": "string"
+          }
+        },
+        "required": [
+          "strategy",
+          "field"
+        ],
+        "title": "ConstantRule",
+        "type": "object"
+      },
+      "copy:1.0.0": {
+        "properties": {
+          "strategy": {
+            "const": "copy",
+            "title": "Strategy",
+            "type": "string"
+          },
+          "version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Version"
+          },
+          "field": {
+            "title": "Field",
+            "type": "string"
+          },
+          "source": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source"
+          },
+          "fillna": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Fillna"
+          },
+          "input_rule": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Input Rule"
+          },
+          "output_rule": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Output Rule"
+          }
+        },
+        "required": [
+          "strategy",
+          "field",
+          "source"
+        ],
+        "title": "CopyRule",
+        "type": "object"
+      },
+      "drop_columns:1.0.0": {
+        "properties": {
+          "strategy": {
+            "const": "drop_columns",
+            "title": "Strategy",
+            "type": "string"
+          },
+          "version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Version"
+          },
+          "columns": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Columns",
+            "type": "array"
+          },
+          "errors": {
+            "default": "raise",
+            "title": "Errors",
+            "type": "string"
+          }
+        },
+        "required": [
+          "strategy",
+          "columns"
+        ],
+        "title": "DropColumnsRule",
+        "type": "object"
+      },
+      "drop_duplicates:1.0.0": {
+        "properties": {
+          "strategy": {
+            "const": "drop_duplicates",
+            "title": "Strategy",
+            "type": "string"
+          },
+          "version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Version"
+          },
+          "subset": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Subset"
+          },
+          "keep": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": "first",
+            "title": "Keep"
+          },
+          "reset_index": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": false,
+            "title": "Reset Index"
+          }
+        },
+        "required": [
+          "strategy"
+        ],
+        "title": "DropDuplicatesRule",
+        "type": "object"
+      },
+      "filter:1.0.0": {
+        "properties": {
+          "strategy": {
+            "const": "filter",
+            "title": "Strategy",
+            "type": "string"
+          },
+          "version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Version"
+          },
+          "field": {
+            "title": "Field",
+            "type": "string"
+          },
+          "formula": {
+            "title": "Formula",
+            "type": "string"
+          },
+          "output_rule": {
+            "default": null,
+            "title": "Output Rule",
+            "type": "string"
+          }
+        },
+        "required": [
+          "strategy",
+          "field",
+          "formula"
+        ],
+        "title": "FilterByFormulaRule",
+        "type": "object"
+      },
+      "hash:1.0.0": {
+        "properties": {
+          "strategy": {
+            "const": "hash",
+            "title": "Strategy",
+            "type": "string"
+          },
+          "version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Version"
+          },
+          "field": {
+            "title": "Field",
+            "type": "string"
+          },
+          "source": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Source",
+            "type": "array"
+          },
+          "function": {
+            "title": "Function",
+            "type": "string"
+          }
+        },
+        "required": [
+          "strategy",
+          "field",
+          "source",
+          "function"
+        ],
+        "title": "HashRule",
+        "type": "object"
+      },
+      "lookup_external:1.0.0": {
+        "properties": {
+          "strategy": {
+            "const": "lookup_external",
+            "title": "Strategy",
+            "type": "string"
+          },
+          "version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Version"
+          },
+          "field": {
+            "title": "Field",
+            "type": "string"
+          },
+          "source": {
+            "title": "Source",
+            "type": "string"
+          },
+          "file": {
+            "title": "File",
+            "type": "string"
+          },
+          "key": {
+            "title": "Key",
+            "type": "string"
+          },
+          "value": {
+            "title": "Value",
+            "type": "string"
+          },
+          "not_found": {
+            "default": null,
+            "title": "Not Found",
+            "type": "string"
+          }
+        },
+        "required": [
+          "strategy",
+          "field",
+          "source",
+          "file",
+          "key",
+          "value"
+        ],
+        "title": "LookupExternalRule",
+        "type": "object"
+      },
+      "merge:1.0.0": {
+        "properties": {
+          "strategy": {
+            "const": "merge",
+            "title": "Strategy",
+            "type": "string"
+          },
+          "version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Version"
+          },
+          "field": {
+            "title": "Field",
+            "type": "string"
+          },
+          "source": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            ],
+            "title": "Source"
+          },
+          "replace": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "default": null,
+            "title": "Replace",
+            "type": "object"
+          },
+          "separator": {
+            "default": " ",
+            "title": "Separator",
+            "type": "string"
+          }
+        },
+        "required": [
+          "strategy",
+          "field",
+          "source"
+        ],
+        "title": "MergeRule",
+        "type": "object"
+      },
+      "merge_formula:1.0.0": {
+        "properties": {
+          "strategy": {
+            "const": "merge_formula",
+            "title": "Strategy",
+            "type": "string"
+          },
+          "version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Version"
+          },
+          "field": {
+            "title": "Field",
+            "type": "string"
+          },
+          "formula": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Formula"
+          },
+          "output_rule": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Output Rule"
+          },
+          "source": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Source"
+          },
+          "separator": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": " ",
+            "title": "Separator"
+          }
+        },
+        "required": [
+          "strategy",
+          "field"
+        ],
+        "title": "MergeFormulaRule",
+        "type": "object"
+      },
+      "regex:1.0.0": {
+        "properties": {
+          "strategy": {
+            "const": "regex",
+            "title": "Strategy",
+            "type": "string"
+          },
+          "version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Version"
+          },
+          "field": {
+            "title": "Field",
+            "type": "string"
+          },
+          "source": {
+            "title": "Source",
+            "type": "string"
+          },
+          "regex": {
+            "title": "Regex",
+            "type": "string"
+          },
+          "group_id": {
+            "title": "Group Id",
+            "type": "integer"
+          },
+          "replace": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "default": null,
+            "title": "Replace",
+            "type": "object"
+          },
+          "output_rule": {
+            "default": null,
+            "title": "Output Rule",
+            "type": "string"
+          }
+        },
+        "required": [
+          "strategy",
+          "field",
+          "source",
+          "regex",
+          "group_id"
+        ],
+        "title": "RegexRule",
+        "type": "object"
+      },
+      "reorder_columns:1.0.0": {
+        "properties": {
+          "strategy": {
+            "const": "reorder_columns",
+            "title": "Strategy",
+            "type": "string"
+          },
+          "version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Version"
+          },
+          "columns": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Columns",
+            "type": "array"
+          }
+        },
+        "required": [
+          "strategy",
+          "columns"
+        ],
+        "title": "ReorderColumnsRule",
+        "type": "object"
+      },
+      "replace:1.0.0": {
+        "properties": {
+          "strategy": {
+            "const": "replace",
+            "title": "Strategy",
+            "type": "string"
+          },
+          "version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Version"
+          },
+          "field": {
+            "title": "Field",
+            "type": "string"
+          },
+          "find": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "Find"
+          },
+          "replace": {
+            "title": "Replace",
+            "type": "string"
+          }
+        },
+        "required": [
+          "strategy",
+          "field",
+          "find",
+          "replace"
+        ],
+        "title": "ReplaceRule",
+        "type": "object"
+      },
+      "sort_by_column:1.0.0": {
+        "properties": {
+          "strategy": {
+            "const": "sort_by_column",
+            "title": "Strategy",
+            "type": "string"
+          },
+          "version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Version"
+          },
+          "columns": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Columns",
+            "type": "array"
+          },
+          "ascending": {
+            "default": null,
+            "items": {
+              "type": "boolean"
+            },
+            "title": "Ascending",
+            "type": "array"
+          },
+          "na_position": {
+            "default": "last",
+            "enum": [
+              "first",
+              "last"
+            ],
+            "title": "Na Position",
+            "type": "string"
+          }
+        },
+        "required": [
+          "strategy",
+          "columns"
+        ],
+        "title": "SortByColumnRule",
+        "type": "object"
+      },
+      "split_column:1.0.0": {
+        "properties": {
+          "strategy": {
+            "const": "split_column",
+            "title": "Strategy",
+            "type": "string"
+          },
+          "version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Version"
+          },
+          "column": {
+            "title": "Column",
+            "type": "string"
+          },
+          "delimiter": {
+            "title": "Delimiter",
+            "type": "string"
+          },
+          "maxsplit": {
+            "default": -1,
+            "title": "Maxsplit",
+            "type": "integer"
+          },
+          "prefix": {
+            "default": "split",
+            "title": "Prefix",
+            "type": "string"
+          },
+          "drop_original": {
+            "default": false,
+            "title": "Drop Original",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "strategy",
+          "column",
+          "delimiter"
+        ],
+        "title": "SplitColumnRule",
+        "type": "object"
+      },
+      "uuid:1.0.0": {
+        "properties": {
+          "strategy": {
+            "const": "uuid",
+            "title": "Strategy",
+            "type": "string"
+          },
+          "version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Version"
+          },
+          "field": {
+            "title": "Field",
+            "type": "string"
+          }
+        },
+        "required": [
+          "strategy",
+          "field"
+        ],
+        "title": "UUIDRule",
+        "type": "object"
+      }
+    }
+  }
+}

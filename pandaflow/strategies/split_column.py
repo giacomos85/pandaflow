@@ -1,9 +1,11 @@
+from typing import Literal
 import pandas as pd
 from pandaflow.strategies.base import TransformationStrategy
 from pandaflow.models.config import BaseRule
 
 
 class SplitColumnRule(BaseRule):
+    strategy: Literal["split_column"]
     column: str  # Column to split
     delimiter: str  # Delimiter to use
     maxsplit: int = -1  # Optional: max number of splits (-1 = no limit)

@@ -1,12 +1,13 @@
 from pandaflow.utils import get_output_formatter
 import pandas as pd
-from typing import List, Optional
+from typing import List, Literal, Optional
 
 from pandaflow.models.config import BaseRule
 from pandaflow.strategies.base import TransformationStrategy
 
 
 class MergeFormulaRule(BaseRule):
+    strategy: Literal["merge_formula"]
     field: str
     formula: Optional[str] = None
     output_rule: Optional[str] = None

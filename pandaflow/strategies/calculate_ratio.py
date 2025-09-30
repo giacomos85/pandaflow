@@ -1,9 +1,11 @@
+from typing import Literal
 import pandas as pd
 from pandaflow.strategies.base import TransformationStrategy
 from pandaflow.models.config import BaseRule
 
 
 class CalculateRatioRule(BaseRule):
+    strategy: Literal["calculate_ratio"]
     field: str
     numerator: str  # Column name for numerator
     denominator: str  # Column name for denominator

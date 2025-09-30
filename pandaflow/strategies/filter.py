@@ -1,3 +1,4 @@
+from typing import Literal
 from pandaflow.models.config import BaseRule
 from pandaflow.utils import get_output_formatter
 import pandas as pd
@@ -6,6 +7,7 @@ from pandaflow.strategies.base import TransformationStrategy
 
 
 class FilterByFormulaRule(BaseRule):
+    strategy: Literal["filter"]
     field: str
     formula: str
     output_rule: str = None

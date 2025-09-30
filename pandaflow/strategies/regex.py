@@ -1,13 +1,14 @@
 import re
 from pandaflow.utils import get_output_formatter
 import pandas as pd
-from typing import Dict
+from typing import Dict, Literal
 
 from pandaflow.models.config import BaseRule
 from pandaflow.strategies.base import TransformationStrategy
 
 
 class RegexRule(BaseRule):
+    strategy: Literal["regex"]
     field: str
     source: str
     regex: str

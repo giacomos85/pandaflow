@@ -3,5 +3,14 @@
         "pandaflow"
     ],
     "python.testing.unittestEnabled": false,
-    "python.testing.pytestEnabled": true
+    "python.testing.pytestEnabled": true,
+    "json.schemas": [
+        {
+        "fileMatch": [
+            "calculate_amount.json",
+            "calculate_ratio.json"
+        ],
+        "url": "./docs/source/pandaflow-schema.json"
+        }
+    ]
 }

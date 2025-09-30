@@ -1,3 +1,4 @@
+from typing import Literal
 from pandaflow.models.config import BaseRule
 import pandas as pd
 from uuid_extension import uuid7
@@ -6,6 +7,7 @@ from pandaflow.strategies.base import TransformationStrategy
 
 
 class UUIDRule(BaseRule):
+    strategy: Literal["uuid"]
     field: str
 
 

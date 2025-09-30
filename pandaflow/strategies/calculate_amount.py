@@ -1,3 +1,4 @@
+from typing import Literal
 from pandaflow.utils import get_output_formatter
 import pandas as pd
 
@@ -6,6 +7,7 @@ from pandaflow.strategies.base import TransformationStrategy
 
 
 class CalculateAmountRule(BaseRule):
+    strategy: Literal["calculate_amount"]
     formula: str
     output_rule: str = None
     field: str

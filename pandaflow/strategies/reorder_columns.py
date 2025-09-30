@@ -1,10 +1,11 @@
 import pandas as pd
 from pandaflow.strategies.base import TransformationStrategy
 from pandaflow.models.config import BaseRule
-from typing import List
+from typing import List, Literal
 
 
 class ReorderColumnsRule(BaseRule):
+    strategy: Literal["reorder_columns"]
     columns: List[str]  # Desired column order
 
 

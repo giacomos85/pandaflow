@@ -1,5 +1,5 @@
 import pandas as pd
-from typing import Optional, Union
+from typing import Literal, Optional, Union
 
 from pandaflow.strategies.base import TransformationStrategy
 from pandaflow.models.config import BaseRule
@@ -8,6 +8,7 @@ from pandaflow.utils import get_output_formatter
 
 
 class CopyRule(BaseRule):
+    strategy: Literal["copy"]
     field: str
     source: str | None
     fillna: Optional[Union[float, int]] = None

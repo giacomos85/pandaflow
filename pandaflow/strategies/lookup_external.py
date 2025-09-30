@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from typing import Literal
 import pandas as pd
 
 from pandaflow.models.config import BaseRule
@@ -7,6 +8,7 @@ from pandaflow.strategies.base import TransformationStrategy
 
 
 class LookupExternalRule(BaseRule):
+    strategy: Literal["lookup_external"]
     field: str
     source: str
     file: str

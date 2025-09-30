@@ -1,3 +1,4 @@
+from typing import Literal
 import pandas as pd
 
 from pandaflow.strategies.base import TransformationStrategy
@@ -5,6 +6,7 @@ from pandaflow.models.config import BaseRule
 
 
 class ReplaceRule(BaseRule):
+    strategy: Literal["replace"]
     field: str
     find: str | float
     replace: str

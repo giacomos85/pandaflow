@@ -5,6 +5,7 @@ from typing import List, Literal
 
 
 class SortByColumnRule(BaseRule):
+    strategy: Literal["sort_by_column"]
     columns: List[str]
     ascending: List[bool] = None
     na_position: Literal["first", "last"] = "last"

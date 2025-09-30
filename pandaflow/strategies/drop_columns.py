@@ -1,10 +1,11 @@
 import pandas as pd
 from pandaflow.strategies.base import TransformationStrategy
 from pandaflow.models.config import BaseRule
-from typing import List
+from typing import List, Literal
 
 
 class DropColumnsRule(BaseRule):
+    strategy: Literal["drop_columns"]
     columns: List[str]  # List of column names to drop
     errors: str = "raise"  # "raise" or "ignore" if column is missing
 
