@@ -271,7 +271,7 @@
 <li><p>author: “pandaflow team”</p></li>
 </ul>
 </dd>
-<dt>Rule Format:</dt><dd><ul class="simple">
+<dt>Transformation Format:</dt><dd><ul class="simple">
 <li><p>column: str — Column to split</p></li>
 <li><p>delimiter: str — Delimiter to use</p></li>
 <li><p>maxsplit: Optional[int] — Max number of splits (-1 = no limit)</p></li>
@@ -280,12 +280,12 @@
 </ul>
 </dd>
 </dl>
-<section id="example-rule">
-<h2>Example Rule<a class="headerlink" href="#example-rule" title="Link to this heading">¶</a></h2>
+<section id="example-transformation">
+<h2>Example Transformation<a class="headerlink" href="#example-transformation" title="Link to this heading">¶</a></h2>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">Split_column Rule Example</span><a class="headerlink" href="#id1" title="Link to this code">¶</a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="p">{</span>
-<span class="linenos"> 2</span><span class="w">    </span><span class="nt">&quot;rules&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="linenos"> 2</span><span class="w">    </span><span class="nt">&quot;transformations&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="linenos"> 3</span><span class="w">        </span><span class="p">{</span>
 <span class="linenos"> 4</span><span class="w">            </span><span class="nt">&quot;strategy&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;split_column&quot;</span><span class="p">,</span>
 <span class="linenos"> 5</span><span class="w">            </span><span class="nt">&quot;column&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;full_name&quot;</span><span class="p">,</span>
@@ -420,7 +420,7 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Split Column</a><ul>
-<li><a class="reference internal" href="#example-rule">Example Rule</a></li>
+<li><a class="reference internal" href="#example-transformation">Example Transformation</a></li>
 <li><a class="reference internal" href="#input-dataframe">Input DataFrame</a></li>
 <li><a class="reference internal" href="#expected-output">Expected Output</a></li>
 </ul>

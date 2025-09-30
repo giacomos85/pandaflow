@@ -273,22 +273,22 @@ It’s ideal for deriving values from existing columns, applying arithmetic, or 
 <li><p><strong>Description</strong>: Calculates a new column using a formula and optional output formatting.</p></li>
 </ul>
 </dd>
-<dt>Rule Format:</dt><dd><ul class="simple">
+<dt>Transformation Format:</dt><dd><ul class="simple">
 <li><p><cite>field</cite>: The target column to store the result</p></li>
 <li><p><cite>formula</cite>: A pandas-compatible expression (e.g. <cite>“price * quantity”</cite>)</p></li>
-<li><p><cite>output_rule</cite>: Optional formatter (e.g. <cite>“float_2dec”</cite>)</p></li>
+<li><p><cite>formatter</cite>: Optional formatter (e.g. <cite>“float_2dec”</cite>)</p></li>
 </ul>
 </dd>
 </dl>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">CalculateAmount Rule Example</span><a class="headerlink" href="#id1" title="Link to this code">¶</a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="p">{</span>
-<span class="linenos"> 2</span><span class="w">    </span><span class="nt">&quot;rules&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="linenos"> 2</span><span class="w">    </span><span class="nt">&quot;transformations&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="linenos"> 3</span><span class="w">        </span><span class="p">{</span>
 <span class="linenos"> 4</span><span class="w">            </span><span class="nt">&quot;strategy&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;calculate_amount&quot;</span><span class="p">,</span>
 <span class="linenos"> 5</span><span class="w">            </span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;total&quot;</span><span class="p">,</span>
 <span class="linenos"> 6</span><span class="w">            </span><span class="nt">&quot;formula&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;price * quantity&quot;</span><span class="p">,</span>
-<span class="linenos"> 7</span><span class="w">            </span><span class="nt">&quot;output_rule&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;float_2dec&quot;</span>
+<span class="linenos"> 7</span><span class="w">            </span><span class="nt">&quot;formatter&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;float_2dec&quot;</span>
 <span class="linenos"> 8</span><span class="w">        </span><span class="p">}</span>
 <span class="linenos"> 9</span><span class="w">    </span><span class="p">]</span>
 <span class="linenos">10</span><span class="p">}</span>
@@ -351,7 +351,7 @@ It’s ideal for deriving values from existing columns, applying arithmetic, or 
 <h2>Behavior Notes<a class="headerlink" href="#behavior-notes" title="Link to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>The formula is evaluated using <cite>pandas.eval()</cite></p></li>
-<li><p>If <cite>output_rule</cite> is provided, it formats the result (e.g. rounding)</p></li>
+<li><p>If <cite>formatter</cite> is provided, it formats the result (e.g. rounding)</p></li>
 <li><p>If the formula references missing columns, an error is raised</p></li>
 <li><p>The strategy overwrites the target column if it already exists</p></li>
 </ul>

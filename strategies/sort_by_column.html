@@ -271,19 +271,19 @@
 <li><p>author: “pandaflow team”</p></li>
 </ul>
 </dd>
-<dt>Rule Format:</dt><dd><ul class="simple">
+<dt>Transformation Format:</dt><dd><ul class="simple">
 <li><p>columns: List[str] — Columns to sort by (in priority order)</p></li>
 <li><p>ascending: Optional[List[bool]] — Sort direction per column (default: True for all)</p></li>
 <li><p>na_position: Optional[str] — “first” or “last” (default: “last”)</p></li>
 </ul>
 </dd>
 </dl>
-<section id="example-rule">
-<h2>Example Rule<a class="headerlink" href="#example-rule" title="Link to this heading">¶</a></h2>
+<section id="example-transformation">
+<h2>Example Transformation<a class="headerlink" href="#example-transformation" title="Link to this heading">¶</a></h2>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">Sort_by_column Rule Example</span><a class="headerlink" href="#id1" title="Link to this code">¶</a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="p">{</span>
-<span class="linenos"> 2</span><span class="w">    </span><span class="nt">&quot;rules&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="linenos"> 2</span><span class="w">    </span><span class="nt">&quot;transformations&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="linenos"> 3</span><span class="w">        </span><span class="p">{</span>
 <span class="linenos"> 4</span><span class="w">            </span><span class="nt">&quot;strategy&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sort_by_column&quot;</span><span class="p">,</span>
 <span class="linenos"> 5</span><span class="w">            </span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;_&quot;</span><span class="p">,</span>
@@ -331,9 +331,9 @@
 </section>
 <section id="expected-output">
 <h2>Expected Output<a class="headerlink" href="#expected-output" title="Link to this heading">¶</a></h2>
-<div class="table-wrapper docutils container" id="id3">
+<div class="table-wrapper colwidths-auto docutils container" id="id3">
 <table class="docutils align-default" id="id3">
-<caption><span class="caption-text">Output DataFrame</span><a class="headerlink" href="#id3" title="Link to this table">¶</a></caption>
+<caption><span class="caption-text">Extracted Output</span><a class="headerlink" href="#id3" title="Link to this table">¶</a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>name</p></th>
 <th class="head"><p>score</p></th>
@@ -341,21 +341,21 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>Bob</p></td>
-<td><p>92</p></td>
-<td><p>25</p></td>
-</tr>
-<tr class="row-odd"><td><p>Alice</p></td>
-<td><p>85</p></td>
-<td><p>30</p></td>
-</tr>
-<tr class="row-even"><td><p>Charlie</p></td>
-<td><p>85</p></td>
-<td><p>40</p></td>
-</tr>
-<tr class="row-odd"><td><p>Dana</p></td>
+<tr class="row-even"><td><p>Dana</p></td>
 <td></td>
 <td><p>22</p></td>
+</tr>
+<tr class="row-odd"><td><p>Bob</p></td>
+<td><p>92.0</p></td>
+<td><p>25</p></td>
+</tr>
+<tr class="row-even"><td><p>Alice</p></td>
+<td><p>85.0</p></td>
+<td><p>30</p></td>
+</tr>
+<tr class="row-odd"><td><p>Charlie</p></td>
+<td><p>85.0</p></td>
+<td><p>40</p></td>
 </tr>
 </tbody>
 </table>
@@ -419,7 +419,7 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Sort By Column</a><ul>
-<li><a class="reference internal" href="#example-rule">Example Rule</a></li>
+<li><a class="reference internal" href="#example-transformation">Example Transformation</a></li>
 <li><a class="reference internal" href="#input-dataframe">Input DataFrame</a></li>
 <li><a class="reference internal" href="#expected-output">Expected Output</a></li>
 </ul>

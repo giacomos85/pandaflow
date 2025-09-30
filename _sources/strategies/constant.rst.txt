@@ -10,16 +10,16 @@ Metadata:
    - **Author**: Pandaflow Team
    - **Description**: Sets a specified column to a constant value.
 
-Rule Format:
+Transformation Format:
    - Rules for this strategy must define the target field and the constant value to assign.
 
-Example Rule
+Example Transformation
 ------------
 
-.. literalinclude:: ../rules/constant.json
+.. literalinclude:: ../data/constant/pandaflow-config.json
    :language: json
    :linenos:
-   :caption: Example Rule Definition
+   :caption: Example Transformation Definition
 
 Input Data
 ----------
@@ -27,7 +27,7 @@ Input Data
 The following table shows the input DataFrame before applying the strategy:
 
 .. csv-table:: Input DataFrame
-   :file: ../data/constant_input.csv
+   :file: ../data/constant/input.csv
    :header-rows: 1
    :widths: auto
 
@@ -37,7 +37,7 @@ Result
 After applying the constant strategy, the output DataFrame includes the new column with the specified constant value:
 
 .. csv-table:: Transformed Output
-   :file: ../data/constant_output.csv
+   :file: ../data/constant/output.csv
    :header-rows: 1
    :widths: auto
 

@@ -273,7 +273,7 @@ This is useful for cleaning up labels, standardizing values, or removing unwante
 <li><p><strong>Description</strong>: Replaces occurrences of a substring in a specified column with another substring.</p></li>
 </ul>
 </dd>
-<dt>Rule Format:</dt><dd><ul class="simple">
+<dt>Transformation Format:</dt><dd><ul class="simple">
 <li><p><cite>field</cite>: The column to apply the replacement to</p></li>
 <li><p><cite>find</cite>: The substring or value to search for</p></li>
 <li><p><cite>replace</cite>: The string to replace it with</p></li>
@@ -283,7 +283,7 @@ This is useful for cleaning up labels, standardizing values, or removing unwante
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">Replace Rule Example</span><a class="headerlink" href="#id1" title="Link to this code">¶</a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="p">{</span>
-<span class="linenos"> 2</span><span class="w">    </span><span class="nt">&quot;rules&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="linenos"> 2</span><span class="w">    </span><span class="nt">&quot;transformations&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="linenos"> 3</span><span class="w">        </span><span class="p">{</span>
 <span class="linenos"> 4</span><span class="w">            </span><span class="nt">&quot;strategy&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;replace&quot;</span><span class="p">,</span>
 <span class="linenos"> 5</span><span class="w">            </span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;status&quot;</span><span class="p">,</span>
@@ -326,7 +326,7 @@ This is useful for cleaning up labels, standardizing values, or removing unwante
 <h2>Result<a class="headerlink" href="#result" title="Link to this heading">¶</a></h2>
 <div class="table-wrapper colwidths-auto docutils container" id="id3">
 <table class="docutils align-default" id="id3">
-<caption><span class="caption-text">Output with Replacements</span><a class="headerlink" href="#id3" title="Link to this table">¶</a></caption>
+<caption><span class="caption-text">Extracted Output</span><a class="headerlink" href="#id3" title="Link to this table">¶</a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>user_id</p></th>
 <th class="head"><p>status</p></th>

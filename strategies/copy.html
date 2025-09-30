@@ -274,31 +274,38 @@ It is useful for duplicating fields, normalizing formats, or creating derived co
 <li><p><strong>Description</strong>: Copies values from one column to another.</p></li>
 </ul>
 </section>
-<section id="rule-format">
-<h2>Rule Format<a class="headerlink" href="#rule-format" title="Link to this heading">¶</a></h2>
+<section id="transformation-format">
+<h2>Transformation Format<a class="headerlink" href="#transformation-format" title="Link to this heading">¶</a></h2>
 <p>The rule must specify the target field and source column. Optional keys allow for parsing, formatting, and fallback values.</p>
 <div class="literal-block-wrapper docutils container" id="id1">
-<div class="code-block-caption"><span class="caption-text">Example Rule Definition</span><a class="headerlink" href="#id1" title="Link to this code">¶</a></div>
+<div class="code-block-caption"><span class="caption-text">Example Transformation Definition</span><a class="headerlink" href="#id1" title="Link to this code">¶</a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="p">{</span>
-<span class="linenos"> 2</span><span class="w">    </span><span class="nt">&quot;rules&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="linenos"> 2</span><span class="w">    </span><span class="nt">&quot;data_sources&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="linenos"> 3</span><span class="w">        </span><span class="p">{</span>
-<span class="linenos"> 4</span><span class="w">            </span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;__total__&quot;</span><span class="p">,</span>
-<span class="linenos"> 5</span><span class="w">            </span><span class="nt">&quot;strategy&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;copy&quot;</span><span class="p">,</span>
-<span class="linenos"> 6</span><span class="w">            </span><span class="nt">&quot;source&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Amount&quot;</span><span class="p">,</span>
-<span class="linenos"> 7</span><span class="w">            </span><span class="nt">&quot;input_rule&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;default_currency&quot;</span><span class="p">,</span>
-<span class="linenos"> 8</span><span class="w">            </span><span class="nt">&quot;output_rule&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;float_2dec&quot;</span><span class="p">,</span>
-<span class="linenos"> 9</span><span class="w">            </span><span class="nt">&quot;fillna&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
-<span class="linenos">10</span><span class="w">        </span><span class="p">}</span>
-<span class="linenos">11</span><span class="w">    </span><span class="p">]</span>
-<span class="linenos">12</span><span class="p">}</span>
+<span class="linenos"> 4</span><span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;csv&quot;</span><span class="p">,</span>
+<span class="linenos"> 5</span><span class="w">            </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;./input.csv&quot;</span><span class="p">,</span>
+<span class="linenos"> 6</span><span class="w">            </span><span class="nt">&quot;parse_dates&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span>
+<span class="linenos"> 7</span><span class="w">        </span><span class="p">}</span>
+<span class="linenos"> 8</span><span class="w">    </span><span class="p">],</span>
+<span class="linenos"> 9</span><span class="w">    </span><span class="nt">&quot;transformations&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="linenos">10</span><span class="w">        </span><span class="p">{</span>
+<span class="linenos">11</span><span class="w">            </span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;__total__&quot;</span><span class="p">,</span>
+<span class="linenos">12</span><span class="w">            </span><span class="nt">&quot;strategy&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;copy&quot;</span><span class="p">,</span>
+<span class="linenos">13</span><span class="w">            </span><span class="nt">&quot;source&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Amount&quot;</span><span class="p">,</span>
+<span class="linenos">14</span><span class="w">            </span><span class="nt">&quot;parser&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;default_currency&quot;</span><span class="p">,</span>
+<span class="linenos">15</span><span class="w">            </span><span class="nt">&quot;formatter&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;float_2dec&quot;</span><span class="p">,</span>
+<span class="linenos">16</span><span class="w">            </span><span class="nt">&quot;fillna&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+<span class="linenos">17</span><span class="w">        </span><span class="p">}</span>
+<span class="linenos">18</span><span class="w">    </span><span class="p">]</span>
+<span class="linenos">19</span><span class="p">}</span>
 </pre></div>
 </div>
 </div>
 <ul class="simple">
 <li><p><cite>field</cite>: Target column to populate.</p></li>
 <li><p><cite>source</cite>: Source column to copy from. Defaults to <cite>field</cite> if omitted.</p></li>
-<li><p><cite>input_rule</cite>: Optional parser to apply to source values.</p></li>
-<li><p><cite>output_rule</cite>: Optional formatter to apply to parsed values.</p></li>
+<li><p><cite>parser</cite>: Optional parser to apply to source values.</p></li>
+<li><p><cite>formatter</cite>: Optional formatter to apply to parsed values.</p></li>
 <li><p><cite>fillna</cite>: Optional fallback value for empty or missing entries.</p></li>
 </ul>
 </section>
@@ -345,7 +352,7 @@ It is useful for duplicating fields, normalizing formats, or creating derived co
 <h2>Behavior Notes<a class="headerlink" href="#behavior-notes" title="Link to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>If <cite>source</cite> is missing, the strategy assumes <cite>source == field</cite>.</p></li>
-<li><p>If <cite>input_rule</cite> or <cite>output_rule</cite> are provided, they are applied in sequence.</p></li>
+<li><p>If <cite>parser</cite> or <cite>formatter</cite> are provided, they are applied in sequence.</p></li>
 <li><p>If <cite>fillna</cite> is defined, empty strings and <cite>NaN</cite> values are replaced accordingly.</p></li>
 <li><p>Raises <cite>ValueError</cite> if the source column is not found in the input DataFrame.</p></li>
 </ul>
@@ -409,7 +416,7 @@ It is useful for duplicating fields, normalizing formats, or creating derived co
             <ul>
 <li><a class="reference internal" href="#">Copy</a><ul>
 <li><a class="reference internal" href="#metadata">Metadata</a></li>
-<li><a class="reference internal" href="#rule-format">Rule Format</a></li>
+<li><a class="reference internal" href="#transformation-format">Transformation Format</a></li>
 <li><a class="reference internal" href="#input-example">Input Example</a></li>
 <li><a class="reference internal" href="#result">Result</a></li>
 <li><a class="reference internal" href="#behavior-notes">Behavior Notes</a></li>

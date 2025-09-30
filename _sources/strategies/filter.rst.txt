@@ -12,13 +12,13 @@ Metadata
 - **Author**: Pandaflow Team
 - **Description**: Filters rows using a formula-based condition.
 
-Rule Format
+Transformation Format
 ~~~~~~~~~~~
 
 The rule must include a `formula` that evaluates to a boolean mask.  
 The `field` key is optional and used for formatting or targeting a specific column.
 
-.. literalinclude:: ../rules/filter.json
+.. literalinclude:: ../data/filter/pandaflow-config.json
    :language: json
    :linenos:
    :caption: Filter Rule Example
@@ -27,7 +27,7 @@ Input Example
 ~~~~~~~~~~~~~
 
 .. csv-table:: Input DataFrame
-   :file: ../data/filter_input.csv
+   :file: ../data/filter/input.csv
    :header-rows: 1
    :widths: auto
 
@@ -35,7 +35,7 @@ Result
 ~~~~~~
 
 .. csv-table:: Filtered Output
-   :file: ../data/filter_output.csv
+   :file: ../data/filter/output.csv
    :header-rows: 1
    :widths: auto
 

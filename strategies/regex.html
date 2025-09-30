@@ -274,8 +274,8 @@ It’s ideal for parsing structured strings, extracting identifiers, or cleaning
 <li><p><strong>Description</strong>: Extracts data from a column using a regular expression.</p></li>
 </ul>
 </section>
-<section id="rule-format">
-<h2>Rule Format<a class="headerlink" href="#rule-format" title="Link to this heading">¶</a></h2>
+<section id="transformation-format">
+<h2>Transformation Format<a class="headerlink" href="#transformation-format" title="Link to this heading">¶</a></h2>
 <p>The rule must specify:</p>
 <ul class="simple">
 <li><p><cite>field</cite>: Target column to store the extracted value</p></li>
@@ -283,19 +283,19 @@ It’s ideal for parsing structured strings, extracting identifiers, or cleaning
 <li><p><cite>regex</cite>: Regular expression pattern</p></li>
 <li><p><cite>group_id</cite>: Group index to extract from the match</p></li>
 <li><p><cite>replace</cite>: Optional dictionary to map extracted values</p></li>
-<li><p><cite>output_rule</cite>: Optional formatter to apply to the result</p></li>
+<li><p><cite>formatter</cite>: Optional formatter to apply to the result</p></li>
 </ul>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">Regex Rule Example</span><a class="headerlink" href="#id1" title="Link to this code">¶</a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="p">{</span>
-<span class="linenos"> 2</span><span class="w">    </span><span class="nt">&quot;rules&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="linenos"> 2</span><span class="w">    </span><span class="nt">&quot;transformations&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="linenos"> 3</span><span class="w">        </span><span class="p">{</span>
 <span class="linenos"> 4</span><span class="w">            </span><span class="nt">&quot;strategy&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;regex&quot;</span><span class="p">,</span>
 <span class="linenos"> 5</span><span class="w">            </span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;product_code&quot;</span><span class="p">,</span>
 <span class="linenos"> 6</span><span class="w">            </span><span class="nt">&quot;source&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;description&quot;</span><span class="p">,</span>
 <span class="linenos"> 7</span><span class="w">            </span><span class="nt">&quot;regex&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Product\\s+(\\d+)&quot;</span><span class="p">,</span>
 <span class="linenos"> 8</span><span class="w">            </span><span class="nt">&quot;group_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
-<span class="linenos"> 9</span><span class="w">            </span><span class="nt">&quot;output_rule&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;str_upper&quot;</span>
+<span class="linenos"> 9</span><span class="w">            </span><span class="nt">&quot;formatter&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;str_upper&quot;</span>
 <span class="linenos">10</span><span class="w">        </span><span class="p">}</span>
 <span class="linenos">11</span><span class="w">    </span><span class="p">]</span>
 <span class="linenos">12</span><span class="p">}</span>
@@ -358,7 +358,7 @@ It’s ideal for parsing structured strings, extracting identifiers, or cleaning
 <li><p>If the regex does not match, the result is an empty string.</p></li>
 <li><p>If <cite>group_id</cite> is out of bounds, the result is empty.</p></li>
 <li><p>If <cite>replace</cite> is provided, extracted values are mapped accordingly.</p></li>
-<li><p>If <cite>output_rule</cite> is defined, it is applied after extraction and replacement.</p></li>
+<li><p>If <cite>formatter</cite> is defined, it is applied after extraction and replacement.</p></li>
 </ul>
 </section>
 </section>
@@ -420,7 +420,7 @@ It’s ideal for parsing structured strings, extracting identifiers, or cleaning
             <ul>
 <li><a class="reference internal" href="#">RegEx</a><ul>
 <li><a class="reference internal" href="#metadata">Metadata</a></li>
-<li><a class="reference internal" href="#rule-format">Rule Format</a></li>
+<li><a class="reference internal" href="#transformation-format">Transformation Format</a></li>
 <li><a class="reference internal" href="#input-example">Input Example</a></li>
 <li><a class="reference internal" href="#result">Result</a></li>
 <li><a class="reference internal" href="#behavior-notes">Behavior Notes</a></li>

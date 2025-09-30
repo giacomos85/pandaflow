@@ -274,8 +274,8 @@ This is useful for assigning identifiers, anonymizing records, or tracking row-l
 <li><p><strong>Description</strong>: Generates UUIDv7 values for a specified column.</p></li>
 </ul>
 </section>
-<section id="rule-format">
-<h2>Rule Format<a class="headerlink" href="#rule-format" title="Link to this heading">¶</a></h2>
+<section id="transformation-format">
+<h2>Transformation Format<a class="headerlink" href="#transformation-format" title="Link to this heading">¶</a></h2>
 <p>The rule must specify:</p>
 <ul class="simple">
 <li><p><cite>field</cite>: The column name where UUIDs will be stored</p></li>
@@ -283,7 +283,7 @@ This is useful for assigning identifiers, anonymizing records, or tracking row-l
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">UUID Rule Example</span><a class="headerlink" href="#id1" title="Link to this code">¶</a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="p">{</span>
-<span class="linenos">2</span><span class="w">    </span><span class="nt">&quot;rules&quot;</span><span class="p">:[</span>
+<span class="linenos">2</span><span class="w">    </span><span class="nt">&quot;transformations&quot;</span><span class="p">:[</span>
 <span class="linenos">3</span><span class="w">        </span><span class="p">{</span>
 <span class="linenos">4</span><span class="w">            </span><span class="nt">&quot;strategy&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uuid&quot;</span><span class="p">,</span>
 <span class="linenos">5</span><span class="w">            </span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;record_id&quot;</span>
@@ -406,7 +406,7 @@ This is useful for assigning identifiers, anonymizing records, or tracking row-l
             <ul>
 <li><a class="reference internal" href="#">UUID</a><ul>
 <li><a class="reference internal" href="#metadata">Metadata</a></li>
-<li><a class="reference internal" href="#rule-format">Rule Format</a></li>
+<li><a class="reference internal" href="#transformation-format">Transformation Format</a></li>
 <li><a class="reference internal" href="#input-example">Input Example</a></li>
 <li><a class="reference internal" href="#result">Result</a></li>
 <li><a class="reference internal" href="#behavior-notes">Behavior Notes</a></li>

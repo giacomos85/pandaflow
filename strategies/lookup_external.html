@@ -272,7 +272,7 @@
 <li><p>description: “Looks up values from an external CSV file based on a key column”</p></li>
 </ul>
 </dd>
-<dt>Rule Format:</dt><dd><ul class="simple">
+<dt>Transformation Format:</dt><dd><ul class="simple">
 <li><p>field: str — Name of the output column to store mapped values</p></li>
 <li><p>source: str — Column in the input DataFrame to match (defaults to <cite>field</cite>)</p></li>
 <li><p>file: str — Path to external CSV file (supports <cite>${output}</cite> and <cite>${year}</cite> placeholders)</p></li>
@@ -282,8 +282,8 @@
 </ul>
 </dd>
 </dl>
-<section id="example-rule">
-<h2>Example Rule<a class="headerlink" href="#example-rule" title="Link to this heading">¶</a></h2>
+<section id="example-transformation">
+<h2>Example Transformation<a class="headerlink" href="#example-transformation" title="Link to this heading">¶</a></h2>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;strategy&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;lookup_external&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;country_name&quot;</span><span class="p">,</span>
@@ -427,7 +427,7 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Lookup External Strategy</a><ul>
-<li><a class="reference internal" href="#example-rule">Example Rule</a></li>
+<li><a class="reference internal" href="#example-transformation">Example Transformation</a></li>
 <li><a class="reference internal" href="#input-dataframe">Input DataFrame</a></li>
 <li><a class="reference internal" href="#external-csv-data-2025-countries-lookup-csv">External CSV (<cite>data/2025/countries_lookup.csv</cite>)</a></li>
 <li><a class="reference internal" href="#expected-output">Expected Output</a></li>
