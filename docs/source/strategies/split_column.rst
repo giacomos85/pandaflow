@@ -8,7 +8,7 @@ Metadata:
     - version: "1.0.0"
     - author: "pandaflow team"
 
-Rule Format:
+Transformation Format:
     - column: str — Column to split
     - delimiter: str — Delimiter to use
     - maxsplit: Optional[int] — Max number of splits (-1 = no limit)

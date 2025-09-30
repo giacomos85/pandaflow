@@ -8,7 +8,7 @@ Metadata:
     - version: "1.0.0"
     - author: "pandaflow team"
 
-Rule Format:
+Transformation Format:
     - numerator: str — Column name for numerator
     - denominator: str — Column name for denominator
     - field: str — Name of the output column

@@ -16,8 +16,8 @@ def transform_dataframe(
     Returns:
         Transformed DataFrame, or None if skipped due to match transformations.
     """
-    for rule in config.transformations:
-        df = rule.run(df)
+    for t in config.transformations:
+        df = t.run(df)
     return df
 
 

@@ -10,7 +10,7 @@ Metadata:
    - **Author**: Pandaflow Team
    - **Description**: Calculates a new column using a formula and optional output formatting.
 
-Rule Format:
+Transformation Format:
    - `field`: The target column to store the result
    - `formula`: A pandas-compatible expression (e.g. `"price * quantity"`)
    - `formatter`: Optional formatter (e.g. `"float_2dec"`)

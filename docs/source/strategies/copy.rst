@@ -12,7 +12,7 @@ Metadata
 - **Author**: Pandaflow Team
 - **Description**: Copies values from one column to another.
 
-Rule Format
+Transformation Format
 ~~~~~~~~~~~
 
 The rule must specify the target field and source column. Optional keys allow for parsing, formatting, and fallback values.
@@ -20,7 +20,7 @@ The rule must specify the target field and source column. Optional keys allow fo
 .. literalinclude:: ../data/copy/pandaflow-config.json
    :language: json
    :linenos:
-   :caption: Example Rule Definition
+   :caption: Example Transformation Definition
 
 - `field`: Target column to populate.
 - `source`: Source column to copy from. Defaults to `field` if omitted.

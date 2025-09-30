@@ -12,7 +12,7 @@ Metadata
 - **Author**: Pandaflow Team
 - **Description**: Generates a hash from specified columns.
 
-Rule Format
+Transformation Format
 ~~~~~~~~~~~
 
 The rule must specify:

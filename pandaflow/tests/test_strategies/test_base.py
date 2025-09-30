@@ -25,7 +25,7 @@ def test_apply_not_implemented():
     class IncompleteStrategy(TransformationStrategy):
         pass
 
-    strategy = IncompleteStrategy({})
+    strategy = IncompleteStrategy({"field": "B"})
     df = pd.DataFrame({"A": [1]})
     with pytest.raises(NotImplementedError, match="Must implement apply method"):
-        strategy.apply(df, {"field": "B"})
+        strategy.apply(df)

@@ -9,7 +9,7 @@ Metadata:
     - author: "pandaflow team"
     - description: "Looks up values from an external CSV file based on a key column"
 
-Rule Format:
+Transformation Format:
     - field: str — Name of the output column to store mapped values
     - source: str — Column in the input DataFrame to match (defaults to `field`)
     - file: str — Path to external CSV file (supports `${output}` and `${year}` placeholders)

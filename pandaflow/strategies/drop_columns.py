@@ -22,7 +22,7 @@ class DropColumnsStrategy(TransformationStrategy):
         - version: "1.0.0"
         - author: "pandaflow team"
 
-    Rule Format:
+    Transformation Format:
         - columns: List[str] — List of column names to drop
         - errors: Optional[str] — "raise" or "ignore" if column is missing (default: "raise")
 

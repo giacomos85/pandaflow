@@ -8,7 +8,7 @@ Metadata:
     - version: "1.0.0"
     - author: "pandaflow team"
 
-Rule Format:
+Transformation Format:
     - columns: List[str] — Columns to sort by (in priority order)
     - ascending: Optional[List[bool]] — Sort direction per column (default: True for all)
     - na_position: Optional[str] — "first" or "last" (default: "last")

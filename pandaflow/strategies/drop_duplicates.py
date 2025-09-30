@@ -23,7 +23,7 @@ class DropDuplicatesStrategy(TransformationStrategy):
         - version: "1.0.0"
         - author: "pandaflow team"
 
-    Rule Format:
+    Transformation Format:
         - subset: Optional[List[str]] — Columns to consider for identifying duplicates
         - keep: Optional[str] — "first", "last", or False (default: "first")
         - reset_index: Optional[bool] — Whether to reset the index after dropping

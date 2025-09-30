@@ -12,7 +12,7 @@ Metadata
 - **Author**: Pandaflow Team
 - **Description**: Generates UUIDv7 values for a specified column.
 
-Rule Format
+Transformation Format
 ~~~~~~~~~~~
 
 The rule must specify:

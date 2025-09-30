@@ -12,7 +12,7 @@ Metadata
 - **Author**: Pandaflow Team
 - **Description**: Extracts data from a column using a regular expression.
 
-Rule Format
+Transformation Format
 ~~~~~~~~~~~
 
 The rule must specify:

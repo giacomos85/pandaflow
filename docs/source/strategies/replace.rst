@@ -10,7 +10,7 @@ Metadata:
    - **Author**: Pandaflow Team
    - **Description**: Replaces occurrences of a substring in a specified column with another substring.
 
-Rule Format:
+Transformation Format:
    - `field`: The column to apply the replacement to
    - `find`: The substring or value to search for
    - `replace`: The string to replace it with

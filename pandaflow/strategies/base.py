@@ -20,5 +20,5 @@ class TransformationStrategy:
         df_copy = self.apply(df_copy, **kwargs)
         return df_copy
 
-    def apply(self, df: pd.DataFrame, rule: dict) -> pd.DataFrame:
+    def apply(self, df: pd.DataFrame) -> pd.DataFrame:
         raise NotImplementedError("Must implement apply method")

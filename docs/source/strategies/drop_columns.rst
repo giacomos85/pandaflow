@@ -8,7 +8,7 @@ Metadata:
     - version: "1.0.0"
     - author: "pandaflow team"
 
-Rule Format:
+Transformation Format:
     - columns: List[str] — List of column names to drop
     - errors: Optional[str] — "raise" or "ignore" if column is missing (default: "raise")
 
@@ -18,7 +18,7 @@ Example Transformation
 .. literalinclude:: ../data/drop_columns/pandaflow-config.json
    :language: json
    :linenos:
-   :caption: Example Rule Definition
+   :caption: Example Transformation Definition
 
 Input Example
 ~~~~~~~~~~~~~

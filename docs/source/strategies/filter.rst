@@ -12,7 +12,7 @@ Metadata
 - **Author**: Pandaflow Team
 - **Description**: Filters rows using a formula-based condition.
 
-Rule Format
+Transformation Format
 ~~~~~~~~~~~
 
 The rule must include a `formula` that evaluates to a boolean mask.  

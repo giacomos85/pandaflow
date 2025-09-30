@@ -10,7 +10,7 @@ Metadata:
    - **Author**: Pandaflow Team
    - **Description**: Sets a specified column to a constant value.
 
-Rule Format:
+Transformation Format:
    - Rules for this strategy must define the target field and the constant value to assign.
 
 Example Transformation
@@ -19,7 +19,7 @@ Example Transformation
 .. literalinclude:: ../data/constant/pandaflow-config.json
    :language: json
    :linenos:
-   :caption: Example Rule Definition
+   :caption: Example Transformation Definition
 
 Input Data
 ----------

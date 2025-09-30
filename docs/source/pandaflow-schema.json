@@ -1,30 +1,5 @@
 {
   "$defs": {
-    "Transformation": {
-      "properties": {
-        "strategy": {
-          "title": "Strategy",
-          "type": "string"
-        },
-        "version": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Version"
-        }
-      },
-      "required": [
-        "strategy"
-      ],
-      "title": "Transformation",
-      "type": "object"
-    },
     "DataSourceConfig": {
       "properties": {
         "type": {
@@ -180,6 +155,31 @@
         }
       },
       "title": "LoadConfig",
+      "type": "object"
+    },
+    "PandaFlowTransformation": {
+      "properties": {
+        "strategy": {
+          "title": "Strategy",
+          "type": "string"
+        },
+        "version": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Version"
+        }
+      },
+      "required": [
+        "strategy"
+      ],
+      "title": "PandaFlowTransformation",
       "type": "object"
     }
   },
@@ -337,7 +337,7 @@
           "formula",
           "field"
         ],
-        "title": "CalculateAmountRule",
+        "title": "CalculateAmountTransformation",
         "type": "object"
       },
       "calculate_ratio:1.0.0": {
@@ -383,7 +383,7 @@
           "numerator",
           "denominator"
         ],
-        "title": "CalculateRatioRule",
+        "title": "CalculateRatioTransformation",
         "type": "object"
       },
       "constant:1.0.0": {
@@ -419,7 +419,7 @@
           "strategy",
           "field"
         ],
-        "title": "ConstantRule",
+        "title": "ConstantTransformation",
         "type": "object"
       },
       "copy:1.0.0": {
@@ -501,7 +501,7 @@
           "field",
           "source"
         ],
-        "title": "CopyRule",
+        "title": "CopyTransformation",
         "type": "object"
       },
       "drop_columns:1.0.0": {
@@ -540,7 +540,7 @@
           "strategy",
           "columns"
         ],
-        "title": "DropColumnsRule",
+        "title": "DropColumnsTransformation",
         "type": "object"
       },
       "drop_duplicates:1.0.0": {
@@ -605,7 +605,7 @@
         "required": [
           "strategy"
         ],
-        "title": "DropDuplicatesRule",
+        "title": "DropDuplicatesTransformation",
         "type": "object"
       },
       "filter:1.0.0": {
@@ -646,7 +646,7 @@
           "field",
           "formula"
         ],
-        "title": "FilterByFormulaRule",
+        "title": "FilterByFormulaTransformation",
         "type": "object"
       },
       "hash:1.0.0": {
@@ -690,7 +690,7 @@
           "source",
           "function"
         ],
-        "title": "HashRule",
+        "title": "HashTransformation",
         "type": "object"
       },
       "lookup_external:1.0.0": {
@@ -746,7 +746,7 @@
           "key",
           "value"
         ],
-        "title": "LookupExternalRule",
+        "title": "LookupExternalTransformation",
         "type": "object"
       },
       "merge:1.0.0": {
@@ -805,7 +805,7 @@
           "field",
           "source"
         ],
-        "title": "MergeRule",
+        "title": "MergeTransformation",
         "type": "object"
       },
       "merge_formula:1.0.0": {
@@ -887,7 +887,7 @@
           "strategy",
           "field"
         ],
-        "title": "MergeFormulaRule",
+        "title": "MergeFormulaTransformation",
         "type": "object"
       },
       "regex:1.0.0": {
@@ -946,7 +946,7 @@
           "regex",
           "group_id"
         ],
-        "title": "RegexRule",
+        "title": "RegexTransformation",
         "type": "object"
       },
       "reorder_columns:1.0.0": {
@@ -980,7 +980,7 @@
           "strategy",
           "columns"
         ],
-        "title": "ReorderColumnsRule",
+        "title": "ReorderColumnsTransformation",
         "type": "object"
       },
       "replace:1.0.0": {
@@ -1028,7 +1028,7 @@
           "find",
           "replace"
         ],
-        "title": "ReplaceRule",
+        "title": "ReplaceTransformation",
         "type": "object"
       },
       "sort_by_column:1.0.0": {
@@ -1079,7 +1079,7 @@
           "strategy",
           "columns"
         ],
-        "title": "SortByColumnRule",
+        "title": "SortByColumnTransformation",
         "type": "object"
       },
       "split_column:1.0.0": {
@@ -1130,7 +1130,7 @@
           "column",
           "delimiter"
         ],
-        "title": "SplitColumnRule",
+        "title": "SplitColumnTransformation",
         "type": "object"
       },
       "uuid:1.0.0": {
@@ -1161,7 +1161,7 @@
           "strategy",
           "field"
         ],
-        "title": "UUIDRule",
+        "title": "UUIDTransformation",
         "type": "object"
       }
     }

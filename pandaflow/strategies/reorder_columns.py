@@ -21,7 +21,7 @@ class ReorderColumnsStrategy(TransformationStrategy):
         - version: "1.0.0"
         - author: "pandaflow team"
 
-    Rule Format:
+    Transformation Format:
         - columns: List[str] — Desired column order (must match existing columns)
 
     Example:
