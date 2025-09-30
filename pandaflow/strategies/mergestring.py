@@ -10,7 +10,7 @@ class MergeFormulaRule(BaseRule):
     strategy: Literal["merge_formula"]
     field: str
     formula: Optional[str] = None
-    output_rule: Optional[str] = None
+    formatter: Optional[str] = None
     source: Optional[List[str]] = None
     separator: Optional[str] = " "
 
@@ -36,7 +36,7 @@ class MergeStringStrategy(TransformationStrategy):
         source_cols = self.config.source
 
         # Get formatter if needed
-        format_value = get_output_formatter(self.config.output_rule)
+        format_value = get_output_formatter(self.config.formatter)
 
         if formula:
             # Use apply with eval-like string formatting

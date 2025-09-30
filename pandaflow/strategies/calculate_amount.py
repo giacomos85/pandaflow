@@ -9,7 +9,7 @@ from pandaflow.strategies.base import TransformationStrategy
 class CalculateAmountRule(BaseRule):
     strategy: Literal["calculate_amount"]
     formula: str
-    output_rule: str = None
+    formatter: str = None
     field: str
 
 
@@ -29,10 +29,10 @@ class CalculateAmountStrategy(TransformationStrategy):
 
     def apply(self, df: pd.DataFrame):
 
-        format_value = get_output_formatter(self.config.output_rule)
+        format_value = get_output_formatter(self.config.formatter)
 
         df.eval(f"{self.config.field} = {self.config.formula}", inplace=True)
-        format_value = get_output_formatter(self.config.output_rule)
+        format_value = get_output_formatter(self.config.formatter)
 
         df[self.config.field] = df[self.config.field].apply(format_value)
         return df

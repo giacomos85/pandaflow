@@ -38,7 +38,7 @@ def test_valid_regex_extraction(strategy_cls, sample_df):
         "source": "raw",
         "regex": r"Order\s+#(\d+)",
         "group_id": 1,
-        "output_rule": "custom",
+        "formatter": "custom",
     }
     strategy = strategy_cls(rule)
     result = strategy.run(sample_df)
@@ -95,11 +95,11 @@ def test_validate_rule(strategy_cls):
         "source": "raw",
         "regex": r"Order\s+#(\d+)",
         "group_id": 1,
-        "output_rule": "custom",
+        "formatter": "custom",
     }
     strategy = strategy_cls(rule)
     validated = strategy.validate_rule()
     assert validated.source == "raw"
     assert validated.regex == rule["regex"]
     assert validated.group_id == 1
-    assert validated.output_rule == "custom"
+    assert validated.formatter == "custom"

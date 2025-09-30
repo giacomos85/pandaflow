@@ -10,7 +10,7 @@ class FilterByFormulaRule(BaseRule):
     strategy: Literal["filter"]
     field: str
     formula: str
-    output_rule: str = None
+    formatter: str = None
 
 
 class FilterByFormulaStrategy(TransformationStrategy):
@@ -39,7 +39,7 @@ class FilterByFormulaStrategy(TransformationStrategy):
             df_filtered = df[mask].copy()
 
             # Optional: format output field if needed
-            format_value = get_output_formatter(self.config.output_rule)
+            format_value = get_output_formatter(self.config.formatter)
             if self.config.field in df_filtered.columns:
                 df_filtered[self.config.field] = df_filtered[self.config.field].apply(
                     format_value

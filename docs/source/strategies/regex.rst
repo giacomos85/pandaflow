@@ -22,7 +22,7 @@ The rule must specify:
 - `regex`: Regular expression pattern
 - `group_id`: Group index to extract from the match
 - `replace`: Optional dictionary to map extracted values
-- `output_rule`: Optional formatter to apply to the result
+- `formatter`: Optional formatter to apply to the result
 
 .. literalinclude:: ../data/regex/pandaflow-config.json
    :language: json
@@ -51,5 +51,5 @@ Behavior Notes
 - If the regex does not match, the result is an empty string.
 - If `group_id` is out of bounds, the result is empty.
 - If `replace` is provided, extracted values are mapped accordingly.
-- If `output_rule` is defined, it is applied after extraction and replacement.
+- If `formatter` is defined, it is applied after extraction and replacement.
 

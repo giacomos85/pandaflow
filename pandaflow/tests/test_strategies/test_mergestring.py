@@ -56,12 +56,12 @@ def test_validate_rule():
         "field": "__full_name__",
         "strategy": "merge_formula",
         "formula": "first_name + ' ' + last_name",
-        "output_rule": "custom_format",
+        "formatter": "custom_format",
     }
     strategy = MergeStringStrategy(rule)
     validated = strategy.validate_rule()
     assert validated.formula == rule["formula"]
-    assert validated.output_rule == rule["output_rule"]
+    assert validated.formatter == rule["formatter"]
 
 
 def test_merge_with_missing_column_in_formula(sample_df):

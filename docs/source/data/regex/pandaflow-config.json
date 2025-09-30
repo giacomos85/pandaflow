@@ -6,7 +6,7 @@
             "source": "description",
             "regex": "Product\\s+(\\d+)",
             "group_id": 1,
-            "output_rule": "str_upper"
+            "formatter": "str_upper"
         }
     ]
 }

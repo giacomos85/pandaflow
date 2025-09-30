@@ -10,15 +10,15 @@ def test_validate_rule_parses_correctly():
         "field": "__amount__",
         "strategy": "copy",
         "source": "Amount",
-        "input_rule": "default_currency",
-        "output_rule": "float_2dec",
+        "parser": "default_currency",
+        "formatter": "float_2dec",
         "fillna": 0.0,
     }
     rule = CopyRule(**rule_dict)
     assert isinstance(rule, CopyRule)
     assert rule.source == "Amount"
-    assert rule.input_rule == "default_currency"
-    assert rule.output_rule == "float_2dec"
+    assert rule.parser == "default_currency"
+    assert rule.formatter == "float_2dec"
     assert rule.fillna == 0.0
 
 
@@ -28,8 +28,8 @@ def test_apply_with_input_and_output_transformations():
         "field": "__amount__",
         "strategy": "copy",
         "source": "Amount",
-        "input_rule": "default_currency",
-        "output_rule": "float_2dec",
+        "parser": "default_currency",
+        "formatter": "float_2dec",
     }
     strategy = CopyStrategy(rule)
     result = strategy.run(df)
@@ -45,8 +45,8 @@ def test_apply_with_fillna_replaces_empty_and_null():
         "field": "__amount__",
         "strategy": "copy",
         "source": "Amount",
-        "input_rule": "default_currency",
-        "output_rule": "float_2dec",
+        "parser": "default_currency",
+        "formatter": "float_2dec",
         "fillna": "0.00",
     }
     strategy = CopyStrategy(rule)

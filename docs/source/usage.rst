@@ -34,7 +34,7 @@ Let’s say you want to copy values from one column to another and format them t
                 "strategy": "copy",
                 "field": "__amount__",
                 "source": "__total__",
-                "output_rule": "float_2dec"
+                "formatter": "float_2dec"
             }
         ]
     }

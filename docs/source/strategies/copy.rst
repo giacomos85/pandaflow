@@ -24,8 +24,8 @@ The rule must specify the target field and source column. Optional keys allow fo
 
 - `field`: Target column to populate.
 - `source`: Source column to copy from. Defaults to `field` if omitted.
-- `input_rule`: Optional parser to apply to source values.
-- `output_rule`: Optional formatter to apply to parsed values.
+- `parser`: Optional parser to apply to source values.
+- `formatter`: Optional formatter to apply to parsed values.
 - `fillna`: Optional fallback value for empty or missing entries.
 
 Input Example
@@ -48,6 +48,6 @@ Behavior Notes
 ~~~~~~~~~~~~~~
 
 - If `source` is missing, the strategy assumes `source == field`.
-- If `input_rule` or `output_rule` are provided, they are applied in sequence.
+- If `parser` or `formatter` are provided, they are applied in sequence.
 - If `fillna` is defined, empty strings and `NaN` values are replaced accordingly.
 - Raises `ValueError` if the source column is not found in the input DataFrame.

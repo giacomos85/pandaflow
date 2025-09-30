@@ -4,7 +4,7 @@
             "strategy": "calculate_amount",
             "field": "total",
             "formula": "price * quantity",
-            "output_rule": "float_2dec"
+            "formatter": "float_2dec"
         }
     ]
 }

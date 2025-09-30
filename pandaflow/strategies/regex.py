@@ -14,7 +14,7 @@ class RegexRule(BaseRule):
     regex: str
     group_id: int
     replace: Dict[str, str] = None
-    output_rule: str = None
+    formatter: str = None
 
 
 class RegExStrategy(TransformationStrategy):
@@ -35,7 +35,7 @@ class RegExStrategy(TransformationStrategy):
 
         source_col = self.config.source
 
-        format_value = get_output_formatter(self.config.output_rule)
+        format_value = get_output_formatter(self.config.formatter)
 
         if source_col not in df.columns:
             raise ValueError(

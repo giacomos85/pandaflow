@@ -13,7 +13,7 @@ Metadata:
 Rule Format:
    - `field`: The target column to store the result
    - `formula`: A pandas-compatible expression (e.g. `"price * quantity"`)
-   - `output_rule`: Optional formatter (e.g. `"float_2dec"`)
+   - `formatter`: Optional formatter (e.g. `"float_2dec"`)
 
 .. literalinclude:: ../data/calculate_amount/pandaflow-config.json
    :language: json
@@ -40,7 +40,7 @@ Behavior Notes
 ~~~~~~~~~~~~~~
 
 - The formula is evaluated using `pandas.eval()`
-- If `output_rule` is provided, it formats the result (e.g. rounding)
+- If `formatter` is provided, it formats the result (e.g. rounding)
 - If the formula references missing columns, an error is raised
 - The strategy overwrites the target column if it already exists
 

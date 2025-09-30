@@ -12,8 +12,8 @@ class CopyRule(BaseRule):
     field: str
     source: str | None
     fillna: Optional[Union[float, int]] = None
-    input_rule: Optional[str] = None
-    output_rule: Optional[str] = None
+    parser: Optional[str] = None
+    formatter: Optional[str] = None
 
 
 class CopyStrategy(TransformationStrategy):
@@ -37,8 +37,8 @@ class CopyStrategy(TransformationStrategy):
                 f"Column '{col}' not found in input data for field {self.config.field}"
             )
 
-        parse_number = get_input_parser(self.config.input_rule)
-        format_value = get_output_formatter(self.config.output_rule)
+        parse_number = get_input_parser(self.config.parser)
+        format_value = get_output_formatter(self.config.formatter)
 
         df[self.config.field] = df[col].apply(parse_number).apply(format_value)
 

@@ -322,7 +322,7 @@
             "title": "Formula",
             "type": "string"
           },
-          "output_rule": {
+          "formatter": {
             "default": null,
             "title": "Output Rule",
             "type": "string"
@@ -471,7 +471,7 @@
             "default": null,
             "title": "Fillna"
           },
-          "input_rule": {
+          "parser": {
             "anyOf": [
               {
                 "type": "string"
@@ -483,7 +483,7 @@
             "default": null,
             "title": "Input Rule"
           },
-          "output_rule": {
+          "formatter": {
             "anyOf": [
               {
                 "type": "string"
@@ -635,7 +635,7 @@
             "title": "Formula",
             "type": "string"
           },
-          "output_rule": {
+          "formatter": {
             "default": null,
             "title": "Output Rule",
             "type": "string"
@@ -843,7 +843,7 @@
             "default": null,
             "title": "Formula"
           },
-          "output_rule": {
+          "formatter": {
             "anyOf": [
               {
                 "type": "string"
@@ -933,7 +933,7 @@
             "title": "Replace",
             "type": "object"
           },
-          "output_rule": {
+          "formatter": {
             "default": null,
             "title": "Output Rule",
             "type": "string"
