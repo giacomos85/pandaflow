@@ -32,7 +32,7 @@ def sample_df():
 
 
 def test_valid_regex_extraction(strategy_cls, sample_df):
-    rule = {
+    transformation = {
         "strategy": "regex",
         "field": "__order_id__",
         "source": "raw",
@@ -40,7 +40,7 @@ def test_valid_regex_extraction(strategy_cls, sample_df):
         "group_id": 1,
         "formatter": "custom",
     }
-    strategy = strategy_cls(rule)
+    strategy = strategy_cls(transformation)
     result = strategy.run(sample_df)
     expected = ["formatted-12345", "formatted-67890", "", "formatted-00001"]
     assert result["__order_id__"].tolist() == expected
@@ -48,41 +48,41 @@ def test_valid_regex_extraction(strategy_cls, sample_df):
 
 def test_missing_source_column_raises(strategy_cls):
     df = pd.DataFrame({"other": ["text"]})
-    rule = {
+    transformation = {
         "strategy": "regex",
         "field": "__out__",
         "source": "missing",
         "regex": r"(.*)",
         "group_id": 1,
     }
-    strategy = strategy_cls(rule)
+    strategy = strategy_cls(transformation)
     with pytest.raises(ValueError, match="Columns 'missing' not found"):
         strategy.run(df)
 
 
 def test_invalid_regex_returns_empty(strategy_cls):
     df = pd.DataFrame({"raw": ["Order #12345"]})
-    rule = {
+    transformation = {
         "strategy": "regex",
         "field": "__out__",
         "source": "raw",
         "regex": r"Order\s+#([",  # Invalid regex
         "group_id": 1,
     }
-    strategy = strategy_cls(rule)
+    strategy = strategy_cls(transformation)
     with pytest.raises(Exception):
         strategy.run(df)
 
 
 def test_group_id_out_of_range_returns_none(strategy_cls):
     df = pd.DataFrame({"raw": ["Order #12345"]})
-    rule = {
+    transformation = {
         "strategy": "regex",
         "field": "__out__",
         "source": "raw",
         "regex": r"Order\s+#(\d+)",
         "group_id": 2,  # Only one group exists
     }
-    strategy = strategy_cls(rule)
+    strategy = strategy_cls(transformation)
     result = strategy.run(df)
     assert result["__out__"].tolist() == [""]

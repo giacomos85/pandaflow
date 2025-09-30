@@ -11,7 +11,7 @@ def input_df():
 
 
 def test_missing_file_returns_not_found(input_df):
-    rule = {
+    transformation = {
         "field": "label",
         "strategy": "lookup_external",
         "source": "code",
@@ -20,7 +20,7 @@ def test_missing_file_returns_not_found(input_df):
         "value": "label",
         "not_found": "N/A",
     }
-    strategy = LookupExternalStrategy(rule)
+    strategy = LookupExternalStrategy(transformation)
     result = strategy.run(input_df, output="output.csv")
     assert result["label"].tolist() == ["N/A", "N/A", "N/A"]
 
@@ -32,7 +32,7 @@ def test_missing_lookup_columns_raises(input_df):
             lookup_path, index=False
         )
 
-        rule = {
+        transformation = {
             "strategy": "lookup_external",
             "field": "label",
             "source": "code",
@@ -40,7 +40,7 @@ def test_missing_lookup_columns_raises(input_df):
             "key": "code",
             "value": "label",
         }
-        strategy = LookupExternalStrategy(rule)
+        strategy = LookupExternalStrategy(transformation)
         with pytest.raises(
             ValueError,
             match=f"Key \\[code\\] or value \\[label\\] column not found in CSV for field label. Columns found: wrong, data. {lookup_path}",
@@ -55,7 +55,7 @@ def test_missing_source_column_raises(input_df):
             lookup_path, index=False
         )
 
-        rule = {
+        transformation = {
             "strategy": "lookup_external",
             "field": "label",
             "source": "missing",
@@ -64,7 +64,7 @@ def test_missing_source_column_raises(input_df):
             "value": "label",
         }
         with pytest.raises(ValueError, match="Source column 'missing' not found"):
-            strategy = LookupExternalStrategy(rule)
+            strategy = LookupExternalStrategy(transformation)
             strategy.run(input_df, output="output.csv")
 
 
@@ -75,7 +75,7 @@ def test_successful_lookup(input_df):
             lookup_path, index=False
         )
 
-        rule = {
+        transformation = {
             "strategy": "lookup_external",
             "field": "label",
             "source": "code",
@@ -84,6 +84,6 @@ def test_successful_lookup(input_df):
             "value": "label",
             "not_found": "N/A",
         }
-        strategy = LookupExternalStrategy(rule)
+        strategy = LookupExternalStrategy(transformation)
         result = strategy.run(input_df, output="output.csv")
         assert result["label"].tolist() == ["Alpha", "Beta", "N/A"]

@@ -14,26 +14,26 @@ def sample_df():
 
 
 def test_drop_all_duplicates(sample_df):
-    rule = {"strategy": "drop_duplicates"}
-    result = DropDuplicatesStrategy(rule).run(sample_df)
+    transformation = {"strategy": "drop_duplicates"}
+    result = DropDuplicatesStrategy(transformation).run(sample_df)
     assert len(result) == 3
 
 
 def test_drop_subset_duplicates(sample_df):
-    rule = {"strategy": "drop_duplicates", "subset": ["name", "age"]}
-    result = DropDuplicatesStrategy(rule).run(sample_df)
+    transformation = {"strategy": "drop_duplicates", "subset": ["name", "age"]}
+    result = DropDuplicatesStrategy(transformation).run(sample_df)
     assert len(result) == 3
     assert result["name"].tolist() == ["Alice", "Bob", "Charlie"]
 
 
 def test_keep_last(sample_df):
-    rule = {"strategy": "drop_duplicates", "subset": ["name", "age"], "keep": "last"}
-    result = DropDuplicatesStrategy(rule).run(sample_df)
+    transformation = {"strategy": "drop_duplicates", "subset": ["name", "age"], "keep": "last"}
+    result = DropDuplicatesStrategy(transformation).run(sample_df)
     assert result["name"].tolist() == ["Alice", "Charlie", "Bob"]
 
 
 # def test_keep_false(sample_df):
-#     rule = {
+#     transformation = {
 #         "strategy": "drop_duplicates",
 #         "subset": ["name", "age"],
 #         "keep": False
@@ -43,10 +43,10 @@ def test_keep_last(sample_df):
 
 
 def test_reset_index(sample_df):
-    rule = {
+    transformation = {
         "strategy": "drop_duplicates",
         "subset": ["name", "age"],
         "reset_index": True,
     }
-    result = DropDuplicatesStrategy(rule).run(sample_df)
+    result = DropDuplicatesStrategy(transformation).run(sample_df)
     assert result.index.tolist() == [0, 1, 2]

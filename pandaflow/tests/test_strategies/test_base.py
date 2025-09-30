@@ -14,8 +14,8 @@ class DummyStrategy(TransformationStrategy):
 
 def test_run_applies_strategy():
     df = pd.DataFrame({"A": [1, 2]})
-    rule = {"field": "B"}
-    strategy = DummyStrategy(rule)
+    transformation = {"field": "B"}
+    strategy = DummyStrategy(transformation)
     result = strategy.run(df)
     assert "B" in result.columns
     assert all(result["B"] == "debug")

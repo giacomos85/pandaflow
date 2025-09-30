@@ -7,13 +7,13 @@ from pandaflow.strategies.calculate_amount import CalculateAmountStrategy
 
 def test_apply_calculates_and_formats_amount():
     df = pd.DataFrame({"__total__": [100.123, 200.456], "__refund__": [10.0, 20.0]})
-    rule = {
+    transformation = {
         "field": "__amount__",
         "strategy": "calculate_amount",
         "formula": "__total__ - __refund__",
         "formatter": "float_2dec",
     }
-    strategy = CalculateAmountStrategy(rule)
+    strategy = CalculateAmountStrategy(transformation)
     result = strategy.run(df)
     expected = pd.DataFrame(
         {
@@ -27,12 +27,12 @@ def test_apply_calculates_and_formats_amount():
 
 def test_apply_without_formatter():
     df = pd.DataFrame({"__total__": [50, 75], "__refund__": [5, 10]})
-    rule = {
+    transformation = {
         "strategy": "calculate_amount",
         "field": "__amount__",
         "formula": "__total__ - __refund__",
     }
-    strategy = CalculateAmountStrategy(rule)
+    strategy = CalculateAmountStrategy(transformation)
     result = strategy.run(df)
     expected = pd.DataFrame(
         {"__total__": [50, 75], "__refund__": [5, 10], "__amount__": [45, 65]}
@@ -42,13 +42,13 @@ def test_apply_without_formatter():
 
 def test_apply_with_invalid_formula_raises():
     df = pd.DataFrame({"__total__": [100], "__refund__": [10]})
-    rule = {
+    transformation = {
         "strategy": "calculate_amount",
         "field": "__amount__",
         "formula": "__total__ + unknown_field",
         "formatter": "float_2dec",
     }
-    strategy = CalculateAmountStrategy(rule)
+    strategy = CalculateAmountStrategy(transformation)
     with pytest.raises(pd.errors.UndefinedVariableError):
         strategy.run(df)
 

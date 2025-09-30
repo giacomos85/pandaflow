@@ -15,42 +15,42 @@ def sample_df():
 
 
 def test_valid_formula_filters_rows(sample_df):
-    rule = {
+    transformation = {
         "field": "description",
         "strategy": "filter",
         "formula": "amount > 0 and category == 'Sales'",
     }
-    strategy = FilterByFormulaStrategy(rule)
+    strategy = FilterByFormulaStrategy(transformation)
     result = strategy.run(sample_df)
     assert len(result) == 2
     assert result["description"].tolist() == ["A", "C"]
 
 
 def test_non_boolean_formula_raises_error(sample_df):
-    rule = {
+    transformation = {
         "strategy": "filter",
         "field": "description",
         "formula": "amount + 100",
     }  # Not a boolean mask
     with pytest.raises(ValueError, match="Formula must evaluate to a boolean mask"):
-        strategy = FilterByFormulaStrategy(rule)
+        strategy = FilterByFormulaStrategy(transformation)
         strategy.run(sample_df)
 
 
 def test_field_not_in_df_does_not_format(sample_df):
-    rule = {"strategy": "filter", "field": "nonexistent", "formula": "amount > 0"}
-    strategy = FilterByFormulaStrategy(rule)
+    transformation = {"strategy": "filter", "field": "nonexistent", "formula": "amount > 0"}
+    strategy = FilterByFormulaStrategy(transformation)
     result = strategy.run(sample_df)
     assert "nonexistent" not in result.columns
 
 
 def test_formula_with_multiple_conditions(sample_df):
-    rule = {
+    transformation = {
         "strategy": "filter",
         "field": "description",
         "formula": "(amount > 0) & (category == 'Sales')",
     }
-    strategy = FilterByFormulaStrategy(rule)
+    strategy = FilterByFormulaStrategy(transformation)
     result = strategy.run(sample_df)
     assert len(result) == 2
     assert result["description"].tolist() == ["A", "C"]

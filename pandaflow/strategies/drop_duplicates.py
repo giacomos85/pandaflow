@@ -35,7 +35,7 @@ class DropDuplicatesStrategy(TransformationStrategy):
         ...     "name": ["Alice", "Bob", "Alice", "Charlie"],
         ...     "age": [30, 25, 30, 40]
         ... })
-        >>> rule = {
+        >>> transformation = {
         ...     "strategy": "drop_duplicates",
         ...     "subset": ["name", "age"],
         ...     "keep": "first",

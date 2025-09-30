@@ -9,8 +9,8 @@ def sample_df():
 
 
 def test_debug_strategy_prints_field_and_head(sample_df, capsys):
-    rule = {"field": "A"}
-    strategy = DebugStrategy(rule)
+    transformation = {"field": "A"}
+    strategy = DebugStrategy(transformation)
     strategy.run(sample_df)
 
     captured = capsys.readouterr()
@@ -19,8 +19,8 @@ def test_debug_strategy_prints_field_and_head(sample_df, capsys):
 
 
 def test_debug_strategy_does_not_modify_df(sample_df):
-    rule = {"field": "A"}
-    strategy = DebugStrategy(rule)
+    transformation = {"field": "A"}
+    strategy = DebugStrategy(transformation)
     original = sample_df.copy()
     strategy.run(sample_df)
     pd.testing.assert_frame_equal(sample_df, original)

@@ -9,13 +9,13 @@ def sample_df():
 
 
 def test_split_basic(sample_df):
-    rule = {
+    transformation = {
         "strategy": "split_column",
         "column": "full_name",
         "delimiter": " ",
         "prefix": "name",
     }
-    result = SplitColumnStrategy(rule).run(sample_df)
+    result = SplitColumnStrategy(transformation).run(sample_df)
     assert "name_0" in result.columns
     assert "name_1" in result.columns
     assert result.loc[0, "name_0"] == "Alice"
@@ -23,54 +23,54 @@ def test_split_basic(sample_df):
 
 
 def test_split_with_maxsplit(sample_df):
-    rule = {
+    transformation = {
         "strategy": "split_column",
         "column": "full_name",
         "delimiter": " ",
         "maxsplit": 1,
         "prefix": "part",
     }
-    result = SplitColumnStrategy(rule).run(sample_df)
+    result = SplitColumnStrategy(transformation).run(sample_df)
     assert result.columns.tolist()[-2:] == ["part_0", "part_1"]
     assert result.loc[1, "part_0"] == "Bob"
     assert result.loc[1, "part_1"] == "Jones"
 
 
 def test_split_drop_original(sample_df):
-    rule = {
+    transformation = {
         "strategy": "split_column",
         "column": "full_name",
         "delimiter": " ",
         "drop_original": True,
     }
-    result = SplitColumnStrategy(rule).run(sample_df)
+    result = SplitColumnStrategy(transformation).run(sample_df)
     assert "full_name" not in result.columns
 
 
 def test_split_column_missing(sample_df):
-    rule = {"strategy": "split_column", "column": "nonexistent", "delimiter": " "}
+    transformation = {"strategy": "split_column", "column": "nonexistent", "delimiter": " "}
     with pytest.raises(ValueError, match="Column 'nonexistent' not found"):
-        SplitColumnStrategy(rule).run(sample_df)
+        SplitColumnStrategy(transformation).run(sample_df)
 
 
 def test_split_empty_string():
     df = pd.DataFrame({"text": ["", "a b", None]})
-    rule = {
+    transformation = {
         "strategy": "split_column",
         "column": "text",
         "delimiter": " ",
         "prefix": "split",
     }
-    result = SplitColumnStrategy(rule).run(df)
+    result = SplitColumnStrategy(transformation).run(df)
     assert result.columns.tolist()[-2:] == ["split_0", "split_1"]
 
 
 def test_split_custom_prefix(sample_df):
-    rule = {
+    transformation = {
         "strategy": "split_column",
         "column": "full_name",
         "delimiter": " ",
         "prefix": "custom",
     }
-    result = SplitColumnStrategy(rule).run(sample_df)
+    result = SplitColumnStrategy(transformation).run(sample_df)
     assert "custom_0" in result.columns

@@ -10,13 +10,13 @@ def sample_df():
 
 
 def test_hash_generation(sample_df):
-    rule = {
+    transformation = {
         "field": "__md5__",
         "strategy": "hash",
         "source": ["A", "B"],
         "function": "calculate_md5",
     }
-    strategy = HashStrategy(rule)
+    strategy = HashStrategy(transformation)
     result = strategy.run(sample_df)
 
     expected = [
@@ -28,26 +28,26 @@ def test_hash_generation(sample_df):
 
 
 def test_missing_column_raises(sample_df):
-    rule = {
+    transformation = {
         "field": "__md5__",
         "strategy": "hash",
         "source": ["A", "Z"],  # Z is missing
         "function": "calculate_md5",
     }
     with pytest.raises(ValueError, match="Missing columns for hash: Z"):
-        strategy = HashStrategy(rule)
+        strategy = HashStrategy(transformation)
         strategy.run(sample_df)
 
 
 def test_empty_string_handling():
     df = pd.DataFrame({"A": ["", None], "B": ["x", "y"]})
-    rule = {
+    transformation = {
         "field": "__md5__",
         "strategy": "hash",
         "source": ["A", "B"],
         "function": "calculate_md5",
     }
-    strategy = HashStrategy(rule)
+    strategy = HashStrategy(transformation)
     result = strategy.run(df)
 
     expected = [

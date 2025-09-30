@@ -16,40 +16,40 @@ def sample_df():
 
 
 def test_merge_multiple_columns_with_separator(sample_df):
-    rule = {
+    transformation = {
         "strategy": "merge",
         "field": "__merged__",
         "source": ["first", "last"],
         "separator": " | ",
     }
-    strategy = MergeStrategy(rule)
+    strategy = MergeStrategy(transformation)
     result = strategy.run(sample_df)
     expected = ["Alice | Smith", "Bob | Jones", "Charlie | Brown"]
     assert result["__merged__"].tolist() == expected
 
 
 def test_merge_with_nan_like_strings(sample_df):
-    rule = {
+    transformation = {
         "strategy": "merge",
         "field": "__merged__",
         "source": ["first", "note"],
         "separator": " ",
     }
-    strategy = MergeStrategy(rule)
+    strategy = MergeStrategy(transformation)
     result = strategy.run(sample_df)
     expected = ["Alice", "Bob", "Charlie"]
     assert result["__merged__"].tolist() == expected
 
 
 def test_merge_with_source_as_string(sample_df):
-    rule = {"strategy": "merge", "field": "__merged__", "source": "first"}
-    strategy = MergeStrategy(rule)
+    transformation = {"strategy": "merge", "field": "__merged__", "source": "first"}
+    strategy = MergeStrategy(transformation)
     result = strategy.run(sample_df)
     assert result["__merged__"].tolist() == sample_df["first"].tolist()
 
 
 def test_merge_missing_column_raises(sample_df):
-    rule = {"strategy": "merge", "field": "__merged__", "source": ["first", "missing"]}
+    transformation = {"strategy": "merge", "field": "__merged__", "source": ["first", "missing"]}
     with pytest.raises(ValueError, match="Column 'missing' not found"):
-        strategy = MergeStrategy(rule)
+        strategy = MergeStrategy(transformation)
         strategy.run(sample_df)

@@ -38,7 +38,7 @@ class SplitColumnStrategy(TransformationStrategy):
         >>> df = pd.DataFrame({
         ...     "full_name": ["Alice Smith", "Bob Jones"]
         ... })
-        >>> rule = {
+        >>> transformation = {
         ...     "strategy": "split_column",
         ...     "column": "full_name",
         ...     "delimiter": " ",

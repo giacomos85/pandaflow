@@ -32,7 +32,7 @@ class ReorderColumnsStrategy(TransformationStrategy):
         ...     "age": [30, 25],
         ...     "email": ["a@example.com", "b@example.com"]
         ... })
-        >>> rule = {
+        >>> transformation = {
         ...     "strategy": "reorder_columns",
         ...     "columns": ["email", "name", "age"]
         ... }

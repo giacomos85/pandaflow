@@ -37,7 +37,7 @@ class CalculateRatioStrategy(TransformationStrategy):
         ...     "sales": [100, 200, 300],
         ...     "cost": [50, 80, 120]
         ... })
-        >>> rule = {
+        >>> transformation = {
         ...     "strategy": "calculate_ratio",
         ...     "numerator": "sales",
         ...     "denominator": "cost",

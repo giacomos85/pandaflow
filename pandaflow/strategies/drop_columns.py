@@ -34,7 +34,7 @@ class DropColumnsStrategy(TransformationStrategy):
         ...     "age": [30, 25],
         ...     "gender": ["F", "M"]
         ... })
-        >>> rule = {
+        >>> transformation = {
         ...     "strategy": "dropcolumns",
         ...     "columns": ["gender"]
         ... }

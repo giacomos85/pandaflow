@@ -79,7 +79,7 @@ You can store your transformations in `.json` files and reuse them across projec
    from pandaflow.engine import apply_rule
 
    with open("transformations/drop.json") as f:
-       rule = json.load(f)
+       transformation = json.load(f)
 
    df = apply_rule(df, rule)
 
