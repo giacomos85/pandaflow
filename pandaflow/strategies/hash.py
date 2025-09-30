@@ -2,11 +2,11 @@ import hashlib
 import pandas as pd
 from typing import List, Literal
 
-from pandaflow.models.config import BaseRule
+from pandaflow.models.config import PandaFlowTransformation
 from pandaflow.strategies.base import TransformationStrategy
 
 
-class HashRule(BaseRule):
+class HashRule(PandaFlowTransformation):
     strategy: Literal["hash"]
     field: str
     source: List[str]

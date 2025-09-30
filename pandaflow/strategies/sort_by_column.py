@@ -1,10 +1,10 @@
 import pandas as pd
 from pandaflow.strategies.base import TransformationStrategy
-from pandaflow.models.config import BaseRule
+from pandaflow.models.config import PandaFlowTransformation
 from typing import List, Literal
 
 
-class SortByColumnRule(BaseRule):
+class SortByColumnRule(PandaFlowTransformation):
     strategy: Literal["sort_by_column"]
     columns: List[str]
     ascending: List[bool] = None

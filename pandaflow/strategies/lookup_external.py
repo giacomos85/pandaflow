@@ -3,11 +3,11 @@ from pathlib import Path
 from typing import Literal
 import pandas as pd
 
-from pandaflow.models.config import BaseRule
+from pandaflow.models.config import PandaFlowTransformation
 from pandaflow.strategies.base import TransformationStrategy
 
 
-class LookupExternalRule(BaseRule):
+class LookupExternalRule(PandaFlowTransformation):
     strategy: Literal["lookup_external"]
     field: str
     source: str

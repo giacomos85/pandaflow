@@ -3,7 +3,7 @@ from pandaflow.core.generate_schemas import generate_strategy_schemas
 from pydantic import BaseModel, Field
 
 
-class BaseRule(BaseModel):
+class PandaFlowTransformation(BaseModel):
     strategy: str
     version: str | None = None
 
@@ -30,7 +30,7 @@ class PandaFlowConfig(BaseModel):
     file_path: Optional[str] = Field(None, exclude=True, description="Path to the config file (set at load time)")
     data_sources: Optional[List[DataSourceConfig]] = Field(default_factory=list)
     meta: Optional[ExtractConfig] = {}
-    transformations: List[BaseRule]
+    transformations: List[PandaFlowTransformation]
     load: Optional[LoadConfig] = {}
 
 

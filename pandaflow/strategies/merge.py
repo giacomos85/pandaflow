@@ -1,11 +1,11 @@
 import pandas as pd
 from typing import List, Dict, Literal
 
-from pandaflow.models.config import BaseRule
+from pandaflow.models.config import PandaFlowTransformation
 from pandaflow.strategies.base import TransformationStrategy
 
 
-class MergeRule(BaseRule):
+class MergeRule(PandaFlowTransformation):
     strategy: Literal["merge"]
     field: str
     source: str | List[str]

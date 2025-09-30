@@ -1,10 +1,10 @@
 from typing import Literal
 import pandas as pd
 from pandaflow.strategies.base import TransformationStrategy
-from pandaflow.models.config import BaseRule
+from pandaflow.models.config import PandaFlowTransformation
 
 
-class SplitColumnRule(BaseRule):
+class SplitColumnRule(PandaFlowTransformation):
     strategy: Literal["split_column"]
     column: str  # Column to split
     delimiter: str  # Delimiter to use

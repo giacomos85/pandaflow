@@ -1,11 +1,11 @@
 from typing import Literal
 import pandas as pd
 
-from pandaflow.models.config import BaseRule
+from pandaflow.models.config import PandaFlowTransformation
 from pandaflow.strategies.base import TransformationStrategy
 
 
-class ConstantRule(BaseRule):
+class ConstantRule(PandaFlowTransformation):
     strategy: Literal["constant"]
     field: str
     value: str = ""

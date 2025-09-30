@@ -1,6 +1,6 @@
 {
   "$defs": {
-    "BaseRule": {
+    "Transformation": {
       "properties": {
         "strategy": {
           "title": "Strategy",
@@ -22,7 +22,7 @@
       "required": [
         "strategy"
       ],
-      "title": "BaseRule",
+      "title": "Transformation",
       "type": "object"
     },
     "DataSourceConfig": {

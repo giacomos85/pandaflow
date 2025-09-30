@@ -1,12 +1,12 @@
 from typing import Literal
-from pandaflow.models.config import BaseRule
+from pandaflow.models.config import PandaFlowTransformation
 import pandas as pd
 from uuid_extension import uuid7
 
 from pandaflow.strategies.base import TransformationStrategy
 
 
-class UUIDRule(BaseRule):
+class UUIDRule(PandaFlowTransformation):
     strategy: Literal["uuid"]
     field: str
 

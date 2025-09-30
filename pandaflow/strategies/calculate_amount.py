@@ -2,11 +2,11 @@ from typing import Literal
 from pandaflow.utils import get_output_formatter
 import pandas as pd
 
-from pandaflow.models.config import BaseRule
+from pandaflow.models.config import PandaFlowTransformation
 from pandaflow.strategies.base import TransformationStrategy
 
 
-class CalculateAmountRule(BaseRule):
+class CalculateAmountRule(PandaFlowTransformation):
     strategy: Literal["calculate_amount"]
     formula: str
     formatter: str = None

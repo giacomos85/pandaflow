@@ -2,12 +2,12 @@ import pandas as pd
 from typing import Literal, Optional, Union
 
 from pandaflow.strategies.base import TransformationStrategy
-from pandaflow.models.config import BaseRule
+from pandaflow.models.config import PandaFlowTransformation
 from pandaflow.utils import get_input_parser
 from pandaflow.utils import get_output_formatter
 
 
-class CopyRule(BaseRule):
+class CopyRule(PandaFlowTransformation):
     strategy: Literal["copy"]
     field: str
     source: str | None

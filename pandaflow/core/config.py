@@ -22,10 +22,6 @@ def load_config(path: str):
         config = PandaFlowConfig(**raw_config)
         config.file_path = path
 
-        typed_transformations = []
-        for transformation_dict in raw_config.get("transformations", []):
-            strategy = StrategyFactory.get_strategy(transformation_dict)
-            typed_transformations.append(strategy)
+        config.transformations = [StrategyFactory.get_strategy(t) for t in raw_config.get("transformations", [])]
 
-        config.transformations = typed_transformations
         return config

@@ -1,12 +1,12 @@
 from typing import Literal
-from pandaflow.models.config import BaseRule
+from pandaflow.models.config import PandaFlowTransformation
 from pandaflow.utils import get_output_formatter
 import pandas as pd
 
 from pandaflow.strategies.base import TransformationStrategy
 
 
-class FilterByFormulaRule(BaseRule):
+class FilterByFormulaRule(PandaFlowTransformation):
     strategy: Literal["filter"]
     field: str
     formula: str

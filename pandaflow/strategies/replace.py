@@ -2,10 +2,10 @@ from typing import Literal
 import pandas as pd
 
 from pandaflow.strategies.base import TransformationStrategy
-from pandaflow.models.config import BaseRule
+from pandaflow.models.config import PandaFlowTransformation
 
 
-class ReplaceRule(BaseRule):
+class ReplaceRule(PandaFlowTransformation):
     strategy: Literal["replace"]
     field: str
     find: str | float

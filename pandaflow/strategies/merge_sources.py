@@ -2,10 +2,10 @@ from typing import List, Optional
 import pandas as pd
 from pydantic import Field
 from pandaflow.strategies.base import TransformationStrategy
-from pandaflow.models.config import BaseRule
+from pandaflow.models.config import PandaFlowTransformation
 
 
-class MergeSourcesRule(BaseRule):
+class MergeSourcesRule(PandaFlowTransformation):
     strategy: str = Field("merge_sources", const=True)
     version: str = Field("1.0.0", const=True)
     sources: Optional[List[int]] = Field(
