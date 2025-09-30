@@ -324,7 +324,7 @@
           },
           "formatter": {
             "default": null,
-            "title": "Output Rule",
+            "title": "Formatter",
             "type": "string"
           },
           "field": {
@@ -481,7 +481,7 @@
               }
             ],
             "default": null,
-            "title": "Input Rule"
+            "title": "Parser"
           },
           "formatter": {
             "anyOf": [
@@ -493,7 +493,7 @@
               }
             ],
             "default": null,
-            "title": "Output Rule"
+            "title": "Formatter"
           }
         },
         "required": [
@@ -637,7 +637,7 @@
           },
           "formatter": {
             "default": null,
-            "title": "Output Rule",
+            "title": "Formatter",
             "type": "string"
           }
         },
@@ -853,7 +853,7 @@
               }
             ],
             "default": null,
-            "title": "Output Rule"
+            "title": "Formatter"
           },
           "source": {
             "anyOf": [
@@ -935,7 +935,7 @@
           },
           "formatter": {
             "default": null,
-            "title": "Output Rule",
+            "title": "Formatter",
             "type": "string"
           }
         },
