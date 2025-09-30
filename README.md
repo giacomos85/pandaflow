@@ -39,7 +39,7 @@ pandaflow run --config config.json --input data.csv --output transformed.csv
     "glob": "**/bgsaxo*.csv",
     "regex": null
   },
-  "rules": [
+  "transformations": [
     {
       "field": "__md5__",
       "strategy": "hash",

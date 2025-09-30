@@ -184,6 +184,19 @@
     }
   },
   "properties": {
+    "file_path": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Path to the config file (set at load time)",
+      "title": "File Path"
+    },
     "data_sources": {
       "anyOf": [
         {
@@ -209,7 +222,7 @@
       ],
       "default": {}
     },
-    "rules": {
+    "transformations": {
       "type": "array",
       "items": {
         "oneOf": [
@@ -280,7 +293,7 @@
     }
   },
   "required": [
-    "rules"
+    "transformations"
   ],
   "title": "PandaFlowConfig",
   "type": "object",

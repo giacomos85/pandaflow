@@ -42,7 +42,7 @@ Documentation
 ~~~~~~~~~~~~~
 
 - Use `.rst` files in `docs/source/` with Sphinx directives (`.. csv-table::`, `.. literalinclude::`)
-- Store example rules in `docs/source/rules/` and data in `docs/source/data/`
+- Store example transformations in `docs/source/rules/` and data in `docs/source/data/`
 - Run the docs locally:
 
   .. code-block:: bash

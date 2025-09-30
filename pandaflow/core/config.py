@@ -23,8 +23,8 @@ def load_config(path: str):
         config.file_path = path
         factory = StrategyFactory(config)
 
-        typed_rules = []
-        for rule_dict in raw_config.get("rules", []):
+        typed_transformations = []
+        for rule_dict in raw_config.get("transformations", []):
 
             strategy_name = rule_dict.get("strategy")
             version = rule_dict.get("version", None)
@@ -35,7 +35,7 @@ def load_config(path: str):
             if not strategy_cls:
                 raise ValueError(f"Unknown strategy: {strategy_name}")
             strategy = strategy_cls(rule_dict)
-            typed_rules.append(strategy)
+            typed_transformations.append(strategy)
 
-        config.rules = typed_rules
+        config.transformations = typed_transformations
         return config

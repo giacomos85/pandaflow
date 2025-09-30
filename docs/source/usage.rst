@@ -24,12 +24,12 @@ Basic Example
 
 Let’s say you want to copy values from one column to another and format them to two decimal places.
 
-1. **Create a rules files** (save as `my_rules.json`):
+1. **Create a transformations files** (save as `my_transformations.json`):
 
    .. code-block:: json
 
     {
-        "rules": [
+        "transformations": [
             {
                 "strategy": "copy",
                 "field": "__amount__",
@@ -54,7 +54,7 @@ Let’s say you want to copy values from one column to another and format them t
 
    .. code-block:: bash
 
-      pandaflow run --input mydata.csv --output results.csv --config my_rules.json
+      pandaflow run --input mydata.csv --output results.csv --config my_transformations.json
 
 What You Can Do
 ---------------
@@ -71,14 +71,14 @@ Each strategy has its own rule format. You can find examples in the [Strategy Re
 Using Rules from Files
 ----------------------
 
-You can store your rules in `.json` files and reuse them across projects:
+You can store your transformations in `.json` files and reuse them across projects:
 
 .. code-block:: python
 
    import json
    from pandaflow.engine import apply_rule
 
-   with open("rules/drop.json") as f:
+   with open("transformations/drop.json") as f:
        rule = json.load(f)
 
    df = apply_rule(df, rule)
@@ -88,8 +88,8 @@ Tips for End Users
 
 - ✅ You don’t need to write custom code — just edit the rule files
 - ✅ You can preview transformations before saving results
-- ✅ You can combine multiple rules in a pipeline (coming soon!)
-- ✅ You can validate rules using Pandaflow’s built-in checks
+- ✅ You can combine multiple transformations in a pipeline (coming soon!)
+- ✅ You can validate transformations using Pandaflow’s built-in checks
 
 Need Help?
 ----------

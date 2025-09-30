@@ -1,5 +1,5 @@
 {
-    "rules": [
+    "transformations": [
         {
             "field": "__source__",
             "strategy": "constant",

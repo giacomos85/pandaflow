@@ -7,16 +7,16 @@ import pandas as pd
 def transform_dataframe(
     df: pd.DataFrame, config: PandaFlowConfig, output_path: Path = None
 ) -> pd.DataFrame | None:
-    """Transform CSV input based on config rules.
+    """Transform CSV input based on config transformations.
 
     Args:
         input_source: Pandas dataframe.
-        config: Dictionary containing meta, match, and rules.
+        config: Dictionary containing meta, match, and transformations.
 
     Returns:
-        Transformed DataFrame, or None if skipped due to match rules.
+        Transformed DataFrame, or None if skipped due to match transformations.
     """
-    for rule in config.rules:
+    for rule in config.transformations:
         df = rule.run(df)
     return df
 
@@ -30,11 +30,11 @@ def transform(
 
     Args:
         input_mapping: Dict mapping each input file to its DataFrame.
-        config: Dictionary of transformation rules.
+        config: Dictionary of transformation transformations.
 
     Returns:
         Dict mapping each input file to its transformed DataFrame,
-        or None if the file was skipped due to match rules.
+        or None if the file was skipped due to match transformations.
     """
     results = {}
 

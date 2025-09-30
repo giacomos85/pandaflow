@@ -1,5 +1,5 @@
 {
-    "rules":[
+    "transformations":[
         {
             "strategy": "hash",
             "field": "user_id",

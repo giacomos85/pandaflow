@@ -1,5 +1,5 @@
 {
-    "rules": [
+    "transformations": [
         {
             "columns": ["__email__", "__status__"],
             "strategy": "drop_columns"

@@ -1,5 +1,5 @@
 {
-    "rules":[
+    "transformations":[
         {
             "field": "__description__",
             "strategy": "merge_formula",

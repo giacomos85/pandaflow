@@ -1,5 +1,5 @@
 {
-    "rules": [
+    "transformations": [
         {
             "strategy": "calculate_amount",
             "field": "total",

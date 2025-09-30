@@ -5,7 +5,7 @@ import argparse
 from pandaflow.core.transformer import transform_dataframe
 from pandaflow.core.config import load_config
 
-RULES_DIR = Path("source/rules")
+RULES_DIR = Path("source/transformations")
 DATA_DIR = Path("source/data")
 
 def run_strategy(name: str):

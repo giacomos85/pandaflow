@@ -28,21 +28,21 @@ def rule_matches_file(match: dict, file_path: Path) -> bool:
 
 
 def read_csv(input_path: str, config: dict) -> pd.DataFrame | None:
-    """Transform CSV input based on config rules.
+    """Transform CSV input based on config transformations.
 
     Args:
         input_source: Path to a CSV file or a file-like object (e.g. sys.stdin).
-        config: Dictionary containing meta, match, and rules.
+        config: Dictionary containing meta, match, and transformations.
 
     Returns:
-        Transformed DataFrame, or None if skipped due to match rules.
+        Transformed DataFrame, or None if skipped due to match transformations.
     """
     meta = config.meta
     skiprows = meta.get("skiprows", 0)
     sep = meta.get("csv_separator", ",")
     match = meta.get("match", {})
 
-    # If input is a Path, apply match rules
+    # If input is a Path, apply match transformations
     input_source = Path(input_path)
     if isinstance(input_source, Path) and not rule_matches_file(match, input_source):
         return None

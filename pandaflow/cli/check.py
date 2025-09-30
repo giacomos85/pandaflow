@@ -8,7 +8,7 @@ from pandaflow.core.factory import StrategyFactory
 @click.option("--config-path", "-c", required=True, type=click.Path(exists=True))
 def check(config_path):
     config = load_config(Path(config_path))
-    for rule in config.get("rules", []):
+    for rule in config.get("transformations", []):
         rule_type = rule.get("strategy")
         version = rule.get("version", None)
         factory = StrategyFactory(config)

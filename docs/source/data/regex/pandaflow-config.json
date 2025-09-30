@@ -1,5 +1,5 @@
 {
-    "rules": [
+    "transformations": [
         {
             "strategy": "regex",
             "field": "product_code",

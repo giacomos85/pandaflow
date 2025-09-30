@@ -1,5 +1,5 @@
 {
-    "rules": [
+    "transformations": [
         {
             "strategy": "split_column",
             "column": "full_name",

@@ -6,7 +6,7 @@
             "parse_dates": ["date"]
         }
     ],
-    "rules": [
+    "transformations": [
         {
             "field": "__total__",
             "strategy": "copy",

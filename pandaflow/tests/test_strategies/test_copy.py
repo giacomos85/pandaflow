@@ -22,7 +22,7 @@ def test_validate_rule_parses_correctly():
     assert rule.fillna == 0.0
 
 
-def test_apply_with_input_and_output_rules():
+def test_apply_with_input_and_output_transformations():
     df = pd.DataFrame({"Amount": ["€1.234,56", "€2.345,67"]})
     rule = {
         "field": "__amount__",
@@ -57,7 +57,7 @@ def test_apply_with_fillna_replaces_empty_and_null():
     assert_frame_equal(result, expected)
 
 
-def test_apply_without_input_or_output_rules():
+def test_apply_without_input_or_output_transformations():
     df = pd.DataFrame({"Amount": [10, 20]})
     rule = {"field": "__amount__", "strategy": "copy", "source": "Amount"}
     strategy = CopyStrategy(rule)

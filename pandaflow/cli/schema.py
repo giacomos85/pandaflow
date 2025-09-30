@@ -5,7 +5,7 @@ from pandaflow.models.config import PandaFlowConfig
 
 
 @click.command()
-@click.option("--config", is_flag=True, help="Include top-level config schema with injected strategy rules.")
+@click.option("--config", is_flag=True, help="Include top-level config schema with injected strategy transformations.")
 @click.option("--output", type=click.Path(), help="Optional path to save schema as JSON.")
 def dump(config, output):
     """
@@ -25,9 +25,9 @@ def dump(config, output):
         base = PandaFlowConfig.model_json_schema()
         base.setdefault("components", {}).setdefault("schemas", {}).update(schemas)
 
-        # Inject oneOf into rules field
+        # Inject oneOf into transformations field
         rule_refs = [{"$ref": f"#/components/schemas/{key}"} for key in schemas]
-        base["properties"]["rules"] = {
+        base["properties"]["transformations"] = {
             "type": "array",
             "items": {"oneOf": rule_refs}
         }

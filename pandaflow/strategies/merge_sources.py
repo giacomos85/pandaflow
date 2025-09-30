@@ -22,7 +22,7 @@ class MergeSourcesStrategy(TransformationStrategy):
         "name": "merge_sources",
         "version": "1.0.0",
         "author": "Giacomo",
-        "description": "Merge multiple data sources before applying downstream rules"
+        "description": "Merge multiple data sources before applying downstream transformations"
     }
 
     rule_class = MergeSourcesRule

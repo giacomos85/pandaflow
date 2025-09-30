@@ -29,7 +29,7 @@ def make_config_file(ext: str, content: dict):
 
 
 def test_load_json_config_success():
-    config_data = {"rules": [{"strategy": "dummy", "version": "1.0.0"}]}
+    config_data = {"transformations": [{"strategy": "dummy", "version": "1.0.0"}]}
     path, tmp = make_config_file(".json", config_data)
 
     with patch(
@@ -41,7 +41,7 @@ def test_load_json_config_success():
 
 
 def test_load_toml_config_success():
-    config_data = {"rules": [{"strategy": "dummy", "version": "1.0.0"}]}
+    config_data = {"transformations": [{"strategy": "dummy", "version": "1.0.0"}]}
     path, tmp = make_config_file(".toml", config_data)
 
     with patch(
@@ -53,7 +53,7 @@ def test_load_toml_config_success():
 
 
 def test_load_config_unknown_strategy():
-    config_data = {"rules": [{"strategy": "unknown", "version": "1.0.0"}]}
+    config_data = {"transformations": [{"strategy": "unknown", "version": "1.0.0"}]}
     path, tmp = make_config_file(".json", config_data)
 
     with patch("pandaflow.core.config.StrategyFactory.get_strategy", return_value=None):

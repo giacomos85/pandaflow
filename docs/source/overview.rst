@@ -19,7 +19,7 @@ Pandaflow is built around three core concepts:
 
 - **Strategies**: Modular transformation classes that implement a specific logic (e.g. `copy`, `drop`, `filter`)
 - **Rules**: Declarative JSON objects that define how a strategy should behave
-- **Engine**: Applies strategies to input DataFrames using validated rules
+- **Engine**: Applies strategies to input DataFrames using validated transformations
 
 Each strategy is self-contained, versioned, and documented with input/output examples and test cases.
 

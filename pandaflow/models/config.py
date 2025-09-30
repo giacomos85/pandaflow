@@ -30,7 +30,7 @@ class PandaFlowConfig(BaseModel):
     file_path: Optional[str] = Field(None, exclude=True, description="Path to the config file (set at load time)")
     data_sources: Optional[List[DataSourceConfig]] = Field(default_factory=list)
     meta: Optional[ExtractConfig] = {}
-    rules: List[BaseRule]
+    transformations: List[BaseRule]
     load: Optional[LoadConfig] = {}
 
 
@@ -42,9 +42,9 @@ class PandaFlowConfig(BaseModel):
         # Inject strategy schemas into components
         base.setdefault("components", {}).setdefault("schemas", {}).update(strategy_schemas)
 
-        # Optionally: add oneOf to "rules" field
+        # Optionally: add oneOf to "transformations" field
         rule_defs = [{"$ref": f"#/components/schemas/{name}:{version}"} for name, version in strategy_schemas.items()]
-        base["properties"]["rules"] = {
+        base["properties"]["transformations"] = {
             "type": "array",
             "items": {"oneOf": rule_defs}
         }

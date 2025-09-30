@@ -1,5 +1,5 @@
 {
-    "rules": [
+    "transformations": [
         {
             "strategy": "sort_by_column",
             "field": "_",
