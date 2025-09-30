@@ -1,5 +1,5 @@
 test:
-	poetry run pytest --cov=pandaflow pandaflow --pdb
+	poetry run pytest --cov=pandaflow pandaflow
 
 lint:
 	black pandaflow/
