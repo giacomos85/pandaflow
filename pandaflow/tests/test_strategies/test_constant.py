@@ -1,7 +1,7 @@
 import pandas as pd
 from pandas.testing import assert_frame_equal
 
-from pandaflow.strategies.constant import ConstantStrategy, ConstantRule
+from pandaflow.strategies.constant import ConstantStrategy, ConstantTransformation
 
 
 def test_apply_sets_constant_value():

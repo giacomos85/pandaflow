@@ -17,7 +17,7 @@ Rule Format:
     - value: str — Column name in the CSV to use as the mapped value
     - not_found: Optional[str] — Fallback value if no match is found
 
-Example Rule
+Example Transformation
 ------------
 
 .. code-block:: json

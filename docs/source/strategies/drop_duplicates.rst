@@ -13,7 +13,7 @@ Rule Format:
     - keep: Optional[str] — "first", "last", or False (default: "first")
     - reset_index: Optional[bool] — Whether to reset the index after dropping
 
-Example Rule
+Example Transformation
 ------------
 
 .. code-block:: json

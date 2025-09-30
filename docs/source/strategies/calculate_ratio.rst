@@ -14,7 +14,7 @@ Rule Format:
     - field: str — Name of the output column
     - round_digits: Optional[int] — Number of decimal places to round to
 
-Example Rule
+Example Transformation
 ------------
 
 .. literalinclude:: ../data/calculate_ratio/pandaflow-config.json

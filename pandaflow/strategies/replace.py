@@ -5,7 +5,7 @@ from pandaflow.strategies.base import TransformationStrategy
 from pandaflow.models.config import PandaFlowTransformation
 
 
-class ReplaceRule(PandaFlowTransformation):
+class ReplaceTransformation(PandaFlowTransformation):
     strategy: Literal["replace"]
     field: str
     find: str | float
@@ -21,7 +21,7 @@ class ReplaceStrategy(TransformationStrategy):
         "description": "Replaces occurrences of a substring in a specified column with another substring",
     }
 
-    strategy_model = ReplaceRule
+    strategy_model = ReplaceTransformation
 
     def apply(self, df: pd.DataFrame):
 

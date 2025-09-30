@@ -12,7 +12,7 @@ Rule Format:
     - columns: List[str] — List of column names to drop
     - errors: Optional[str] — "raise" or "ignore" if column is missing (default: "raise")
 
-Example Rule
+Example Transformation
 ------------
 
 .. literalinclude:: ../data/drop_columns/pandaflow-config.json

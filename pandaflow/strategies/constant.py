@@ -5,7 +5,7 @@ from pandaflow.models.config import PandaFlowTransformation
 from pandaflow.strategies.base import TransformationStrategy
 
 
-class ConstantRule(PandaFlowTransformation):
+class ConstantTransformation(PandaFlowTransformation):
     strategy: Literal["constant"]
     field: str
     value: str = ""
@@ -20,7 +20,7 @@ class ConstantStrategy(TransformationStrategy):
         "description": "Sets a specified column to a constant value",
     }
 
-    strategy_model = ConstantRule
+    strategy_model = ConstantTransformation
 
     def apply(self, df: pd.DataFrame):
         df[self.config.field] = self.config.value

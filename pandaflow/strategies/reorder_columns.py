@@ -4,7 +4,7 @@ from pandaflow.models.config import PandaFlowTransformation
 from typing import List, Literal
 
 
-class ReorderColumnsRule(PandaFlowTransformation):
+class ReorderColumnsTransformation(PandaFlowTransformation):
     strategy: Literal["reorder_columns"]
     columns: List[str]  # Desired column order
 
@@ -43,7 +43,7 @@ class ReorderColumnsStrategy(TransformationStrategy):
 
     meta = {"name": "reorder_columns", "version": "1.0.0", "author": "pandaflow team"}
 
-    strategy_model = ReorderColumnsRule
+    strategy_model = ReorderColumnsTransformation
 
     def apply(self, df: pd.DataFrame) -> pd.DataFrame:
         missing = [col for col in self.config.columns if col not in df.columns]

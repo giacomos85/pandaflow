@@ -4,7 +4,7 @@ from pandaflow.models.config import PandaFlowTransformation
 from typing import List, Literal
 
 
-class DropColumnsRule(PandaFlowTransformation):
+class DropColumnsTransformation(PandaFlowTransformation):
     strategy: Literal["drop_columns"]
     columns: List[str]  # List of column names to drop
     errors: str = "raise"  # "raise" or "ignore" if column is missing
@@ -45,7 +45,7 @@ class DropColumnsStrategy(TransformationStrategy):
 
     meta = {"name": "drop_columns", "version": "1.0.0", "author": "pandaflow team"}
 
-    strategy_model = DropColumnsRule
+    strategy_model = DropColumnsTransformation
 
     def apply(self, df: pd.DataFrame) -> pd.DataFrame:
         return df.drop(columns=self.config.columns, errors=self.config.errors)

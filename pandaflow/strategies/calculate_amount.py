@@ -6,7 +6,7 @@ from pandaflow.models.config import PandaFlowTransformation
 from pandaflow.strategies.base import TransformationStrategy
 
 
-class CalculateAmountRule(PandaFlowTransformation):
+class CalculateAmountTransformation(PandaFlowTransformation):
     strategy: Literal["calculate_amount"]
     formula: str
     formatter: str = None
@@ -22,7 +22,7 @@ class CalculateAmountStrategy(TransformationStrategy):
         "description": "",
     }
 
-    strategy_model = CalculateAmountRule
+    strategy_model = CalculateAmountTransformation
 
     def apply(self, df: pd.DataFrame):
 

@@ -4,7 +4,7 @@ from pandaflow.strategies.base import TransformationStrategy
 from pandaflow.models.config import PandaFlowTransformation
 
 
-class SplitColumnRule(PandaFlowTransformation):
+class SplitColumnTransformation(PandaFlowTransformation):
     strategy: Literal["split_column"]
     column: str  # Column to split
     delimiter: str  # Delimiter to use
@@ -51,7 +51,7 @@ class SplitColumnStrategy(TransformationStrategy):
 
     meta = {"name": "split_column", "version": "1.0.0", "author": "pandaflow team"}
 
-    strategy_model = SplitColumnRule
+    strategy_model = SplitColumnTransformation
 
     def apply(self, df: pd.DataFrame) -> pd.DataFrame:
 

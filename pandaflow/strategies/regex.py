@@ -7,7 +7,7 @@ from pandaflow.models.config import PandaFlowTransformation
 from pandaflow.strategies.base import TransformationStrategy
 
 
-class RegexRule(PandaFlowTransformation):
+class RegexTransformation(PandaFlowTransformation):
     strategy: Literal["regex"]
     field: str
     source: str
@@ -26,7 +26,7 @@ class RegExStrategy(TransformationStrategy):
         "description": "Extracts data from a column using a regular expression",
     }
 
-    strategy_model = RegexRule
+    strategy_model = RegexTransformation
 
     def apply(self, df: pd.DataFrame):
 

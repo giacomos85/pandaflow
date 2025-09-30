@@ -6,7 +6,7 @@ from pandaflow.models.config import PandaFlowTransformation
 from pandaflow.strategies.base import TransformationStrategy
 
 
-class MergeFormulaRule(PandaFlowTransformation):
+class MergeFormulaTransformation(PandaFlowTransformation):
     strategy: Literal["merge_formula"]
     field: str
     formula: Optional[str] = None
@@ -24,7 +24,7 @@ class MergeStringStrategy(TransformationStrategy):
         "description": "Merges values from multiple columns into one using a formula or concatenation.",
     }
 
-    strategy_model = MergeFormulaRule
+    strategy_model = MergeFormulaTransformation
 
     def apply(self, df: pd.DataFrame):
         field = self.config.field

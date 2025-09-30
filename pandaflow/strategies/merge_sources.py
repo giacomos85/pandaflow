@@ -5,7 +5,7 @@ from pandaflow.strategies.base import TransformationStrategy
 from pandaflow.models.config import PandaFlowTransformation
 
 
-class MergeSourcesRule(PandaFlowTransformation):
+class MergeSourcesTransformation(PandaFlowTransformation):
     strategy: str = Field("merge_sources", const=True)
     version: str = Field("1.0.0", const=True)
     sources: Optional[List[int]] = Field(
@@ -25,7 +25,7 @@ class MergeSourcesStrategy(TransformationStrategy):
         "description": "Merge multiple data sources before applying downstream transformations"
     }
 
-    rule_class = MergeSourcesRule
+    rule_class = MergeSourcesTransformation
 
     def apply(self, df: pd.DataFrame, rule: MergeSourcesRule) -> pd.DataFrame:
         sources = self.config.data_sources or []

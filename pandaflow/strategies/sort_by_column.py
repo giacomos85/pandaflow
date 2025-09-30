@@ -4,7 +4,7 @@ from pandaflow.models.config import PandaFlowTransformation
 from typing import List, Literal
 
 
-class SortByColumnRule(PandaFlowTransformation):
+class SortByColumnTransformation(PandaFlowTransformation):
     strategy: Literal["sort_by_column"]
     columns: List[str]
     ascending: List[bool] = None
@@ -15,7 +15,7 @@ class SortByColumnStrategy(TransformationStrategy):
 
     meta = {"name": "sort_by_column", "version": "1.0.0", "author": "pandaflow team"}
 
-    strategy_model = SortByColumnRule
+    strategy_model = SortByColumnTransformation
 
     def apply(self, df: pd.DataFrame) -> pd.DataFrame:
         asc = (

@@ -4,7 +4,7 @@ from pandaflow.strategies.base import TransformationStrategy
 from pandaflow.models.config import PandaFlowTransformation
 
 
-class CalculateRatioRule(PandaFlowTransformation):
+class CalculateRatioTransformation(PandaFlowTransformation):
     strategy: Literal["calculate_ratio"]
     field: str
     numerator: str  # Column name for numerator
@@ -51,7 +51,7 @@ class CalculateRatioStrategy(TransformationStrategy):
 
     meta = {"name": "calculate_ratio", "version": "1.0.0", "author": "pandaflow team"}
 
-    strategy_model = CalculateRatioRule
+    strategy_model = CalculateRatioTransformation
 
     def apply(self, df: pd.DataFrame) -> pd.DataFrame:
 

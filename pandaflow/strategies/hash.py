@@ -6,7 +6,7 @@ from pandaflow.models.config import PandaFlowTransformation
 from pandaflow.strategies.base import TransformationStrategy
 
 
-class HashRule(PandaFlowTransformation):
+class HashTransformation(PandaFlowTransformation):
     strategy: Literal["hash"]
     field: str
     source: List[str]
@@ -22,7 +22,7 @@ class HashStrategy(TransformationStrategy):
         "description": "Generates a hash from specified columns",
     }
 
-    strategy_model = HashRule
+    strategy_model = HashTransformation
 
     def apply(self, df: pd.DataFrame):
         missing = [col for col in self.config.source if col not in df.columns]

@@ -15,7 +15,7 @@ Rule Format:
     - prefix: Optional[str] — Prefix for new columns (default: "split")
     - drop_original: Optional[bool] — Whether to drop the original column
 
-Example Rule
+Example Transformation
 ------------
 
 .. literalinclude:: ../data/split_column/pandaflow-config.json

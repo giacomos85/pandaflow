@@ -4,7 +4,7 @@ from pandaflow.models.config import PandaFlowTransformation
 from typing import Literal, Optional, List
 
 
-class DropDuplicatesRule(PandaFlowTransformation):
+class DropDuplicatesTransformation(PandaFlowTransformation):
     strategy: Literal["drop_duplicates"]
     subset: Optional[List[str]] = None  # Columns to consider for identifying duplicates
     keep: Optional[str] = "first"  # "first", "last", or False
@@ -51,7 +51,7 @@ class DropDuplicatesStrategy(TransformationStrategy):
 
     meta = {"name": "drop_duplicates", "version": "1.0.0", "author": "pandaflow team"}
 
-    strategy_model = DropDuplicatesRule
+    strategy_model = DropDuplicatesTransformation
 
     def apply(self, df: pd.DataFrame) -> pd.DataFrame:
         result = df.drop_duplicates(subset=self.config.subset, keep=self.config.keep)

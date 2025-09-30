@@ -7,7 +7,7 @@ from pandaflow.models.config import PandaFlowTransformation
 from pandaflow.strategies.base import TransformationStrategy
 
 
-class LookupExternalRule(PandaFlowTransformation):
+class LookupExternalTransformation(PandaFlowTransformation):
     strategy: Literal["lookup_external"]
     field: str
     source: str
@@ -26,7 +26,7 @@ class LookupExternalStrategy(TransformationStrategy):
         "description": "Looks up values from an external CSV file based on a key column",
     }
 
-    strategy_model = LookupExternalRule
+    strategy_model = LookupExternalTransformation
 
     def apply(self, df: pd.DataFrame, output: str = None):
         field = self.config.field

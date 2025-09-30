@@ -7,7 +7,7 @@ from pandaflow.utils import get_input_parser
 from pandaflow.utils import get_output_formatter
 
 
-class CopyRule(PandaFlowTransformation):
+class CopyTransformation(PandaFlowTransformation):
     strategy: Literal["copy"]
     field: str
     source: str | None
@@ -25,7 +25,7 @@ class CopyStrategy(TransformationStrategy):
         "description": "Copies values from one column to another",
     }
 
-    strategy_model = CopyRule
+    strategy_model = CopyTransformation
 
     def apply(self, df: pd.DataFrame):
         col = self.config.source or self.config.field

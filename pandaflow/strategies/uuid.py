@@ -6,7 +6,7 @@ from uuid_extension import uuid7
 from pandaflow.strategies.base import TransformationStrategy
 
 
-class UUIDRule(PandaFlowTransformation):
+class UUIDTransformation(PandaFlowTransformation):
     strategy: Literal["uuid"]
     field: str
 
@@ -20,7 +20,7 @@ class UUIDStrategy(TransformationStrategy):
         "description": "Generates UUIDv7 values for a specified column",
     }
 
-    strategy_model = UUIDRule
+    strategy_model = UUIDTransformation
 
     def apply(self, df: pd.DataFrame):
 

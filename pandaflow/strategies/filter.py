@@ -6,7 +6,7 @@ import pandas as pd
 from pandaflow.strategies.base import TransformationStrategy
 
 
-class FilterByFormulaRule(PandaFlowTransformation):
+class FilterByFormulaTransformation(PandaFlowTransformation):
     strategy: Literal["filter"]
     field: str
     formula: str
@@ -22,7 +22,7 @@ class FilterByFormulaStrategy(TransformationStrategy):
         "description": "Filters rows based on a formula",
     }
 
-    strategy_model = FilterByFormulaRule
+    strategy_model = FilterByFormulaTransformation
 
     def apply(self, df: pd.DataFrame):
 

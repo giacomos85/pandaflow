@@ -13,7 +13,7 @@ Metadata:
 Rule Format:
    - Rules for this strategy must define the target field and the constant value to assign.
 
-Example Rule
+Example Transformation
 ------------
 
 .. literalinclude:: ../data/constant/pandaflow-config.json

@@ -5,7 +5,7 @@ from pandaflow.models.config import PandaFlowTransformation
 from pandaflow.strategies.base import TransformationStrategy
 
 
-class MergeRule(PandaFlowTransformation):
+class MergeTransformation(PandaFlowTransformation):
     strategy: Literal["merge"]
     field: str
     source: str | List[str]
@@ -22,7 +22,7 @@ class MergeStrategy(TransformationStrategy):
         "description": "Merges values from multiple columns into one",
     }
 
-    strategy_model = MergeRule
+    strategy_model = MergeTransformation
 
     def apply(self, df: pd.DataFrame):
         cols = (

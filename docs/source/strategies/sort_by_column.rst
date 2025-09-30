@@ -13,7 +13,7 @@ Rule Format:
     - ascending: Optional[List[bool]] — Sort direction per column (default: True for all)
     - na_position: Optional[str] — "first" or "last" (default: "last")
 
-Example Rule
+Example Transformation
 ------------
 
 .. literalinclude:: ../data/sort_by_column/pandaflow-config.json
