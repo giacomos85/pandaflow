@@ -20,6 +20,7 @@ def load_config(path: str):
 
         # Validate top-level config
         config = PandaFlowConfig(**raw_config)
+        config.file_path = path
         factory = StrategyFactory(config)
 
         typed_rules = []

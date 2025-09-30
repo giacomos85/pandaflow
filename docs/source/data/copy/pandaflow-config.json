@@ -1,4 +1,11 @@
 {
+    "data_sources": [
+        {
+            "type": "csv",
+            "path": "./input.csv",
+            "parse_dates": ["date"]
+        }
+    ],
     "rules": [
         {
             "field": "__total__",

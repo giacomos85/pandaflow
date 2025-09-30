@@ -14,7 +14,7 @@ from pandaflow.core.extract import extract
 @click.option(
     "--input",
     "-i",
-    required=True,
+    required=False,
     type=click.Path(exists=True, file_okay=True, dir_okay=True),
     help="CSV file or folder to process or watch",
 )
@@ -47,9 +47,11 @@ from pandaflow.core.extract import extract
 )
 def run(input, output, config, format, watch):
     config_data = load_config(Path(config))
-    input_path = Path(input)
 
     if watch:
+        if not input:
+            raise Exception("In watch mode, the input must be provided via command line")
+        input_path = Path(input)
         output_path = Path(output)
         # Watch mode
         output_path.mkdir(parents=True, exist_ok=True) if output != "-" else None
@@ -83,6 +85,6 @@ def run(input, output, config, format, watch):
         observer.join()
     else:
         # One-shot mode
-        input_df_mapping = extract(input_path, config_data)
+        input_df_mapping = extract(config_data, input)
         output_df_mapping = transform(input_df_mapping, config_data, output_path=output)
         load(output_df_mapping, output, output_format=format)

@@ -5,7 +5,6 @@ from pandaflow.core.registry import load_strategy_classes
 
 class StrategyFactory:
     def __init__(self, config):
-        self.config = config
         self.strategies = load_strategy_classes()
 
     def get_strategy(

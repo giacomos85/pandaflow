@@ -1,12 +1,19 @@
-from typing import List, Optional
+from typing import List, Literal, Optional
 from pandaflow.core.generate_schemas import generate_strategy_schemas
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class BaseRule(BaseModel):
     strategy: str
     version: str | None = None
 
+class DataSourceConfig(BaseModel):
+    type: Literal["csv", "excel", "json", "sql"]
+    path: Optional[str] = Field(None, description="Path to the data file or connection string")
+    table: Optional[str] = Field(None, description="Table name for SQL sources")
+    query: Optional[str] = Field(None, description="Optional SQL query")
+    sep: Optional[str] = Field(",", description="CSV separator")
+    skiprows: Optional[int] = Field(0, description="Rows to skip when loading")
 
 class ExtractConfig(BaseModel):
     path: Optional[str] = None
@@ -20,6 +27,8 @@ class LoadConfig(BaseModel):
 
 
 class PandaFlowConfig(BaseModel):
+    file_path: Optional[str] = Field(None, exclude=True, description="Path to the config file (set at load time)")
+    data_sources: Optional[List[DataSourceConfig]] = Field(default_factory=list)
     meta: Optional[ExtractConfig] = {}
     rules: List[BaseRule]
     load: Optional[LoadConfig] = {}

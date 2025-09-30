@@ -25,6 +25,90 @@
       "title": "BaseRule",
       "type": "object"
     },
+    "DataSourceConfig": {
+      "properties": {
+        "type": {
+          "enum": [
+            "csv",
+            "excel",
+            "json",
+            "sql"
+          ],
+          "title": "Type",
+          "type": "string"
+        },
+        "path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Path to the data file or connection string",
+          "title": "Path"
+        },
+        "table": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Table name for SQL sources",
+          "title": "Table"
+        },
+        "query": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional SQL query",
+          "title": "Query"
+        },
+        "sep": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": ",",
+          "description": "CSV separator",
+          "title": "Sep"
+        },
+        "skiprows": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": 0,
+          "description": "Rows to skip when loading",
+          "title": "Skiprows"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "title": "DataSourceConfig",
+      "type": "object"
+    },
     "ExtractConfig": {
       "properties": {
         "path": {
@@ -100,6 +184,20 @@
     }
   },
   "properties": {
+    "data_sources": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/DataSourceConfig"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Data Sources"
+    },
     "meta": {
       "anyOf": [
         {
