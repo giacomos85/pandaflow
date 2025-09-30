@@ -248,6 +248,9 @@
             "$ref": "#/components/schemas/filter:1.0.0"
           },
           {
+            "$ref": "#/components/schemas/find_duplicates:1.0.0"
+          },
+          {
             "$ref": "#/components/schemas/hash:1.0.0"
           },
           {
@@ -647,6 +650,71 @@
           "formula"
         ],
         "title": "FilterByFormulaTransformation",
+        "type": "object"
+      },
+      "find_duplicates:1.0.0": {
+        "properties": {
+          "strategy": {
+            "const": "find_duplicates",
+            "title": "Strategy",
+            "type": "string"
+          },
+          "version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Version"
+          },
+          "subset": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Subset"
+          },
+          "keep": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": "first",
+            "title": "Keep"
+          },
+          "reset_index": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": false,
+            "title": "Reset Index"
+          }
+        },
+        "required": [
+          "strategy"
+        ],
+        "title": "FindDuplicatesTransformation",
         "type": "object"
       },
       "hash:1.0.0": {
