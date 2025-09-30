@@ -21,20 +21,10 @@ def load_config(path: str):
         # Validate top-level config
         config = PandaFlowConfig(**raw_config)
         config.file_path = path
-        factory = StrategyFactory(config)
 
         typed_transformations = []
-        for rule_dict in raw_config.get("transformations", []):
-
-            strategy_name = rule_dict.get("strategy")
-            version = rule_dict.get("version", None)
-
-            strategy_cls = factory.get_strategy(strategy_name, version=version)
-
-            # Replace raw rule dicts with typed rule objects
-            if not strategy_cls:
-                raise ValueError(f"Unknown strategy: {strategy_name}")
-            strategy = strategy_cls(rule_dict)
+        for transformation_dict in raw_config.get("transformations", []):
+            strategy = StrategyFactory.get_strategy(transformation_dict)
             typed_transformations.append(strategy)
 
         config.transformations = typed_transformations

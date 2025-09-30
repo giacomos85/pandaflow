@@ -4,24 +4,23 @@ from pandaflow.core.registry import load_strategy_classes
 
 
 class StrategyFactory:
-    def __init__(self, config):
-        self.strategies = load_strategy_classes()
-
+    @classmethod
     def get_strategy(
-        self, rule_type: str, version: str = None
-    ) -> TransformationStrategy:
-        versions = self.strategies.get(rule_type)
+        self, transformation_dict: dict) -> TransformationStrategy:
+        strategies = load_strategy_classes()
+        strategy_name = transformation_dict.get("strategy")
+        req_version = transformation_dict.get("version", None)
+        versions = strategies.get(strategy_name)
         if not versions:
-            raise ValueError(f"Strategy '{rule_type}' not found.")
-
-        if version:
-            strategy = versions.get(version)
+            raise ValueError(f"Strategy '{strategy_name}' not found.")
+        if req_version:
+            strategy = versions.get(req_version)
             if not strategy:
                 raise ValueError(
-                    f"Version '{version}' of strategy '{rule_type}' not found."
+                    f"Version '{req_version}' of strategy '{strategy_name}' not found."
                 )
-            return strategy
+            return strategy(config_dict=transformation_dict)
 
         # Default to highest version (semantic sort)
         sorted_versions = sorted(versions.keys(), reverse=True)
-        return versions[sorted_versions[0]]
+        return versions[sorted_versions[0]](config_dict=transformation_dict)

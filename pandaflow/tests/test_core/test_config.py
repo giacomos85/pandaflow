@@ -1,4 +1,5 @@
 import json
+from pandaflow.core.factory import StrategyFactory
 from pandaflow.models.config import PandaFlowConfig
 import toml
 import pytest
@@ -56,7 +57,6 @@ def test_load_config_unknown_strategy():
     config_data = {"transformations": [{"strategy": "unknown", "version": "1.0.0"}]}
     path, tmp = make_config_file(".json", config_data)
 
-    with patch("pandaflow.core.config.StrategyFactory.get_strategy", return_value=None):
-        with pytest.raises(ValueError, match="Unknown strategy: unknown"):
-            load_config(str(path))
-        tmp.cleanup()
+    with pytest.raises(ValueError, match="Strategy 'unknown' not found."):
+        load_config(str(path))
+    tmp.cleanup()
