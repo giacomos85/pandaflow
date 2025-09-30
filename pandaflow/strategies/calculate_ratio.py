@@ -53,9 +53,6 @@ class CalculateRatioStrategy(TransformationStrategy):
 
     strategy_model = CalculateRatioRule
 
-    def validate_rule(self):
-        return CalculateRatioRule(**self.config_dict)
-
     def apply(self, df: pd.DataFrame) -> pd.DataFrame:
 
         if self.config.numerator not in df.columns:

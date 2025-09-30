@@ -12,7 +12,7 @@
 
 - ✅ **Strategy Pattern** — Each transformation is encapsulated in a reusable strategy  
 - 🧩 **Config-Driven Execution** — Define pipelines in YAML, TOML, or JSON  
-- 🔍 **Schema Validation** — Pydantic-powered rule parsing with clear error reporting  
+- 🔍 **Schema Validation** — Pydantic-powered transformation parsing with clear error reporting  
 - 🛠 **CLI Interface** — Run transformations with intuitive commands and feedback  
 - 🔌 **Plugin Architecture** — Easily extend with custom strategies  
 - 🧪 **Test Coverage** — Comprehensive suite with CI-ready structure  

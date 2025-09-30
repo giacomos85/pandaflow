@@ -23,9 +23,6 @@ class ReplaceStrategy(TransformationStrategy):
 
     strategy_model = ReplaceRule
 
-    def validate_rule(self):
-        return ReplaceRule(**self.config_dict)
-
     def apply(self, df: pd.DataFrame):
 
         if self.config.field not in df.columns:

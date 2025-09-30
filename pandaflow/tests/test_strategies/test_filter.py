@@ -54,14 +54,3 @@ def test_formula_with_multiple_conditions(sample_df):
     result = strategy.run(sample_df)
     assert len(result) == 2
     assert result["description"].tolist() == ["A", "C"]
-
-
-def test_validate_rule():
-    rule = {
-        "strategy": "filter",
-        "field": "description",
-        "formula": "(amount > 0) & (category == 'Sales')",
-    }
-    strategy = FilterByFormulaStrategy(rule)
-    validated = strategy.validate_rule()
-    assert validated

@@ -86,20 +86,3 @@ def test_group_id_out_of_range_returns_none(strategy_cls):
     strategy = strategy_cls(rule)
     result = strategy.run(df)
     assert result["__out__"].tolist() == [""]
-
-
-def test_validate_rule(strategy_cls):
-    rule = {
-        "field": "__order_id__",
-        "strategy": "regex",
-        "source": "raw",
-        "regex": r"Order\s+#(\d+)",
-        "group_id": 1,
-        "formatter": "custom",
-    }
-    strategy = strategy_cls(rule)
-    validated = strategy.validate_rule()
-    assert validated.source == "raw"
-    assert validated.regex == rule["regex"]
-    assert validated.group_id == 1
-    assert validated.formatter == "custom"

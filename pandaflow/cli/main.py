@@ -18,6 +18,5 @@ def cli():
 cli.add_command(run)
 cli.add_command(archive)
 cli.add_command(duplicates)
-cli.add_command(check)
 cli.add_command(strategies)
 cli.add_command(dump)

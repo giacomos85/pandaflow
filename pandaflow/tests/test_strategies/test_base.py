@@ -5,10 +5,6 @@ from pandaflow.strategies.base import TransformationStrategy
 
 # Minimal concrete subclass for testing
 class DummyStrategy(TransformationStrategy):
-    def validate_rule(self, rule_dict):
-        if "field" not in rule_dict:
-            raise ValueError("Missing 'field'")
-        return rule_dict
 
     def run(self, df: pd.DataFrame, **kwargs) -> pd.DataFrame:
         df_copy = df.copy()
@@ -25,34 +21,9 @@ def test_run_applies_strategy():
     assert all(result["B"] == "debug")
 
 
-def test_check_valid_rule():
-    rule = {"field": "X"}
-    strategy = DummyStrategy(rule)
-    config = {}
-    assert strategy.check(config, rule) is True
-
-
-def test_check_invalid_rule_raises():
-    rule = {}  # Missing 'field'
-    config = {}
-    strategy = DummyStrategy(rule)
-    with pytest.raises(ValueError, match="Invalid rule configuration"):
-        strategy.check(config, rule)
-
-
-def test_validate_rule_not_implemented():
-    class IncompleteStrategy(TransformationStrategy):
-        pass
-
-    strategy = IncompleteStrategy({})
-    with pytest.raises(NotImplementedError, match="Must implement validate_rule"):
-        strategy.validate_rule({})
-
-
 def test_apply_not_implemented():
     class IncompleteStrategy(TransformationStrategy):
-        def validate_rule(self, rule_dict):
-            return rule_dict
+        pass
 
     strategy = IncompleteStrategy({})
     df = pd.DataFrame({"A": [1]})

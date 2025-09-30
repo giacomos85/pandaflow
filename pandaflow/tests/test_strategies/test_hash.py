@@ -55,16 +55,3 @@ def test_empty_string_handling():
         hashlib.md5(";y".encode("utf-8")).hexdigest(),
     ]
     assert result["__md5__"].tolist() == expected
-
-
-def test_validate_rule():
-    rule_dict = {
-        "field": "__md5__",
-        "source": ["A", "B"],
-        "strategy": "hash",
-        "function": "calculate_md5",
-    }
-    strategy = HashStrategy(rule_dict)
-    validated = strategy.validate_rule()
-    assert validated.source == ["A", "B"]
-    assert validated.function == "calculate_md5"

@@ -24,9 +24,6 @@ class CalculateAmountStrategy(TransformationStrategy):
 
     strategy_model = CalculateAmountRule
 
-    def validate_rule(self):
-        return CalculateAmountRule(**self.config_dict)
-
     def apply(self, df: pd.DataFrame):
 
         format_value = get_output_formatter(self.config.formatter)

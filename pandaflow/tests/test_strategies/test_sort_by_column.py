@@ -78,12 +78,3 @@ def test_sort_default_ascending(sample_df):
     }
     result = SortByColumnStrategy(rule).run(sample_df)
     assert result.name.tolist() == ["Alice", "Charlie", "Bob", "Dana"]
-
-
-def test_validate_rule(sample_df):
-    rule = {
-        "strategy": "sort_by_column",
-        "columns": ["score", "age"],
-    }
-    validated = SortByColumnStrategy(rule).validate_rule()
-    assert validated.strategy == "sort_by_column"

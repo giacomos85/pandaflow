@@ -47,8 +47,5 @@ class DropColumnsStrategy(TransformationStrategy):
 
     strategy_model = DropColumnsRule
 
-    def validate_rule(self):
-        return DropColumnsRule(**self.config_dict)
-
     def apply(self, df: pd.DataFrame) -> pd.DataFrame:
         return df.drop(columns=self.config.columns, errors=self.config.errors)

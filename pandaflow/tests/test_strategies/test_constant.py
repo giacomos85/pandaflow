@@ -4,13 +4,6 @@ from pandas.testing import assert_frame_equal
 from pandaflow.strategies.constant import ConstantStrategy, ConstantRule
 
 
-def test_validate_rule_parses_correctly():
-    rule_dict = {"field": "__source__", "strategy": "constant", "value": "amazon"}
-    rule = ConstantRule(**rule_dict)
-    assert isinstance(rule, ConstantRule)
-    assert rule.value == "amazon"
-
-
 def test_apply_sets_constant_value():
     df = pd.DataFrame({"order_id": [1, 2, 3]})
     rule = {"field": "__source__", "strategy": "constant", "value": "amazon"}

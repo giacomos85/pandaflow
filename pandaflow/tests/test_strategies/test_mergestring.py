@@ -50,20 +50,6 @@ def test_missing_formula_and_source_raises(sample_df):
         strategy = MergeStringStrategy(rule)
         strategy.run(sample_df)
 
-
-def test_validate_rule():
-    rule = {
-        "field": "__full_name__",
-        "strategy": "merge_formula",
-        "formula": "first_name + ' ' + last_name",
-        "formatter": "custom_format",
-    }
-    strategy = MergeStringStrategy(rule)
-    validated = strategy.validate_rule()
-    assert validated.formula == rule["formula"]
-    assert validated.formatter == rule["formatter"]
-
-
 def test_merge_with_missing_column_in_formula(sample_df):
     rule = {
         "strategy": "merge_formula",

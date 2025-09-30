@@ -22,9 +22,6 @@ class UUIDStrategy(TransformationStrategy):
 
     strategy_model = UUIDRule
 
-    def validate_rule(self):
-        return UUIDRule(**self.config_dict)
-
     def apply(self, df: pd.DataFrame):
 
         df[self.config.field] = [str(uuid7()) for _ in range(len(df))]

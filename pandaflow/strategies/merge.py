@@ -24,9 +24,6 @@ class MergeStrategy(TransformationStrategy):
 
     strategy_model = MergeRule
 
-    def validate_rule(self):
-        return MergeRule(**self.config_dict)
-
     def apply(self, df: pd.DataFrame):
         cols = (
             [

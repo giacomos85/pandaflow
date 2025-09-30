@@ -26,9 +26,6 @@ class MergeStringStrategy(TransformationStrategy):
 
     strategy_model = MergeFormulaRule
 
-    def validate_rule(self):
-        return MergeFormulaRule(**self.config_dict)
-
     def apply(self, df: pd.DataFrame):
         field = self.config.field
         # Get the formula or list of columns to merge

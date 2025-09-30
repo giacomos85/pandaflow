@@ -10,22 +10,6 @@ def input_df():
     return pd.DataFrame({"code": ["A", "B", "C"], "other": ["x", "y", "z"]})
 
 
-def test_validate_rule():
-    rule_dict = {
-        "field": "label",
-        "strategy": "lookup_external",
-        "source": "code",
-        "file": "lookup.csv",
-        "key": "code",
-        "value": "label",
-    }
-    strategy = LookupExternalStrategy(rule_dict)
-    validated = strategy.validate_rule()
-    assert validated.file == "lookup.csv"
-    assert validated.key == "code"
-    assert validated.value == "label"
-
-
 def test_missing_file_returns_not_found(input_df):
     rule = {
         "field": "label",

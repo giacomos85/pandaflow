@@ -52,13 +52,3 @@ def test_apply_with_invalid_formula_raises():
     with pytest.raises(pd.errors.UndefinedVariableError):
         strategy.run(df)
 
-
-def test_validate_rule():
-    rule_dict = {
-        "field": "__amount__",
-        "strategy": "calculate_amount",
-        "formula": "__total__ - __refund__",
-    }
-    strategy = CalculateAmountStrategy(rule_dict)
-    validated = strategy.validate_rule()
-    assert validated

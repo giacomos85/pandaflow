@@ -28,9 +28,6 @@ class RegExStrategy(TransformationStrategy):
 
     strategy_model = RegexRule
 
-    def validate_rule(self):
-        return RegexRule(**self.config_dict)
-
     def apply(self, df: pd.DataFrame):
 
         source_col = self.config.source

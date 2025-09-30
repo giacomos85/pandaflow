@@ -24,9 +24,6 @@ class HashStrategy(TransformationStrategy):
 
     strategy_model = HashRule
 
-    def validate_rule(self):
-        return HashRule(**self.config_dict)
-
     def apply(self, df: pd.DataFrame):
         missing = [col for col in self.config.source if col not in df.columns]
         if missing:

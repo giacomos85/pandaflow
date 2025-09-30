@@ -37,10 +37,3 @@ def test_uuid_format(sample_df):
     for val in result["__uuid__"]:
         assert isinstance(val, str)
         assert len(val) >= 36  # UUIDv7 string length
-
-
-def test_validate_rule_():
-    rule = {"field": "text", "strategy": "uuid"}
-    strategy = UUIDStrategy(rule)
-    validated = strategy.validate_rule()
-    assert validated

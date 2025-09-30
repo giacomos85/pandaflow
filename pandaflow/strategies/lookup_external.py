@@ -28,9 +28,6 @@ class LookupExternalStrategy(TransformationStrategy):
 
     strategy_model = LookupExternalRule
 
-    def validate_rule(self):
-        return LookupExternalRule(**self.config_dict)
-
     def apply(self, df: pd.DataFrame, output: str = None):
         field = self.config.field
         csv_path = self.config.file.replace("${output}", Path(output).stem)

@@ -53,9 +53,6 @@ class SplitColumnStrategy(TransformationStrategy):
 
     strategy_model = SplitColumnRule
 
-    def validate_rule(self, rule_dict):
-        return SplitColumnRule(**self.config_dict)
-
     def apply(self, df: pd.DataFrame) -> pd.DataFrame:
 
         if self.config.column not in df.columns:

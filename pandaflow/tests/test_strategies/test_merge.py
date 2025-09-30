@@ -53,16 +53,3 @@ def test_merge_missing_column_raises(sample_df):
     with pytest.raises(ValueError, match="Column 'missing' not found"):
         strategy = MergeStrategy(rule)
         strategy.run(sample_df)
-
-
-def test_validate_rule():
-    rule = {
-        "field": "__merged__",
-        "strategy": "merge",
-        "source": ["first", "last"],
-        "separator": "-",
-    }
-    strategy = MergeStrategy(rule)
-    validated = strategy.validate_rule()
-    assert validated.source == ["first", "last"]
-    assert validated.separator == "-"

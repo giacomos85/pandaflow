@@ -5,23 +5,6 @@ from pandas.testing import assert_frame_equal
 from pandaflow.strategies.copy import CopyStrategy, CopyRule
 
 
-def test_validate_rule_parses_correctly():
-    rule_dict = {
-        "field": "__amount__",
-        "strategy": "copy",
-        "source": "Amount",
-        "parser": "default_currency",
-        "formatter": "float_2dec",
-        "fillna": 0.0,
-    }
-    rule = CopyRule(**rule_dict)
-    assert isinstance(rule, CopyRule)
-    assert rule.source == "Amount"
-    assert rule.parser == "default_currency"
-    assert rule.formatter == "float_2dec"
-    assert rule.fillna == 0.0
-
-
 def test_apply_with_input_and_output_transformations():
     df = pd.DataFrame({"Amount": ["€1.234,56", "€2.345,67"]})
     rule = {
@@ -72,10 +55,3 @@ def test_apply_raises_if_source_column_missing():
     strategy = CopyStrategy(rule)
     with pytest.raises(ValueError, match="Column 'Amount' not found"):
         strategy.run(df)
-
-
-def test_validate_rule():
-    rule = {"field": "__amount__", "strategy": "copy", "source": "Amount"}
-    strategy = CopyStrategy(rule)
-    validated = strategy.validate_rule()
-    assert validated

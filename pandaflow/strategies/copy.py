@@ -27,9 +27,6 @@ class CopyStrategy(TransformationStrategy):
 
     strategy_model = CopyRule
 
-    def validate_rule(self):
-        return CopyRule(**self.config_dict)
-
     def apply(self, df: pd.DataFrame):
         col = self.config.source or self.config.field
         if col not in df.columns:

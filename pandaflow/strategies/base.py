@@ -20,15 +20,5 @@ class TransformationStrategy:
         df_copy = self.apply(df_copy, **kwargs)
         return df_copy
 
-    def check(self, config: dict, rule: dict):
-        try:
-            self.validate_rule(rule)
-        except Exception as e:
-            raise ValueError(f"Invalid rule configuration: {rule} {rule}. Error: {e}")
-        return True
-
-    def validate_rule(self, rule_dict):
-        raise NotImplementedError("Must implement validate_rule method")
-
     def apply(self, df: pd.DataFrame, rule: dict) -> pd.DataFrame:
         raise NotImplementedError("Must implement apply method")

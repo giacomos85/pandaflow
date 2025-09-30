@@ -22,9 +22,6 @@ class ConstantStrategy(TransformationStrategy):
 
     strategy_model = ConstantRule
 
-    def validate_rule(self):
-        return ConstantRule(**self.config_dict)
-
     def apply(self, df: pd.DataFrame):
         df[self.config.field] = self.config.value
         return df

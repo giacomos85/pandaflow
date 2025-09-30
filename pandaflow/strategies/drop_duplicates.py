@@ -53,9 +53,6 @@ class DropDuplicatesStrategy(TransformationStrategy):
 
     strategy_model = DropDuplicatesRule
 
-    def validate_rule(self):
-        return DropDuplicatesRule(**self.config_dict)
-
     def apply(self, df: pd.DataFrame) -> pd.DataFrame:
         result = df.drop_duplicates(subset=self.config.subset, keep=self.config.keep)
         if self.config.reset_index:

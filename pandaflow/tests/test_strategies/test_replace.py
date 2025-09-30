@@ -47,16 +47,3 @@ def test_replace_with_empty_from(sample_df):
     result = strategy.run(sample_df)
     # Every character gets a "-" inserted before it
     assert result["text"].str.startswith("-").all()
-
-
-def test_validate_rule_maps_keys():
-    rule = {
-        "field": "text",
-        "strategy": "replace",
-        "find": "world",
-        "replace": "planet",
-    }
-    strategy = ReplaceStrategy(rule)
-    validated = strategy.validate_rule()
-    assert validated.find == "world"
-    assert validated.replace == "planet"

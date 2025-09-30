@@ -34,7 +34,7 @@ To add a new transformation strategy:
 
 1. Create a new file in `pandaflow/strategies/` (e.g. `normalize.py`)
 2. Define a `BaseRule` subclass for schema validation
-3. Implement a `TransformationStrategy` subclass with `meta`, `validate_rule()`, and `apply()`
+3. Implement a `TransformationStrategy` subclass with `meta`, `strategy_model`, and `apply()`
 4. Add test cases in `tests/strategies/test_normalize.py`
 5. Document the strategy in `docs/source/strategies/normalize.rst`
 

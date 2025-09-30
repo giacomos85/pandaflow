@@ -24,9 +24,6 @@ class FilterByFormulaStrategy(TransformationStrategy):
 
     strategy_model = FilterByFormulaRule
 
-    def validate_rule(self):
-        return FilterByFormulaRule(**self.config_dict)
-
     def apply(self, df: pd.DataFrame):
 
         try:

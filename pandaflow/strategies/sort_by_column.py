@@ -17,9 +17,6 @@ class SortByColumnStrategy(TransformationStrategy):
 
     strategy_model = SortByColumnRule
 
-    def validate_rule(self):
-        return SortByColumnRule(**self.config_dict)
-
     def apply(self, df: pd.DataFrame) -> pd.DataFrame:
         asc = (
             self.config.ascending
