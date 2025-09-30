@@ -13,7 +13,7 @@ def input_df():
 def test_validate_rule():
     rule_dict = {
         "field": "label",
-        "strategy": "csvfile",
+        "strategy": "lookup_external",
         "source": "code",
         "file": "lookup.csv",
         "key": "code",
