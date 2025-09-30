@@ -15,30 +15,23 @@ Rule Format:
 Example Rule
 ------------
 
-.. code-block:: json
+.. literalinclude:: ../data/drop_columns/pandaflow-config.json
+   :language: json
+   :linenos:
+   :caption: Example Rule Definition
 
-    {
-        "strategy": "dropcolumns",
-        "columns": ["gender", "country"],
-        "errors": "ignore"
-    }
-
-Input DataFrame
----------------
+Input Example
+~~~~~~~~~~~~~
 
 .. csv-table:: Input DataFrame
+   :file: ../data/drop_columns/input.csv
    :header-rows: 1
+   :widths: auto
 
-   name,age,gender,country
-   Alice,30,F,IT
-   Bob,25,M,FR
+Result
+~~~~~~
 
-Expected Output
----------------
-
-.. csv-table:: Output DataFrame
+.. csv-table:: Transformed Output
+   :file: ../data/drop_columns/output.csv
    :header-rows: 1
-
-   name,age
-   Alice,30
-   Bob,25
+   :widths: auto

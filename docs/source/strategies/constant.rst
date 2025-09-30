@@ -16,7 +16,7 @@ Rule Format:
 Example Rule
 ------------
 
-.. literalinclude:: ../rules/constant.json
+.. literalinclude:: ../data/constant/pandaflow-config.json
    :language: json
    :linenos:
    :caption: Example Rule Definition
@@ -27,7 +27,7 @@ Input Data
 The following table shows the input DataFrame before applying the strategy:
 
 .. csv-table:: Input DataFrame
-   :file: ../data/constant_input.csv
+   :file: ../data/constant/input.csv
    :header-rows: 1
    :widths: auto
 
@@ -37,7 +37,7 @@ Result
 After applying the constant strategy, the output DataFrame includes the new column with the specified constant value:
 
 .. csv-table:: Transformed Output
-   :file: ../data/constant_output.csv
+   :file: ../data/constant/output.csv
    :header-rows: 1
    :widths: auto
 

@@ -15,7 +15,7 @@ Rule Format:
    - `find`: The substring or value to search for
    - `replace`: The string to replace it with
 
-.. literalinclude:: ../rules/replace.json
+.. literalinclude:: ../data/replace/pandaflow-config.json
    :language: json
    :linenos:
    :caption: Replace Rule Example
@@ -24,15 +24,15 @@ Input Example
 -------------
 
 .. csv-table:: Input DataFrame
-   :file: ../data/replace_input.csv
+   :file: ../data/replace/input.csv
    :header-rows: 1
    :widths: auto
 
 Result
 ------
 
-.. csv-table:: Output with Replacements
-   :file: ../data/replace_output.csv
+.. csv-table:: Extracted Output
+   :file: ../data/replace/output.csv
    :header-rows: 1
    :widths: auto
 

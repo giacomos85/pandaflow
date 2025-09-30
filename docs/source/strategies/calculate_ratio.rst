@@ -17,7 +17,7 @@ Rule Format:
 Example Rule
 ------------
 
-.. literalinclude:: ../rules/calculate_ratio.json
+.. literalinclude:: ../data/calculate_ratio/pandaflow-config.json
    :language: json
    :linenos:
    :caption: calculate_ratio Rule Example
@@ -26,7 +26,7 @@ Input Example
 ~~~~~~~~~~~~~
 
 .. csv-table:: Input DataFrame
-   :file: ../data/calculate_ratio_input.csv
+   :file: ../data/calculate_ratio/input.csv
    :header-rows: 1
    :widths: auto
 
@@ -34,6 +34,6 @@ Result
 ~~~~~~
 
 .. csv-table:: Output with Calculated Amount
-   :file: ../data/calculate_ratio_output.csv
+   :file: ../data/calculate_ratio/output.csv
    :header-rows: 1
    :widths: auto

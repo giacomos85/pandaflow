@@ -18,7 +18,7 @@ Rule Format:
 Example Rule
 ------------
 
-.. literalinclude:: ../rules/split_column.json
+.. literalinclude:: ../data/split_column/pandaflow-config.json
    :language: json
    :linenos:
    :caption: Split_column Rule Example
@@ -27,7 +27,7 @@ Input DataFrame
 ---------------
 
 .. csv-table:: Input DataFrame
-   :file: ../data/split_column_input.csv
+   :file: ../data/split_column/input.csv
    :header-rows: 1
    :widths: auto
 
@@ -35,6 +35,6 @@ Expected Output
 ---------------
 
 .. csv-table:: Input DataFrame
-   :file: ../data/split_column_output.csv
+   :file: ../data/split_column/output.csv
    :header-rows: 1
    :widths: auto

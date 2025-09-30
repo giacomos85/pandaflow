@@ -15,7 +15,7 @@ Rule Format:
    - `formula`: A pandas-compatible expression (e.g. `"price * quantity"`)
    - `output_rule`: Optional formatter (e.g. `"float_2dec"`)
 
-.. literalinclude:: ../rules/calculate_amount.json
+.. literalinclude:: ../data/calculate_amount/pandaflow-config.json
    :language: json
    :linenos:
    :caption: CalculateAmount Rule Example
@@ -24,7 +24,7 @@ Input Example
 ~~~~~~~~~~~~~
 
 .. csv-table:: Input DataFrame
-   :file: ../data/calculate_amount_input.csv
+   :file: ../data/calculate_amount/input.csv
    :header-rows: 1
    :widths: auto
 
@@ -32,7 +32,7 @@ Result
 ~~~~~~
 
 .. csv-table:: Output with Calculated Amount
-   :file: ../data/calculate_amount_output.csv
+   :file: ../data/calculate_amount/output.csv
    :header-rows: 1
    :widths: auto
 

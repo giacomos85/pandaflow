@@ -17,7 +17,7 @@ Rule Format
 
 The rule must specify the target field and source column. Optional keys allow for parsing, formatting, and fallback values.
 
-.. literalinclude:: ../rules/copy.json
+.. literalinclude:: ../data/copy/pandaflow-config.json
    :language: json
    :linenos:
    :caption: Example Rule Definition
@@ -32,7 +32,7 @@ Input Example
 ~~~~~~~~~~~~~
 
 .. csv-table:: Input DataFrame
-   :file: ../data/copy_input.csv
+   :file: ../data/copy/input.csv
    :header-rows: 1
    :widths: auto
 
@@ -40,7 +40,7 @@ Result
 ~~~~~~
 
 .. csv-table:: Transformed Output
-   :file: ../data/copy_output.csv
+   :file: ../data/copy/output.csv
    :header-rows: 1
    :widths: auto
 

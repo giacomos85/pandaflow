@@ -19,7 +19,7 @@ The rule must specify:
 
 - `field`: The column name where UUIDs will be stored
 
-.. literalinclude:: ../rules/uuid.json
+.. literalinclude:: ../data/uuid/pandaflow-config.json
    :language: json
    :linenos:
    :caption: UUID Rule Example
@@ -28,7 +28,7 @@ Input Example
 ~~~~~~~~~~~~~
 
 .. csv-table:: Input DataFrame
-   :file: ../data/uuid_input.csv
+   :file: ../data/uuid/input.csv
    :header-rows: 1
    :widths: auto
 
@@ -36,7 +36,7 @@ Result
 ~~~~~~
 
 .. csv-table:: Output with UUIDs
-   :file: ../data/uuid_output.csv
+   :file: ../data/uuid/output.csv
    :header-rows: 1
    :widths: auto
 

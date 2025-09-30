@@ -16,7 +16,7 @@ Rule Format:
 Example Rule
 ------------
 
-.. literalinclude:: ../rules/sort_by_column.json
+.. literalinclude:: ../data/sort_by_column/pandaflow-config.json
    :language: json
    :linenos:
    :caption: Sort_by_column Rule Example
@@ -25,18 +25,14 @@ Input DataFrame
 ---------------
 
 .. csv-table:: Input DataFrame
-   :file: ../data/sort_by_column_input.csv
+   :file: ../data/sort_by_column/input.csv
    :header-rows: 1
    :widths: auto
 
 Expected Output
 ---------------
 
-.. csv-table:: Output DataFrame
+.. csv-table:: Extracted Output
+   :file: ../data/sort_by_column/output.csv
    :header-rows: 1
-
-   name,score,age
-   Bob,92,25
-   Alice,85,30
-   Charlie,85,40
-   Dana,,22
+   :widths: auto

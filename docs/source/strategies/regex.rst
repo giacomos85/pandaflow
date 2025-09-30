@@ -24,7 +24,7 @@ The rule must specify:
 - `replace`: Optional dictionary to map extracted values
 - `output_rule`: Optional formatter to apply to the result
 
-.. literalinclude:: ../rules/regex.json
+.. literalinclude:: ../data/regex/pandaflow-config.json
    :language: json
    :linenos:
    :caption: Regex Rule Example
@@ -33,7 +33,7 @@ Input Example
 ~~~~~~~~~~~~~
 
 .. csv-table:: Input DataFrame
-   :file: ../data/regex_input.csv
+   :file: ../data/regex/input.csv
    :header-rows: 1
    :widths: auto
 
@@ -41,7 +41,7 @@ Result
 ~~~~~~
 
 .. csv-table:: Extracted Output
-   :file: ../data/regex_output.csv
+   :file: ../data/regex/output.csv
    :header-rows: 1
    :widths: auto
 

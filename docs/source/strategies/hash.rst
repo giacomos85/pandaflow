@@ -21,7 +21,7 @@ The rule must specify:
 - `source`: A list of columns to combine and hash
 - `function`: The hash function to use (currently only `"md5"` is supported)
 
-.. literalinclude:: ../rules/hash.json
+.. literalinclude:: ../data/hash/pandaflow-config.json
    :language: json
    :linenos:
    :caption: Hash Rule Example
@@ -30,7 +30,7 @@ Input Example
 ~~~~~~~~~~~~~
 
 .. csv-table:: Input DataFrame
-   :file: ../data/hash_input.csv
+   :file: ../data/hash/input.csv
    :header-rows: 1
    :widths: auto
 
@@ -38,7 +38,7 @@ Result
 ~~~~~~
 
 .. csv-table:: Output with Hashes
-   :file: ../data/hash_output.csv
+   :file: ../data/hash/output.csv
    :header-rows: 1
    :widths: auto
 
