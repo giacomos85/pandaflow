@@ -3,7 +3,6 @@ import click
 from pandaflow.cli.run import run
 from pandaflow.cli.archive import archive
 from pandaflow.cli.duplicates import duplicates
-from pandaflow.cli.check import check
 from pandaflow.cli.strategies import strategies
 from pandaflow.cli.schema import dump
 
