@@ -1,5 +1,6 @@
 from pandaflow import __version__
 import click
+from pandaflow.cli.dag import dag
 from pandaflow.cli.run import run
 from pandaflow.cli.archive import archive
 from pandaflow.cli.strategies import strategies
@@ -17,3 +18,4 @@ cli.add_command(run)
 cli.add_command(archive)
 cli.add_command(strategies)
 cli.add_command(dump)
+cli.add_command(dag)

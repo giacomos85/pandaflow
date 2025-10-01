@@ -50,3 +50,9 @@ class PandaFlowConfig(BaseModel):
         }
 
         return base
+    
+class TransformationNode(BaseModel):
+    name: str
+    strategy: str
+    depends_on: Optional[List[str]] = []
+    output_preview: Optional[str] = None  # e.g. shape, columns

@@ -1,6 +1,6 @@
 from pathlib import Path
 from typing import Dict, Mapping
-from pandaflow.models.config import PandaFlowConfig
+from pandaflow.models.config import PandaFlowConfig, TransformationNode
 import pandas as pd
 
 
@@ -16,8 +16,15 @@ def transform_dataframe(
     Returns:
         Transformed DataFrame, or None if skipped due to match transformations.
     """
-    for t in config.transformations:
+    dag = []
+    for i, t in enumerate(config.transformations):
         df = t.run(df)
+        dag.append(TransformationNode(
+            name=f"step_{i}_{t.strategy}",
+            strategy=t.strategy,
+            depends_on=[dag[-1].name] if i > 0 else [],
+            output_preview=str(df.shape)
+        ))
     return df
 
 
