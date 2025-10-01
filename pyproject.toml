@@ -41,6 +41,7 @@ pandaflow = "pandaflow.cli.main:cli"
 [tool.poetry.plugins."pandaflow.strategies"]
 calculate_amount = "pandaflow.strategies.calculate_amount:CalculateAmountStrategy"
 calculate_ratio = "pandaflow.strategies.calculate_ratio:CalculateRatioStrategy"
+cast_columns = "pandaflow.strategies.cast_columns:CastColumnsStrategy"
 constant = "pandaflow.strategies.constant:ConstantStrategy"
 copy = "pandaflow.strategies.copy:CopyStrategy"
 drop_duplicates = "pandaflow.strategies.drop_duplicates:DropDuplicatesStrategy"
