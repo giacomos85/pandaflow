@@ -2,15 +2,25 @@ import hashlib
 import pandas as pd
 from typing import List, Literal
 
+from pydantic import Field
+
 from pandaflow.models.config import PandaFlowTransformation
 from pandaflow.strategies.base import TransformationStrategy
 
 
 class HashTransformation(PandaFlowTransformation):
-    strategy: Literal["hash"]
-    field: str
-    source: List[str]
-    function: str
+    strategy: Literal["hash"] = Field(
+        description="Strategy identifier used to select this transformation. Must be 'hash'."
+    )
+    field: str = Field(
+        description="Name of the output column that will store the computed hash value."
+    )
+    source: List[str] = Field(
+        description="List of column names whose values will be combined and hashed."
+    )
+    function: str = Field(
+        description="Name of the hash function to apply (e.g., 'md5', 'sha256'). Must be supported by the hashing backend."
+    )
 
 
 class HashStrategy(TransformationStrategy):
@@ -18,8 +28,9 @@ class HashStrategy(TransformationStrategy):
     meta = {
         "name": "hash",
         "version": "1.0.0",
-        "author": "pandaflow team",
-        "description": "Generates a hash from specified columns",
+        "author": "PandaFlow Team",
+        "description": """The **hash** strategy generates a hash value from one or more columns in a DataFrame.  
+This is useful for creating unique identifiers, anonymizing sensitive fields, or tracking row-level changes.""",
     }
 
     strategy_model = HashTransformation

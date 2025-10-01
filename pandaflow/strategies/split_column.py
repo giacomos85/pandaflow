@@ -1,55 +1,42 @@
 from typing import Literal
 import pandas as pd
+from pydantic import Field
 from pandaflow.strategies.base import TransformationStrategy
 from pandaflow.models.config import PandaFlowTransformation
 
 
 class SplitColumnTransformation(PandaFlowTransformation):
-    strategy: Literal["split_column"]
-    column: str  # Column to split
-    delimiter: str  # Delimiter to use
-    maxsplit: int = -1  # Optional: max number of splits (-1 = no limit)
-    prefix: str = "split"  # Optional: prefix for new columns
-    drop_original: bool = False  # Optional: whether to drop the original column
+    strategy: Literal["split_column"] = Field(
+        description="Strategy identifier used to select this transformation. Must be 'split_column'."
+    )
+    column: str = Field(
+        description="Name of the column whose string values will be split using the specified delimiter."
+    )
+    delimiter: str = Field(
+        description="Delimiter string used to split the column values (e.g., ',' or '|')."
+    )
+    maxsplit: int = Field(
+        default=-1,
+        description="Maximum number of splits to perform. Use -1 for no limit."
+    )
+    prefix: str = Field(
+        default="split",
+        description="Prefix to use when naming the new columns created from the split operation."
+    )
+    drop_original: bool = Field(
+        default=False,
+        description="Whether to drop the original column after splitting. Defaults to False."
+    )
 
 
 class SplitColumnStrategy(TransformationStrategy):
-    """
-    Strategy: split_column
-    -----------------------
 
-    Splits a string column into multiple columns using a delimiter.
-
-    Metadata:
-        - name: "split_column"
-        - version: "1.0.0"
-        - author: "pandaflow team"
-
-    Transformation Format:
-        - column: str — Column to split
-        - delimiter: str — Delimiter to use
-        - maxsplit: Optional[int] — Max number of splits (-1 = no limit)
-        - prefix: Optional[str] — Prefix for new columns (default: "split")
-        - drop_original: Optional[bool] — Whether to drop the original column
-
-    Example:
-        >>> import pandas as pd
-        >>> from pandaflow.strategies.split_column import SplitColumnStrategy
-        >>> df = pd.DataFrame({
-        ...     "full_name": ["Alice Smith", "Bob Jones"]
-        ... })
-        >>> transformation = {
-        ...     "strategy": "split_column",
-        ...     "column": "full_name",
-        ...     "delimiter": " ",
-        ...     "prefix": "name"
-        ... }
-        >>> result = SplitColumnStrategy().apply(df, rule)
-        >>> print(result.columns.tolist())
-        ['name_0', 'name_1']
-    """
-
-    meta = {"name": "split_column", "version": "1.0.0", "author": "pandaflow team"}
+    meta = {
+        "name": "split_column",
+        "version": "1.0.0",
+        "author": "PandaFlow Team",
+        "description": """Splits a string column into multiple columns using a delimiter."""    
+    }
 
     strategy_model = SplitColumnTransformation
 

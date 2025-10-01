@@ -24,7 +24,7 @@ Basic Example
 
 Let’s say you want to copy values from one column to another and format them to two decimal places.
 
-1. **Create a transformations files** (save as `my_transformations.json`):
+1. Create a **transformations file** named `pandaflow-config.json`:
 
    .. code-block:: json
 
@@ -54,7 +54,7 @@ Let’s say you want to copy values from one column to another and format them t
 
    .. code-block:: bash
 
-      pandaflow run --input mydata.csv --output results.csv --config my_transformations.json
+      pandaflow run --input mydata.csv --output results.csv --config pandaflow-config.json
 
 What You Can Do
 ---------------
@@ -67,21 +67,6 @@ Pandaflow supports many built-in strategies:
 - **filter**: Keep only rows that match a condition
 
 Each strategy has its own rule format. You can find examples in the [Strategy Reference](strategies/index).
-
-Using Rules from Files
-----------------------
-
-You can store your transformations in `.json` files and reuse them across projects:
-
-.. code-block:: python
-
-   import json
-   from pandaflow.engine import apply_rule
-
-   with open("transformations/drop.json") as f:
-       transformation = json.load(f)
-
-   df = apply_rule(df, rule)
 
 Tips for End Users
 ------------------

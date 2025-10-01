@@ -1,3 +1,4 @@
+from pydantic import Field
 from pandaflow.utils import get_output_formatter
 import pandas as pd
 from typing import List, Literal, Optional
@@ -7,12 +8,28 @@ from pandaflow.strategies.base import TransformationStrategy
 
 
 class MergeFormulaTransformation(PandaFlowTransformation):
-    strategy: Literal["merge_formula"]
-    field: str
-    formula: Optional[str] = None
-    formatter: Optional[str] = None
-    source: Optional[List[str]] = None
-    separator: Optional[str] = " "
+    strategy: Literal["merge_formula"] = Field(
+        description="Strategy identifier used to select this transformation. Must be 'merge_formula'."
+    )
+    field: str = Field(
+        description="Name of the output column that will store the result of the formula or merged values."
+    )
+    formula: Optional[str] = Field(
+        default=None,
+        description="Optional pandas-compatible formula to compute the output value. If provided, overrides source/merge behavior."
+    )
+    formatter: Optional[str] = Field(
+        default=None,
+        description="Optional formatter function name to apply to the result after formula or merge."
+    )
+    source: Optional[List[str]] = Field(
+        default=None,
+        description="Optional list of column names to merge if no formula is provided."
+    )
+    separator: Optional[str] = Field(
+        default=" ",
+        description="String used to separate values when merging multiple columns. Defaults to a single space."
+    )
 
 
 class MergeStringStrategy(TransformationStrategy):
@@ -20,7 +37,7 @@ class MergeStringStrategy(TransformationStrategy):
     meta = {
         "name": "merge_formula",
         "version": "1.0.0",
-        "author": "pandaflow team",
+        "author": "PandaFlow Team",
         "description": "Merges values from multiple columns into one using a formula or concatenation.",
     }
 

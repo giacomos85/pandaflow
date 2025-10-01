@@ -1,0 +1,9 @@
+{
+    "transformations": [
+        {
+            "strategy": "merge",
+            "source": ["first_name", "last_name"],
+            "separator": " "
+        }
+    ]
+}

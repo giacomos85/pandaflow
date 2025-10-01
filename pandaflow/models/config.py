@@ -4,8 +4,13 @@ from pydantic import BaseModel, Field
 
 
 class PandaFlowTransformation(BaseModel):
-    strategy: str
-    version: str | None = None
+    strategy: str = Field(
+        description="Name of the strategy used to identify and route the transformation logic."
+    )
+    version: str | None = Field(
+        default=None,
+        description="Optional version string to track the strategy implementation or schema evolution."
+    )
 
 
 class DataSourceConfig(BaseModel):

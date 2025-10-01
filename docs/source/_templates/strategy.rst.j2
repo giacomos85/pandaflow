@@ -1,0 +1,52 @@
+{{ name }}
+{{ "-" * name|length }}
+
+{{ description }}
+
+Metadata:
+    - **Name**: `{{ name }}`
+    - **Version**: `{{ version }}`
+    - **Author**: {{ author }}
+
+
+{{ name }} schema
+{{ "~" * name|length }}~~~~~~~
+
+.. list-table:: {{ name }} Fields
+   :header-rows: 1
+   :widths: 20 20 20 60
+
+   * - Field
+     - Type
+     - Required
+     - Description
+{% for field in fields %}
+   * - ``{{ field.name }}``
+     - {{ field.type }}
+     - {{ field.required }}
+     - {{ field.description if field.description else "" }}
+{% endfor %}
+
+
+Example input Dataset
+~~~~~~~~~~~~~~~~~~~~~
+
+.. csv-table:: Input DataFrame
+   :file: ../data/{{name}}/input.csv
+   :header-rows: 1
+   :widths: auto
+
+{{ name }} example
+{{ "~" * name|length}}{{ "~" * 8}}
+.. literalinclude:: ../data/{{ name }}/pandaflow-config.json
+   :language: json
+   :linenos:
+   :caption: {{ name }} Rule Example
+
+Result
+~~~~~~
+
+.. csv-table:: Transformed Output
+   :file: ../data/{{ name }}/output.csv
+   :header-rows: 1
+   :widths: auto

@@ -1,55 +1,37 @@
 from typing import Literal
 import pandas as pd
+from pydantic import Field
 from pandaflow.strategies.base import TransformationStrategy
 from pandaflow.models.config import PandaFlowTransformation
 
 
 class CalculateRatioTransformation(PandaFlowTransformation):
-    strategy: Literal["calculate_ratio"]
-    field: str
-    numerator: str  # Column name for numerator
-    denominator: str  # Column name for denominator
-    round_digits: int = None  # Optional: number of decimal places to round
+    strategy: Literal["calculate_ratio"] = Field(
+        description="Strategy identifier used to select this transformation. Must be 'calculate_ratio'."
+    )
+    field: str = Field(
+        description="Name of the output column that will store the calculated ratio."
+    )
+    numerator: str = Field(
+        description="Name of the column to use as the numerator in the ratio calculation."
+    )
+    denominator: str = Field(
+        description="Name of the column to use as the denominator in the ratio calculation."
+    )
+    round_digits: int = Field(
+        default=None,
+        description="Optional number of digits to round the result to. If None, no rounding is applied.",
+    )
 
 
 class CalculateRatioStrategy(TransformationStrategy):
-    """
-    Strategy: calculate_ratio
-    --------------------------
 
-    Calculates the ratio between two numeric columns and stores the result in a new column.
-
-    Metadata:
-        - name: "calculate_ratio"
-        - version: "1.0.0"
-        - author: "pandaflow team"
-
-    Transformation Format:
-        - numerator: str — Column name for numerator
-        - denominator: str — Column name for denominator
-        - result_column: Optional[str] — Name of the output column (default: "ratio")
-        - round_digits: Optional[int] — Number of decimal places to round to
-
-    Example:
-        >>> import pandas as pd
-        >>> from pandaflow.strategies.calculate_ratio import CalculateRatioStrategy
-        >>> df = pd.DataFrame({
-        ...     "sales": [100, 200, 300],
-        ...     "cost": [50, 80, 120]
-        ... })
-        >>> transformation = {
-        ...     "strategy": "calculate_ratio",
-        ...     "numerator": "sales",
-        ...     "denominator": "cost",
-        ...     "result_column": "margin",
-        ...     "round_digits": 2
-        ... }
-        >>> result = CalculateRatioStrategy().apply(df, rule)
-        >>> print(result["margin"].tolist())
-        [2.0, 2.5, 2.5]
-    """
-
-    meta = {"name": "calculate_ratio", "version": "1.0.0", "author": "pandaflow team"}
+    meta = {
+        "name": "calculate_ratio",
+        "version": "1.0.0",
+        "author": "pandaflow team",
+        "description": """Calculates the ratio between two numeric columns and stores the result in a new column.""",
+    }
 
     strategy_model = CalculateRatioTransformation
 

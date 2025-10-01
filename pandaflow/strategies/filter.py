@@ -1,4 +1,6 @@
-from typing import Literal
+from typing import Literal, Optional
+
+from pydantic import Field
 from pandaflow.models.config import PandaFlowTransformation
 from pandaflow.utils import get_output_formatter
 import pandas as pd
@@ -7,19 +9,28 @@ from pandaflow.strategies.base import TransformationStrategy
 
 
 class FilterByFormulaTransformation(PandaFlowTransformation):
-    strategy: Literal["filter"]
-    field: str
-    formula: str
-    formatter: str = None
-
+    strategy: Literal["filter"] = Field(
+        description="Strategy identifier used to select this transformation. Must be 'filter'."
+    )
+    field: str = Field(
+        description="Name of the column to apply the filtering formula to."
+    )
+    formula: str = Field(
+        description="Filtering expression to evaluate. Should be a valid pandas-compatible formula (e.g., 'value > 10')."
+    )
+    formatter: Optional[str] = Field(
+        default=None,
+        description="Optional formatter function name to apply to the field before evaluating the formula."
+    )
 
 class FilterByFormulaStrategy(TransformationStrategy):
 
     meta = {
         "name": "filter",
         "version": "1.0.0",
-        "author": "pandaflow team",
-        "description": "Filters rows based on a formula",
+        "author": "PandaFlow Team",
+        "description": """The **filter** strategy selects rows from a DataFrame based on a user-defined formula.  
+It supports logical expressions involving column values and can optionally format the output field.""",
     }
 
     strategy_model = FilterByFormulaTransformation

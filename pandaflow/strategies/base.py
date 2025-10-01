@@ -6,7 +6,7 @@ class TransformationStrategy:
     meta = {
         "name": "base_strategy",
         "version": "1.0.0",
-        "author": "pandaflow team",
+        "author": "PandaFlow Team",
         "description": "Base transformation strategy",
     }
 

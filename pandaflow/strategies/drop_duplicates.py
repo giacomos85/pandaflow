@@ -1,55 +1,36 @@
 import pandas as pd
+from pydantic import Field
 from pandaflow.strategies.base import TransformationStrategy
 from pandaflow.models.config import PandaFlowTransformation
 from typing import Literal, Optional, List
 
 
 class DropDuplicatesTransformation(PandaFlowTransformation):
-    strategy: Literal["drop_duplicates"]
-    subset: Optional[List[str]] = None  # Columns to consider for identifying duplicates
-    keep: Optional[str] = "first"  # "first", "last", or False
-    reset_index: Optional[bool] = False  # Whether to reset the index after dropping
+    strategy: Literal["drop_duplicates"] = Field(
+        description="Strategy identifier used to select this transformation. Must be 'drop_duplicates'."
+    )
+    subset: Optional[List[str]] = Field(
+        default=None,
+        description="Optional list of column names to consider when identifying duplicates. If None, all columns are used."
+    )
+    keep: Optional[str] = Field(
+        default="first",
+        description="Determines which duplicate to keep: 'first', 'last', or False to drop all duplicates."
+    )
+    reset_index: Optional[bool] = Field(
+        default=False,
+        description="Whether to reset the DataFrame index after dropping duplicates. Defaults to False."
+    )
 
 
 class DropDuplicatesStrategy(TransformationStrategy):
-    """
-    Strategy: drop_duplicates
-    --------------------------
 
-    Drops duplicate rows from a DataFrame, optionally based on a subset of columns.
-
-    Metadata:
-        - name: "drop_duplicates"
-        - version: "1.0.0"
-        - author: "pandaflow team"
-
-    Transformation Format:
-        - subset: Optional[List[str]] — Columns to consider for identifying duplicates
-        - keep: Optional[str] — "first", "last", or False (default: "first")
-        - reset_index: Optional[bool] — Whether to reset the index after dropping
-
-    Example:
-        >>> import pandas as pd
-        >>> from pandaflow.strategies.drop_duplicates import DropDuplicatesStrategy
-        >>> df = pd.DataFrame({
-        ...     "name": ["Alice", "Bob", "Alice", "Charlie"],
-        ...     "age": [30, 25, 30, 40]
-        ... })
-        >>> transformation = {
-        ...     "strategy": "drop_duplicates",
-        ...     "subset": ["name", "age"],
-        ...     "keep": "first",
-        ...     "reset_index": True
-        ... }
-        >>> result = DropDuplicatesStrategy().apply(df, rule)
-        >>> print(result)
-           name  age
-        0  Alice   30
-        1   Bob   25
-        2 Charlie   40
-    """
-
-    meta = {"name": "drop_duplicates", "version": "1.0.0", "author": "pandaflow team"}
+    meta = {
+        "name": "drop_duplicates",
+        "version": "1.0.0",
+        "author": "PandaFlow Team",
+        "description": """Drops duplicate rows from a DataFrame, optionally based on a subset of columns."""
+    }
 
     strategy_model = DropDuplicatesTransformation
 

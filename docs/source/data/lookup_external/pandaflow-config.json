@@ -1,0 +1,13 @@
+{
+    "transformations": [
+        {
+            "strategy": "lookup_external",
+            "field": "country_name",
+            "source": "country_code",
+            "file": "data/${year}/${output}_lookup.csv",
+            "key": "code",
+            "value": "name",
+            "not_found": "Unknown"
+        }
+    ]
+}

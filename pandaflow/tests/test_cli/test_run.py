@@ -3,7 +3,7 @@ from click.testing import CliRunner
 from unittest.mock import patch
 
 from pandaflow.cli.run import run
-from pandaflow.core.config import config_parser  # Adjust import to match your CLI module
+from pandaflow.core.config import config_parser
 
 
 @pytest.fixture

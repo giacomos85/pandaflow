@@ -1,0 +1,8 @@
+{
+    "transformations": [
+        {
+            "strategy": "reorder_columns",
+            "columns": ["first_name", "last_name", "id"]
+        }
+    ]
+}

@@ -1,16 +1,30 @@
 import pandas as pd
-from typing import List, Dict, Literal
+from typing import List, Dict, Literal, Optional, Union
+
+from pydantic import Field
 
 from pandaflow.models.config import PandaFlowTransformation
 from pandaflow.strategies.base import TransformationStrategy
 
 
 class MergeTransformation(PandaFlowTransformation):
-    strategy: Literal["merge"]
-    field: str
-    source: str | List[str]
-    replace: Dict[str, str] = None
-    separator: str = " "
+    strategy: Literal["merge"] = Field(
+        description="Strategy identifier used to select this transformation. Must be 'merge'."
+    )
+    field: str = Field(
+        description="Name of the output column that will store the merged result."
+    )
+    source: Union[str, List[str]] = Field(
+        description="Single column name or list of column names whose values will be merged."
+    )
+    replace: Optional[Dict[str, str]] = Field(
+        default=None,
+        description="Optional dictionary of string replacements to apply before merging. Keys are substrings to replace; values are their replacements."
+    )
+    separator: str = Field(
+        default=" ",
+        description="String used to separate values when merging multiple columns. Defaults to a single space."
+    )
 
 
 class MergeStrategy(TransformationStrategy):
@@ -18,7 +32,7 @@ class MergeStrategy(TransformationStrategy):
     meta = {
         "name": "merge",
         "version": "1.0.0",
-        "author": "pandaflow team",
+        "author": "PandaFlow Team",
         "description": "Merges values from multiple columns into one",
     }
 

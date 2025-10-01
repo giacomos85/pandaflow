@@ -23,7 +23,13 @@ lint:
 	poetry run flake8 pandaflow/ --count --select=E9,F63,F7,F82
 
 doc:
+	rm -rf docs/_build
+	cd docs/ && python generate_strategy_docs.py
 	poetry run sphinx-build -b html docs/source docs/_build/html
+	pandaflow dump --config --output docs/source/pandaflow-schema.json
+
+doc-serve:
+	python -m http.server 8080 --directory docs/_build/html/
 
 # Clean artifacts
 clean:

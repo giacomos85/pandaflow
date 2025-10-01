@@ -1,0 +1,10 @@
+{
+    "transformations": [
+        {
+            "strategy": "merge_formula",
+            "field": "total",
+            "formula": "price * quantity",
+            "round_digits": 2
+        }
+    ]
+}

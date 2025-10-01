@@ -1,47 +1,28 @@
 import pandas as pd
+from pydantic import Field
 from pandaflow.strategies.base import TransformationStrategy
 from pandaflow.models.config import PandaFlowTransformation
 from typing import List, Literal
 
 
 class ReorderColumnsTransformation(PandaFlowTransformation):
-    strategy: Literal["reorder_columns"]
-    columns: List[str]  # Desired column order
+    strategy: Literal["reorder_columns"] = Field(
+        description="Strategy identifier used to select this transformation. Must be 'reorder_columns'."
+    )
+    columns: List[str] = Field(
+        description="List of column names specifying the desired order. All listed columns must exist in the DataFrame."
+    )
 
 
 class ReorderColumnsStrategy(TransformationStrategy):
-    """
-    Strategy: reorder_columns
-    --------------------------
 
-    Reorders the columns of a DataFrame according to a specified list.
-
-    Metadata:
-        - name: "reorder_columns"
-        - version: "1.0.0"
-        - author: "pandaflow team"
-
-    Transformation Format:
-        - columns: List[str] — Desired column order (must match existing columns)
-
-    Example:
-        >>> import pandas as pd
-        >>> from pandaflow.strategies.reorder_columns import ReorderColumnsStrategy
-        >>> df = pd.DataFrame({
-        ...     "name": ["Alice", "Bob"],
-        ...     "age": [30, 25],
-        ...     "email": ["a@example.com", "b@example.com"]
-        ... })
-        >>> transformation = {
-        ...     "strategy": "reorder_columns",
-        ...     "columns": ["email", "name", "age"]
-        ... }
-        >>> result = ReorderColumnsStrategy().apply(df, rule)
-        >>> print(result.columns.tolist())
-        ['email', 'name', 'age']
-    """
-
-    meta = {"name": "reorder_columns", "version": "1.0.0", "author": "pandaflow team"}
+    meta = {
+        "name": "reorder_columns",
+        "version": "1.0.0",
+        "author": "pandaflow team",
+        "description": """Reorders columns in a DataFrame to match a specified sequence,\ 
+ensuring consistent layout for downstream processing or export."""    
+    }
 
     strategy_model = ReorderColumnsTransformation
 

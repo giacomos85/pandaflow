@@ -1,0 +1,10 @@
+{
+    "transformations": [        
+        {
+            "strategy": "drop_duplicates",
+            "subset": ["name", "age"],
+            "keep": "first",
+            "reset_index": true
+        }
+    ]
+}

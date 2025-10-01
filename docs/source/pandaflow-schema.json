@@ -160,6 +160,7 @@
     "PandaFlowTransformation": {
       "properties": {
         "strategy": {
+          "description": "Name of the strategy used to identify and route the transformation logic.",
           "title": "Strategy",
           "type": "string"
         },
@@ -173,6 +174,7 @@
             }
           ],
           "default": null,
+          "description": "Optional version string to track the strategy implementation or schema evolution.",
           "title": "Version"
         }
       },
@@ -237,6 +239,9 @@
           },
           {
             "$ref": "#/components/schemas/copy:1.0.0"
+          },
+          {
+            "$ref": "#/components/schemas/debug:1.0.0"
           },
           {
             "$ref": "#/components/schemas/drop_columns:1.0.0"
@@ -306,6 +311,7 @@
         "properties": {
           "strategy": {
             "const": "calculate_amount",
+            "description": "strategy name, must be 'calculate_amount'",
             "title": "Strategy",
             "type": "string"
           },
@@ -319,26 +325,37 @@
               }
             ],
             "default": null,
+            "description": "Optional version string to track the strategy implementation or schema evolution.",
             "title": "Version"
           },
           "formula": {
+            "description": "A pandas-compatible expression (e.g. `\"price * quantity\"`)",
             "title": "Formula",
             "type": "string"
           },
           "formatter": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
             "default": null,
-            "title": "Formatter",
-            "type": "string"
+            "description": "Optional formatter (e.g. `\"float_2dec\"`)",
+            "title": "Formatter"
           },
           "field": {
+            "default": null,
+            "description": "The target column to store the result",
             "title": "Field",
             "type": "string"
           }
         },
         "required": [
           "strategy",
-          "formula",
-          "field"
+          "formula"
         ],
         "title": "CalculateAmountTransformation",
         "type": "object"
@@ -347,6 +364,7 @@
         "properties": {
           "strategy": {
             "const": "calculate_ratio",
+            "description": "Strategy identifier used to select this transformation. Must be 'calculate_ratio'.",
             "title": "Strategy",
             "type": "string"
           },
@@ -360,22 +378,27 @@
               }
             ],
             "default": null,
+            "description": "Optional version string to track the strategy implementation or schema evolution.",
             "title": "Version"
           },
           "field": {
+            "description": "Name of the output column that will store the calculated ratio.",
             "title": "Field",
             "type": "string"
           },
           "numerator": {
+            "description": "Name of the column to use as the numerator in the ratio calculation.",
             "title": "Numerator",
             "type": "string"
           },
           "denominator": {
+            "description": "Name of the column to use as the denominator in the ratio calculation.",
             "title": "Denominator",
             "type": "string"
           },
           "round_digits": {
             "default": null,
+            "description": "Optional number of digits to round the result to. If None, no rounding is applied.",
             "title": "Round Digits",
             "type": "integer"
           }
@@ -393,6 +416,7 @@
         "properties": {
           "strategy": {
             "const": "constant",
+            "description": "Strategy identifier used to select this transformation. Must be 'constant'.",
             "title": "Strategy",
             "type": "string"
           },
@@ -406,14 +430,17 @@
               }
             ],
             "default": null,
+            "description": "Optional version string to track the strategy implementation or schema evolution.",
             "title": "Version"
           },
           "field": {
+            "description": "Name of the output column that will receive the constant value.",
             "title": "Field",
             "type": "string"
           },
           "value": {
             "default": "",
+            "description": "Constant value to assign to the specified output column. Defaults to an empty string.",
             "title": "Value",
             "type": "string"
           }
@@ -429,6 +456,7 @@
         "properties": {
           "strategy": {
             "const": "copy",
+            "description": "Strategy identifier used to select this transformation. Must be 'copy'.",
             "title": "Strategy",
             "type": "string"
           },
@@ -442,9 +470,11 @@
               }
             ],
             "default": null,
+            "description": "Optional version string to track the strategy implementation or schema evolution.",
             "title": "Version"
           },
           "field": {
+            "description": "Name of the output column that will receive the copied or transformed value.",
             "title": "Field",
             "type": "string"
           },
@@ -457,6 +487,8 @@
                 "type": "null"
               }
             ],
+            "default": null,
+            "description": "Name of the source column to copy from. If None, the field will be filled using 'fillna' or left empty.",
             "title": "Source"
           },
           "fillna": {
@@ -472,6 +504,7 @@
               }
             ],
             "default": null,
+            "description": "Optional fallback value to use if the source column is missing or contains nulls.",
             "title": "Fillna"
           },
           "parser": {
@@ -484,6 +517,7 @@
               }
             ],
             "default": null,
+            "description": "Optional parser function name to apply to the source value before copying.",
             "title": "Parser"
           },
           "formatter": {
@@ -496,21 +530,22 @@
               }
             ],
             "default": null,
+            "description": "Optional formatter function name to apply after parsing, before assigning to the output column.",
             "title": "Formatter"
           }
         },
         "required": [
           "strategy",
-          "field",
-          "source"
+          "field"
         ],
         "title": "CopyTransformation",
         "type": "object"
       },
-      "drop_columns:1.0.0": {
+      "debug:1.0.0": {
         "properties": {
           "strategy": {
-            "const": "drop_columns",
+            "const": "debug",
+            "description": "Strategy identifier used to select this transformation. Must be 'debug'.",
             "title": "Strategy",
             "type": "string"
           },
@@ -524,9 +559,39 @@
               }
             ],
             "default": null,
+            "description": "Optional version string to track the strategy implementation or schema evolution.",
+            "title": "Version"
+          }
+        },
+        "required": [
+          "strategy"
+        ],
+        "title": "DebugTransformation",
+        "type": "object"
+      },
+      "drop_columns:1.0.0": {
+        "properties": {
+          "strategy": {
+            "const": "drop_columns",
+            "description": "Strategy identifier used to select this transformation. Must be 'drop_columns'.",
+            "title": "Strategy",
+            "type": "string"
+          },
+          "version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "Optional version string to track the strategy implementation or schema evolution.",
             "title": "Version"
           },
           "columns": {
+            "description": "List of column names to drop from the DataFrame. All names must be strings.",
             "items": {
               "type": "string"
             },
@@ -535,6 +600,7 @@
           },
           "errors": {
             "default": "raise",
+            "description": "Behavior when a specified column is missing. Use 'raise' to throw an error or 'ignore' to skip silently.",
             "title": "Errors",
             "type": "string"
           }
@@ -550,6 +616,7 @@
         "properties": {
           "strategy": {
             "const": "drop_duplicates",
+            "description": "Strategy identifier used to select this transformation. Must be 'drop_duplicates'.",
             "title": "Strategy",
             "type": "string"
           },
@@ -563,6 +630,7 @@
               }
             ],
             "default": null,
+            "description": "Optional version string to track the strategy implementation or schema evolution.",
             "title": "Version"
           },
           "subset": {
@@ -578,6 +646,7 @@
               }
             ],
             "default": null,
+            "description": "Optional list of column names to consider when identifying duplicates. If None, all columns are used.",
             "title": "Subset"
           },
           "keep": {
@@ -590,6 +659,7 @@
               }
             ],
             "default": "first",
+            "description": "Determines which duplicate to keep: 'first', 'last', or False to drop all duplicates.",
             "title": "Keep"
           },
           "reset_index": {
@@ -602,6 +672,7 @@
               }
             ],
             "default": false,
+            "description": "Whether to reset the DataFrame index after dropping duplicates. Defaults to False.",
             "title": "Reset Index"
           }
         },
@@ -615,6 +686,7 @@
         "properties": {
           "strategy": {
             "const": "filter",
+            "description": "Strategy identifier used to select this transformation. Must be 'filter'.",
             "title": "Strategy",
             "type": "string"
           },
@@ -628,20 +700,31 @@
               }
             ],
             "default": null,
+            "description": "Optional version string to track the strategy implementation or schema evolution.",
             "title": "Version"
           },
           "field": {
+            "description": "Name of the column to apply the filtering formula to.",
             "title": "Field",
             "type": "string"
           },
           "formula": {
+            "description": "Filtering expression to evaluate. Should be a valid pandas-compatible formula (e.g., 'value > 10').",
             "title": "Formula",
             "type": "string"
           },
           "formatter": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
             "default": null,
-            "title": "Formatter",
-            "type": "string"
+            "description": "Optional formatter function name to apply to the field before evaluating the formula.",
+            "title": "Formatter"
           }
         },
         "required": [
@@ -656,6 +739,7 @@
         "properties": {
           "strategy": {
             "const": "find_duplicates",
+            "description": "Strategy identifier used to select this transformation. Must be 'find_duplicates'.",
             "title": "Strategy",
             "type": "string"
           },
@@ -669,6 +753,7 @@
               }
             ],
             "default": null,
+            "description": "Optional version string to track the strategy implementation or schema evolution.",
             "title": "Version"
           },
           "subset": {
@@ -684,6 +769,7 @@
               }
             ],
             "default": null,
+            "description": "Optional list of column names to consider when identifying duplicates. If None, all columns are used.",
             "title": "Subset"
           },
           "keep": {
@@ -696,6 +782,7 @@
               }
             ],
             "default": "first",
+            "description": "Determines which duplicate to mark as retained: 'first', 'last', or False to mark all duplicates.",
             "title": "Keep"
           },
           "reset_index": {
@@ -708,6 +795,7 @@
               }
             ],
             "default": false,
+            "description": "Whether to reset the DataFrame index after identifying duplicates. Defaults to False.",
             "title": "Reset Index"
           }
         },
@@ -721,6 +809,7 @@
         "properties": {
           "strategy": {
             "const": "hash",
+            "description": "Strategy identifier used to select this transformation. Must be 'hash'.",
             "title": "Strategy",
             "type": "string"
           },
@@ -734,13 +823,16 @@
               }
             ],
             "default": null,
+            "description": "Optional version string to track the strategy implementation or schema evolution.",
             "title": "Version"
           },
           "field": {
+            "description": "Name of the output column that will store the computed hash value.",
             "title": "Field",
             "type": "string"
           },
           "source": {
+            "description": "List of column names whose values will be combined and hashed.",
             "items": {
               "type": "string"
             },
@@ -748,6 +840,7 @@
             "type": "array"
           },
           "function": {
+            "description": "Name of the hash function to apply (e.g., 'md5', 'sha256'). Must be supported by the hashing backend.",
             "title": "Function",
             "type": "string"
           }
@@ -765,6 +858,7 @@
         "properties": {
           "strategy": {
             "const": "lookup_external",
+            "description": "Strategy identifier used to select this transformation. Must be 'lookup_external'.",
             "title": "Strategy",
             "type": "string"
           },
@@ -778,32 +872,46 @@
               }
             ],
             "default": null,
+            "description": "Optional version string to track the strategy implementation or schema evolution.",
             "title": "Version"
           },
           "field": {
+            "description": "Name of the output column that will store the looked-up value.",
             "title": "Field",
             "type": "string"
           },
           "source": {
+            "description": "Name of the column in the current DataFrame whose values will be used as lookup keys.",
             "title": "Source",
             "type": "string"
           },
           "file": {
+            "description": "Path to the external file containing the lookup table (e.g., CSV or JSON).",
             "title": "File",
             "type": "string"
           },
           "key": {
+            "description": "Name of the column in the external file that contains the lookup keys.",
             "title": "Key",
             "type": "string"
           },
           "value": {
+            "description": "Name of the column in the external file that contains the values to assign.",
             "title": "Value",
             "type": "string"
           },
           "not_found": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
             "default": null,
-            "title": "Not Found",
-            "type": "string"
+            "description": "Optional fallback value to assign when a key is not found in the external file. If None, missing keys will result in nulls.",
+            "title": "Not Found"
           }
         },
         "required": [
@@ -821,6 +929,7 @@
         "properties": {
           "strategy": {
             "const": "merge",
+            "description": "Strategy identifier used to select this transformation. Must be 'merge'.",
             "title": "Strategy",
             "type": "string"
           },
@@ -834,9 +943,11 @@
               }
             ],
             "default": null,
+            "description": "Optional version string to track the strategy implementation or schema evolution.",
             "title": "Version"
           },
           "field": {
+            "description": "Name of the output column that will store the merged result.",
             "title": "Field",
             "type": "string"
           },
@@ -852,18 +963,28 @@
                 "type": "array"
               }
             ],
+            "description": "Single column name or list of column names whose values will be merged.",
             "title": "Source"
           },
           "replace": {
-            "additionalProperties": {
-              "type": "string"
-            },
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
             "default": null,
-            "title": "Replace",
-            "type": "object"
+            "description": "Optional dictionary of string replacements to apply before merging. Keys are substrings to replace; values are their replacements.",
+            "title": "Replace"
           },
           "separator": {
             "default": " ",
+            "description": "String used to separate values when merging multiple columns. Defaults to a single space.",
             "title": "Separator",
             "type": "string"
           }
@@ -880,6 +1001,7 @@
         "properties": {
           "strategy": {
             "const": "merge_formula",
+            "description": "Strategy identifier used to select this transformation. Must be 'merge_formula'.",
             "title": "Strategy",
             "type": "string"
           },
@@ -893,9 +1015,11 @@
               }
             ],
             "default": null,
+            "description": "Optional version string to track the strategy implementation or schema evolution.",
             "title": "Version"
           },
           "field": {
+            "description": "Name of the output column that will store the result of the formula or merged values.",
             "title": "Field",
             "type": "string"
           },
@@ -909,6 +1033,7 @@
               }
             ],
             "default": null,
+            "description": "Optional pandas-compatible formula to compute the output value. If provided, overrides source/merge behavior.",
             "title": "Formula"
           },
           "formatter": {
@@ -921,6 +1046,7 @@
               }
             ],
             "default": null,
+            "description": "Optional formatter function name to apply to the result after formula or merge.",
             "title": "Formatter"
           },
           "source": {
@@ -936,6 +1062,7 @@
               }
             ],
             "default": null,
+            "description": "Optional list of column names to merge if no formula is provided.",
             "title": "Source"
           },
           "separator": {
@@ -948,6 +1075,7 @@
               }
             ],
             "default": " ",
+            "description": "String used to separate values when merging multiple columns. Defaults to a single space.",
             "title": "Separator"
           }
         },
@@ -962,6 +1090,7 @@
         "properties": {
           "strategy": {
             "const": "regex",
+            "description": "Strategy identifier used to select this transformation. Must be 'regex'.",
             "title": "Strategy",
             "type": "string"
           },
@@ -975,36 +1104,57 @@
               }
             ],
             "default": null,
+            "description": "Optional version string to track the strategy implementation or schema evolution.",
             "title": "Version"
           },
           "field": {
+            "description": "Name of the output column that will store the extracted or transformed value.",
             "title": "Field",
             "type": "string"
           },
           "source": {
+            "description": "Name of the source column whose values will be processed using the regular expression.",
             "title": "Source",
             "type": "string"
           },
           "regex": {
+            "description": "Regular expression pattern to apply to the source column's values.",
             "title": "Regex",
             "type": "string"
           },
           "group_id": {
+            "description": "Index of the capturing group to extract from the regex match.",
             "title": "Group Id",
             "type": "integer"
           },
           "replace": {
-            "additionalProperties": {
-              "type": "string"
-            },
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
             "default": null,
-            "title": "Replace",
-            "type": "object"
+            "description": "Optional dictionary of string replacements to apply after regex extraction. Keys are substrings to replace; values are their replacements.",
+            "title": "Replace"
           },
           "formatter": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
             "default": null,
-            "title": "Formatter",
-            "type": "string"
+            "description": "Optional formatter function name to apply after regex and replacement steps.",
+            "title": "Formatter"
           }
         },
         "required": [
@@ -1021,6 +1171,7 @@
         "properties": {
           "strategy": {
             "const": "reorder_columns",
+            "description": "Strategy identifier used to select this transformation. Must be 'reorder_columns'.",
             "title": "Strategy",
             "type": "string"
           },
@@ -1034,9 +1185,11 @@
               }
             ],
             "default": null,
+            "description": "Optional version string to track the strategy implementation or schema evolution.",
             "title": "Version"
           },
           "columns": {
+            "description": "List of column names specifying the desired order. All listed columns must exist in the DataFrame.",
             "items": {
               "type": "string"
             },
@@ -1055,6 +1208,7 @@
         "properties": {
           "strategy": {
             "const": "replace",
+            "description": "Strategy identifier used to select this transformation. Must be 'replace'.",
             "title": "Strategy",
             "type": "string"
           },
@@ -1068,9 +1222,11 @@
               }
             ],
             "default": null,
+            "description": "Optional version string to track the strategy implementation or schema evolution.",
             "title": "Version"
           },
           "field": {
+            "description": "Name of the column in which the replacement will be performed.",
             "title": "Field",
             "type": "string"
           },
@@ -1083,9 +1239,11 @@
                 "type": "number"
               }
             ],
+            "description": "Value to search for in the specified column. Can be a string or numeric value.",
             "title": "Find"
           },
           "replace": {
+            "description": "Replacement value to assign when a match with 'find' is found.",
             "title": "Replace",
             "type": "string"
           }
@@ -1103,6 +1261,7 @@
         "properties": {
           "strategy": {
             "const": "sort_by_column",
+            "description": "Strategy identifier used to select this transformation. Must be 'sort_by_column'.",
             "title": "Strategy",
             "type": "string"
           },
@@ -1116,9 +1275,11 @@
               }
             ],
             "default": null,
+            "description": "Optional version string to track the strategy implementation or schema evolution.",
             "title": "Version"
           },
           "columns": {
+            "description": "List of column names to sort by, in order of precedence.",
             "items": {
               "type": "string"
             },
@@ -1126,15 +1287,24 @@
             "type": "array"
           },
           "ascending": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "boolean"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
             "default": null,
-            "items": {
-              "type": "boolean"
-            },
-            "title": "Ascending",
-            "type": "array"
+            "description": "List of booleans indicating sort direction for each column. True for ascending, False for descending. If None, defaults to ascending for all.",
+            "title": "Ascending"
           },
           "na_position": {
             "default": "last",
+            "description": "Position for NaN values in the sort order. 'first' places NaNs at the top, 'last' at the bottom.",
             "enum": [
               "first",
               "last"
@@ -1154,6 +1324,7 @@
         "properties": {
           "strategy": {
             "const": "split_column",
+            "description": "Strategy identifier used to select this transformation. Must be 'split_column'.",
             "title": "Strategy",
             "type": "string"
           },
@@ -1167,28 +1338,34 @@
               }
             ],
             "default": null,
+            "description": "Optional version string to track the strategy implementation or schema evolution.",
             "title": "Version"
           },
           "column": {
+            "description": "Name of the column whose string values will be split using the specified delimiter.",
             "title": "Column",
             "type": "string"
           },
           "delimiter": {
+            "description": "Delimiter string used to split the column values (e.g., ',' or '|').",
             "title": "Delimiter",
             "type": "string"
           },
           "maxsplit": {
             "default": -1,
+            "description": "Maximum number of splits to perform. Use -1 for no limit.",
             "title": "Maxsplit",
             "type": "integer"
           },
           "prefix": {
             "default": "split",
+            "description": "Prefix to use when naming the new columns created from the split operation.",
             "title": "Prefix",
             "type": "string"
           },
           "drop_original": {
             "default": false,
+            "description": "Whether to drop the original column after splitting. Defaults to False.",
             "title": "Drop Original",
             "type": "boolean"
           }
@@ -1205,6 +1382,7 @@
         "properties": {
           "strategy": {
             "const": "uuid",
+            "description": "Strategy identifier used to select this transformation. Must be 'uuid'.",
             "title": "Strategy",
             "type": "string"
           },
@@ -1218,9 +1396,11 @@
               }
             ],
             "default": null,
+            "description": "Optional version string to track the strategy implementation or schema evolution.",
             "title": "Version"
           },
           "field": {
+            "description": "Name of the output column that will store the generated UUID value.",
             "title": "Field",
             "type": "string"
           }

@@ -1,51 +1,73 @@
-Hash
+hash
 ----
 
 The **hash** strategy generates a hash value from one or more columns in a DataFrame.  
 This is useful for creating unique identifiers, anonymizing sensitive fields, or tracking row-level changes.
 
-Metadata
-~~~~~~~~
+Metadata:
+    - **Name**: `hash`
+    - **Version**: `1.0.0`
+    - **Author**: PandaFlow Team
 
-- **Name**: `hash`
-- **Version**: `1.0.0`
-- **Author**: Pandaflow Team
-- **Description**: Generates a hash from specified columns.
 
-Transformation Format
+hash schema
 ~~~~~~~~~~~
 
-The rule must specify:
+.. list-table:: hash Fields
+   :header-rows: 1
+   :widths: 20 20 20 60
 
-- `field`: The target column to store the hash
-- `source`: A list of columns to combine and hash
-- `function`: The hash function to use (currently only `"md5"` is supported)
+   * - Field
+     - Type
+     - Required
+     - Description
 
-.. literalinclude:: ../data/hash/pandaflow-config.json
-   :language: json
-   :linenos:
-   :caption: Hash Rule Example
+   * - ``strategy``
+     - Literal
+     - True
+     - Strategy identifier used to select this transformation. Must be 'hash'.
 
-Input Example
-~~~~~~~~~~~~~
+   * - ``version``
+     - str | None
+     - False
+     - Optional version string to track the strategy implementation or schema evolution.
+
+   * - ``field``
+     - str
+     - True
+     - Name of the output column that will store the computed hash value.
+
+   * - ``source``
+     - List
+     - True
+     - List of column names whose values will be combined and hashed.
+
+   * - ``function``
+     - str
+     - True
+     - Name of the hash function to apply (e.g., 'md5', 'sha256'). Must be supported by the hashing backend.
+
+
+
+Example input Dataset
+~~~~~~~~~~~~~~~~~~~~~
 
 .. csv-table:: Input DataFrame
    :file: ../data/hash/input.csv
    :header-rows: 1
    :widths: auto
 
+hash example
+~~~~~~~~~~~~
+.. literalinclude:: ../data/hash/pandaflow-config.json
+   :language: json
+   :linenos:
+   :caption: hash Rule Example
+
 Result
 ~~~~~~
 
-.. csv-table:: Output with Hashes
+.. csv-table:: Transformed Output
    :file: ../data/hash/output.csv
    :header-rows: 1
    :widths: auto
-
-Behavior Notes
-~~~~~~~~~~~~~~
-
-- Columns listed in `source` are concatenated with `;` and hashed using the specified function.
-- Missing values are treated as empty strings.
-- If any `source` column is missing from the input, a `ValueError` is raised.
-- The strategy currently supports only `md5` hashing.

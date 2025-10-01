@@ -1,19 +1,37 @@
 import pandas as pd
+from pydantic import Field
 from pandaflow.strategies.base import TransformationStrategy
 from pandaflow.models.config import PandaFlowTransformation
 from typing import Literal, Optional, List
 
 
 class FindDuplicatesTransformation(PandaFlowTransformation):
-    strategy: Literal["find_duplicates"]
-    subset: Optional[List[str]] = None  # Columns to consider for identifying duplicates
-    keep: Optional[str] = "first"  # "first", "last", or False
-    reset_index: Optional[bool] = False  # Whether to reset the index after dropping
+    strategy: Literal["find_duplicates"] = Field(
+        description="Strategy identifier used to select this transformation. Must be 'find_duplicates'."
+    )
+    subset: Optional[List[str]] = Field(
+        default=None,
+        description="Optional list of column names to consider when identifying duplicates. If None, all columns are used."
+    )
+    keep: Optional[str] = Field(
+        default="first",
+        description="Determines which duplicate to mark as retained: 'first', 'last', or False to mark all duplicates."
+    )
+    reset_index: Optional[bool] = Field(
+        default=False,
+        description="Whether to reset the DataFrame index after identifying duplicates. Defaults to False."
+    )
 
 
 class FindDuplicatesStrategy(TransformationStrategy):
 
-    meta = {"name": "find_duplicates", "version": "1.0.0", "author": "pandaflow team"}
+    meta = {
+        "name": "find_duplicates",
+        "version": "1.0.0",
+        "author": "pandaflow team",
+        "description": """Identifies duplicate rows based on specified columns and marks retained entries \
+using pandas-style keep semantics. Optionally resets the index for downstream compatibility."""
+    }
 
     strategy_model = FindDuplicatesTransformation
 

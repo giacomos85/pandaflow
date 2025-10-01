@@ -1,0 +1,9 @@
+{
+    "transformations": [        
+        {
+            "strategy": "find_duplicates",
+            "subset": ["name", "age"],
+            "reset_index": true
+        }
+    ]
+}

@@ -1,68 +1,87 @@
-Lookup External Strategy
-========================
+lookup_external
+---------------
 
-Looks up values from an external CSV file based on a key column.
+Looks up values from an external CSV file based on a key column
 
 Metadata:
-    - name: "lookup_external"
-    - version: "1.0.0"
-    - author: "pandaflow team"
-    - description: "Looks up values from an external CSV file based on a key column"
+    - **Name**: `lookup_external`
+    - **Version**: `1.0.0`
+    - **Author**: PandaFlow Team
 
-Transformation Format:
-    - field: str — Name of the output column to store mapped values
-    - source: str — Column in the input DataFrame to match (defaults to `field`)
-    - file: str — Path to external CSV file (supports `${output}` and `${year}` placeholders)
-    - key: str — Column name in the CSV to match against `source`
-    - value: str — Column name in the CSV to use as the mapped value
-    - not_found: Optional[str] — Fallback value if no match is found
 
-Example Transformation
-------------
+lookup_external schema
+~~~~~~~~~~~~~~~~~~~~~~
 
-.. code-block:: json
+.. list-table:: lookup_external Fields
+   :header-rows: 1
+   :widths: 20 20 20 60
 
-    {
-        "strategy": "lookup_external",
-        "field": "country_name",
-        "source": "country_code",
-        "file": "data/${year}/${output}_lookup.csv",
-        "key": "code",
-        "value": "name",
-        "not_found": "Unknown"
-    }
+   * - Field
+     - Type
+     - Required
+     - Description
 
-Input DataFrame
----------------
+   * - ``strategy``
+     - Literal
+     - True
+     - Strategy identifier used to select this transformation. Must be 'lookup_external'.
+
+   * - ``version``
+     - str | None
+     - False
+     - Optional version string to track the strategy implementation or schema evolution.
+
+   * - ``field``
+     - str
+     - True
+     - Name of the output column that will store the looked-up value.
+
+   * - ``source``
+     - str
+     - True
+     - Name of the column in the current DataFrame whose values will be used as lookup keys.
+
+   * - ``file``
+     - str
+     - True
+     - Path to the external file containing the lookup table (e.g., CSV or JSON).
+
+   * - ``key``
+     - str
+     - True
+     - Name of the column in the external file that contains the lookup keys.
+
+   * - ``value``
+     - str
+     - True
+     - Name of the column in the external file that contains the values to assign.
+
+   * - ``not_found``
+     - Optional
+     - False
+     - Optional fallback value to assign when a key is not found in the external file. If None, missing keys will result in nulls.
+
+
+
+Example input Dataset
+~~~~~~~~~~~~~~~~~~~~~
 
 .. csv-table:: Input DataFrame
+   :file: ../data/lookup_external/input.csv
    :header-rows: 1
+   :widths: auto
 
-   country_code
-   IT
-   FR
-   DE
-   ES
+lookup_external example
+~~~~~~~~~~~~~~~~~~~~~~~
+.. literalinclude:: ../data/lookup_external/pandaflow-config.json
+   :language: json
+   :linenos:
+   :caption: lookup_external Rule Example
 
-External CSV (`data/2025/countries_lookup.csv`)
------------------------------------------------
+Result
+~~~~~~
 
-.. csv-table:: Lookup Table
+.. csv-table:: Transformed Output
+   :file: ../data/lookup_external/output.csv
    :header-rows: 1
-
-   code,name
-   IT,Italy
-   FR,France
-   DE,Germany
-
-Expected Output
----------------
-
-.. csv-table:: Output DataFrame
-   :header-rows: 1
-
-   country_code,country_name
-   IT,Italy
-   FR,France
-   DE,Germany
-   ES,Unknown
+   :widths: auto

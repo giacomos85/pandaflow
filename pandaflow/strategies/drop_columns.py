@@ -1,49 +1,31 @@
 import pandas as pd
+from pydantic import Field
 from pandaflow.strategies.base import TransformationStrategy
 from pandaflow.models.config import PandaFlowTransformation
 from typing import List, Literal
 
 
 class DropColumnsTransformation(PandaFlowTransformation):
-    strategy: Literal["drop_columns"]
-    columns: List[str]  # List of column names to drop
-    errors: str = "raise"  # "raise" or "ignore" if column is missing
+    strategy: Literal["drop_columns"] = Field(
+        description="Strategy identifier used to select this transformation. Must be 'drop_columns'."
+    )
+    columns: List[str] = Field(
+        description="List of column names to drop from the DataFrame. All names must be strings."
+    )
+    errors: str = Field(
+        default="raise",
+        description="Behavior when a specified column is missing. Use 'raise' to throw an error or 'ignore' to skip silently."
+    )
 
 
 class DropColumnsStrategy(TransformationStrategy):
-    """
-    Strategy: dropcolumns
-    ----------------------
-
-    Drops one or more columns from the DataFrame.
-
-    Metadata:
-        - name: "dropcolumns"
-        - version: "1.0.0"
-        - author: "pandaflow team"
-
-    Transformation Format:
-        - columns: List[str] — List of column names to drop
-        - errors: Optional[str] — "raise" or "ignore" if column is missing (default: "raise")
-
-    Example:
-        >>> import pandas as pd
-        >>> from pandaflow.strategies.dropcolumns import DropColumnsStrategy
-        >>> df = pd.DataFrame({
-        ...     "name": ["Alice", "Bob"],
-        ...     "age": [30, 25],
-        ...     "gender": ["F", "M"]
-        ... })
-        >>> transformation = {
-        ...     "strategy": "dropcolumns",
-        ...     "columns": ["gender"]
-        ... }
-        >>> result = DropColumnsStrategy().apply(df, rule)
-        >>> print(result.columns.tolist())
-        ['name', 'age']
-    """
-
-    meta = {"name": "drop_columns", "version": "1.0.0", "author": "pandaflow team"}
+    
+    meta = {
+        "name": "drop_columns",
+        "version": "1.0.0",
+        "author": "PandaFlow Team",
+        "description": """Drops one or more columns from the DataFrame."""
+    }
 
     strategy_model = DropColumnsTransformation
 

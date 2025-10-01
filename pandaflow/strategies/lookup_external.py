@@ -1,20 +1,36 @@
 import os
 from pathlib import Path
-from typing import Literal
+from typing import Literal, Optional
 import pandas as pd
+from pydantic import Field
 
 from pandaflow.models.config import PandaFlowTransformation
 from pandaflow.strategies.base import TransformationStrategy
 
 
 class LookupExternalTransformation(PandaFlowTransformation):
-    strategy: Literal["lookup_external"]
-    field: str
-    source: str
-    file: str
-    key: str
-    value: str
-    not_found: str = None
+    strategy: Literal["lookup_external"] = Field(
+        description="Strategy identifier used to select this transformation. Must be 'lookup_external'."
+    )
+    field: str = Field(
+        description="Name of the output column that will store the looked-up value."
+    )
+    source: str = Field(
+        description="Name of the column in the current DataFrame whose values will be used as lookup keys."
+    )
+    file: str = Field(
+        description="Path to the external file containing the lookup table (e.g., CSV or JSON)."
+    )
+    key: str = Field(
+        description="Name of the column in the external file that contains the lookup keys."
+    )
+    value: str = Field(
+        description="Name of the column in the external file that contains the values to assign."
+    )
+    not_found: Optional[str] = Field(
+        default=None,
+        description="Optional fallback value to assign when a key is not found in the external file. If None, missing keys will result in nulls."
+    )
 
 
 class LookupExternalStrategy(TransformationStrategy):
@@ -22,7 +38,7 @@ class LookupExternalStrategy(TransformationStrategy):
     meta = {
         "name": "lookup_external",
         "version": "1.0.0",
-        "author": "pandaflow team",
+        "author": "PandaFlow Team",
         "description": "Looks up values from an external CSV file based on a key column",
     }
 
