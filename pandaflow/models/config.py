@@ -34,6 +34,8 @@ class PandaFlowConfig(BaseModel):
     file_path: Optional[str] = Field(
         None, exclude=True, description="Path to the config file (set at load time)"
     )
+    _profile: bool = False
+    _output_path: str = ""
     data_sources: Optional[List[DataSourceConfig]] = Field(default_factory=list)
     meta: Optional[ExtractConfig] = {}
     transformations: List[PandaFlowTransformation]

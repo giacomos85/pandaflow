@@ -1,7 +1,9 @@
 from pathlib import Path
+import time
 from typing import Dict, Mapping
 from pandaflow.models.config import PandaFlowConfig, TransformationNode
 import pandas as pd
+from pandaflow.core.log import logger
 
 
 def transform_dataframe(
@@ -17,12 +19,17 @@ def transform_dataframe(
         Transformed DataFrame, or None if skipped due to match transformations.
     """
     dag = []
-    for i, t in enumerate(config.transformations):
-        df = t.run(df)
+    for i, tr in enumerate(config.transformations):
+        strategy_name = tr.meta.get("name")
+        start = time.time()
+        df = tr.run(df)
+        if config._profile:
+            duration = time.time() - start
+            logger.info(f"⏱️ step_{i}_{strategy_name}: {duration:.3f}s")
         dag.append(
             TransformationNode(
-                name=f"step_{i}_{t.strategy}",
-                strategy=t.strategy,
+                name=f"step_{i}_{strategy_name}",
+                strategy=strategy_name,
                 depends_on=[dag[-1].name] if i > 0 else [],
                 output_preview=str(df.shape),
             )

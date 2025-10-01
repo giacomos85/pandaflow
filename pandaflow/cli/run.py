@@ -45,8 +45,13 @@ from pandaflow.core.extract import extract
     is_flag=True,
     help="Watch input for changes and process automatically",
 )
-def run(input, output, config, format, watch):
+@click.option(
+    "--profile", is_flag=True, help="Log execution time for each transformation"
+)
+def run(input: str, output: str, config: str, format: str, watch: bool, profile: bool):
     config_data = load_config(Path(config))
+    config_data._profile = profile
+    config_data._output_path = output
 
     if watch:
         if not input:
