@@ -38,7 +38,11 @@ def test_non_boolean_formula_raises_error(sample_df):
 
 
 def test_field_not_in_df_does_not_format(sample_df):
-    transformation = {"strategy": "filter", "field": "nonexistent", "formula": "amount > 0"}
+    transformation = {
+        "strategy": "filter",
+        "field": "nonexistent",
+        "formula": "amount > 0",
+    }
     strategy = FilterByFormulaStrategy(transformation)
     result = strategy.run(sample_df)
     assert "nonexistent" not in result.columns

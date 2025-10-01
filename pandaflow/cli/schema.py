@@ -5,8 +5,14 @@ from pandaflow.models.config import PandaFlowConfig
 
 
 @click.command()
-@click.option("--config", is_flag=True, help="Include top-level config schema with injected strategy transformations.")
-@click.option("--output", type=click.Path(), help="Optional path to save schema as JSON.")
+@click.option(
+    "--config",
+    is_flag=True,
+    help="Include top-level config schema with injected strategy transformations.",
+)
+@click.option(
+    "--output", type=click.Path(), help="Optional path to save schema as JSON."
+)
 def dump(config, output):
     """
     Dump strategy rule schemas or full config schema.
@@ -29,7 +35,7 @@ def dump(config, output):
         rule_refs = [{"$ref": f"#/components/schemas/{key}"} for key in schemas]
         base["properties"]["transformations"] = {
             "type": "array",
-            "items": {"oneOf": rule_refs}
+            "items": {"oneOf": rule_refs},
         }
         output_schema = base
     else:

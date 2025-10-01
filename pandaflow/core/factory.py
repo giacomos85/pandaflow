@@ -5,8 +5,7 @@ from pandaflow.core.registry import load_strategy_classes
 
 class StrategyFactory:
     @classmethod
-    def get_strategy(
-        self, transformation_dict: dict) -> TransformationStrategy:
+    def get_strategy(self, transformation_dict: dict) -> TransformationStrategy:
         strategies = load_strategy_classes()
         strategy_name = transformation_dict.get("strategy")
         req_version = transformation_dict.get("version", None)

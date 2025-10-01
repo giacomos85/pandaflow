@@ -50,6 +50,7 @@ def test_missing_formula_and_source_raises(sample_df):
         strategy = MergeStringStrategy(transformation)
         strategy.run(sample_df)
 
+
 def test_merge_with_missing_column_in_formula(sample_df):
     transformation = {
         "strategy": "merge_formula",

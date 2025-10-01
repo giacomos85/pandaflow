@@ -49,7 +49,11 @@ def test_merge_with_source_as_string(sample_df):
 
 
 def test_merge_missing_column_raises(sample_df):
-    transformation = {"strategy": "merge", "field": "__merged__", "source": ["first", "missing"]}
+    transformation = {
+        "strategy": "merge",
+        "field": "__merged__",
+        "source": ["first", "missing"],
+    }
     with pytest.raises(ValueError, match="Column 'missing' not found"):
         strategy = MergeStrategy(transformation)
         strategy.run(sample_df)

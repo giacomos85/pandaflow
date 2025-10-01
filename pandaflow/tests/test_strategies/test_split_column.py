@@ -48,7 +48,11 @@ def test_split_drop_original(sample_df):
 
 
 def test_split_column_missing(sample_df):
-    transformation = {"strategy": "split_column", "column": "nonexistent", "delimiter": " "}
+    transformation = {
+        "strategy": "split_column",
+        "column": "nonexistent",
+        "delimiter": " ",
+    }
     with pytest.raises(ValueError, match="Column 'nonexistent' not found"):
         SplitColumnStrategy(transformation).run(sample_df)
 

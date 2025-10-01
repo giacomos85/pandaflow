@@ -50,7 +50,9 @@ def run(input, output, config, format, watch):
 
     if watch:
         if not input:
-            raise Exception("In watch mode, the input must be provided via command line")
+            raise Exception(
+                "In watch mode, the input must be provided via command line"
+            )
         input_path = Path(input)
         output_path = Path(output)
         # Watch mode

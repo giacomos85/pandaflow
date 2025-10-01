@@ -4,6 +4,7 @@ from typing import Dict
 
 import pandas as pd
 
+
 def resolve_input_path(config_path: str, relative_input: str):
     config_dir = Path(config_path).parent
     input_path = config_dir / relative_input
@@ -70,7 +71,9 @@ def extract(config: dict, input_path: str = None) -> Dict[Path, pd.DataFrame | N
         for source in config.data_sources:
             input_path = resolve_input_path(config.file_path, source.path)
             if source.type == "csv":
-                frame = pd.read_csv(input_path, sep=source.sep, skiprows=source.skiprows)
+                frame = pd.read_csv(
+                    input_path, sep=source.sep, skiprows=source.skiprows
+                )
             elif source.type == "json":
                 frame = pd.read_json(input_path)
             elif source.type == "excel":

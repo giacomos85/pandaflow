@@ -51,4 +51,3 @@ def test_apply_with_invalid_formula_raises():
     strategy = CalculateAmountStrategy(transformation)
     with pytest.raises(pd.errors.UndefinedVariableError):
         strategy.run(df)
-

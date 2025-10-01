@@ -22,22 +22,21 @@ class MergeSourcesStrategy(TransformationStrategy):
         "name": "merge_sources",
         "version": "1.0.0",
         "author": "Giacomo",
-        "description": "Merge multiple data sources before applying downstream transformations"
+        "description": "Merge multiple data sources before applying downstream transformations",
     }
 
     rule_class = MergeSourcesTransformation
 
     def apply(self, df: pd.DataFrame, rule: MergeSourcesRule) -> pd.DataFrame:
         sources = self.config.data_sources or []
-        selected = (
-            [sources[i] for i in rule.sources]
-            if rule.sources else sources
-        )
+        selected = [sources[i] for i in rule.sources] if rule.sources else sources
 
         frames = []
         for source in selected:
             if source.type == "csv":
-                frame = pd.read_csv(source.path, sep=source.sep, skiprows=source.skiprows)
+                frame = pd.read_csv(
+                    source.path, sep=source.sep, skiprows=source.skiprows
+                )
             elif source.type == "json":
                 frame = pd.read_json(source.path)
             elif source.type == "excel":

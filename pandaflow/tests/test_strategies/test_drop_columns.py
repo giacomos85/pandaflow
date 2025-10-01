@@ -35,7 +35,11 @@ def test_drop_missing_column_raise(sample_df):
 
 
 def test_drop_missing_column_ignore(sample_df):
-    transformation = {"strategy": "drop_columns", "columns": ["unknown"], "errors": "ignore"}
+    transformation = {
+        "strategy": "drop_columns",
+        "columns": ["unknown"],
+        "errors": "ignore",
+    }
     result = DropColumnsStrategy(transformation).run(sample_df)
     assert result.equals(sample_df)
 

@@ -27,7 +27,11 @@ def test_drop_subset_duplicates(sample_df):
 
 
 def test_keep_last(sample_df):
-    transformation = {"strategy": "drop_duplicates", "subset": ["name", "age"], "keep": "last"}
+    transformation = {
+        "strategy": "drop_duplicates",
+        "subset": ["name", "age"],
+        "keep": "last",
+    }
     result = DropDuplicatesStrategy(transformation).run(sample_df)
     assert result["name"].tolist() == ["Alice", "Charlie", "Bob"]
 

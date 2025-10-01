@@ -19,12 +19,14 @@ def transform_dataframe(
     dag = []
     for i, t in enumerate(config.transformations):
         df = t.run(df)
-        dag.append(TransformationNode(
-            name=f"step_{i}_{t.strategy}",
-            strategy=t.strategy,
-            depends_on=[dag[-1].name] if i > 0 else [],
-            output_preview=str(df.shape)
-        ))
+        dag.append(
+            TransformationNode(
+                name=f"step_{i}_{t.strategy}",
+                strategy=t.strategy,
+                depends_on=[dag[-1].name] if i > 0 else [],
+                output_preview=str(df.shape),
+            )
+        )
     return df
 
 

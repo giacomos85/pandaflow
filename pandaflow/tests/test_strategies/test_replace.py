@@ -27,7 +27,12 @@ def test_replace_string_occurrence(sample_df):
 
 
 def test_replace_numeric_occurrence(sample_df):
-    transformation = {"field": "numeric", "strategy": "replace", "find": "100", "replace": "999"}
+    transformation = {
+        "field": "numeric",
+        "strategy": "replace",
+        "find": "100",
+        "replace": "999",
+    }
     strategy = ReplaceStrategy(transformation)
     result = strategy.run(sample_df)
     expected = ["999", "200", "999"]
@@ -35,14 +40,24 @@ def test_replace_numeric_occurrence(sample_df):
 
 
 def test_missing_column_raises(sample_df):
-    transformation = {"field": "missing", "strategy": "replace", "find": "x", "replace": "y"}
+    transformation = {
+        "field": "missing",
+        "strategy": "replace",
+        "find": "x",
+        "replace": "y",
+    }
     strategy = ReplaceStrategy(transformation)
     with pytest.raises(ValueError, match="Column 'missing' not found"):
         strategy.run(sample_df)
 
 
 def test_replace_with_empty_from(sample_df):
-    transformation = {"field": "text", "strategy": "replace", "find": "", "replace": "-"}
+    transformation = {
+        "field": "text",
+        "strategy": "replace",
+        "find": "",
+        "replace": "-",
+    }
     strategy = ReplaceStrategy(transformation)
     result = strategy.run(sample_df)
     # Every character gets a "-" inserted before it

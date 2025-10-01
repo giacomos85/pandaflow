@@ -1,5 +1,6 @@
 from pandaflow.core.registry import load_strategy_classes
 
+
 def generate_strategy_schemas():
     registry = load_strategy_classes()
     schemas = {}

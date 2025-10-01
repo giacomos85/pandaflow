@@ -34,7 +34,9 @@ def test_get_strategy_specific_version():
     with patch(
         "pandaflow.core.factory.load_strategy_classes", return_value=mock_registry()
     ):
-        strategy = StrategyFactory.get_strategy({"strategy":"dummy", "version":"1.0.0"})
+        strategy = StrategyFactory.get_strategy(
+            {"strategy": "dummy", "version": "1.0.0"}
+        )
         assert isinstance(strategy, OlderStrategy)
 
 
@@ -43,7 +45,7 @@ def test_get_strategy_missing_type():
         "pandaflow.core.factory.load_strategy_classes", return_value=mock_registry()
     ):
         with pytest.raises(ValueError, match="Strategy 'unknown' not found."):
-            StrategyFactory.get_strategy({"strategy":"unknown"})
+            StrategyFactory.get_strategy({"strategy": "unknown"})
 
 
 def test_get_strategy_missing_version():
@@ -53,4 +55,4 @@ def test_get_strategy_missing_version():
         with pytest.raises(
             ValueError, match="Version '9.9.9' of strategy 'dummy' not found."
         ):
-            StrategyFactory.get_strategy({"strategy":"dummy", "version":"9.9.9"})
+            StrategyFactory.get_strategy({"strategy": "dummy", "version": "9.9.9"})

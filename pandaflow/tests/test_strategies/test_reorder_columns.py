@@ -15,7 +15,10 @@ def sample_df():
 
 
 def test_reorder_columns_valid(sample_df):
-    transformation = {"strategy": "reorder_columns", "columns": ["email", "name", "age"]}
+    transformation = {
+        "strategy": "reorder_columns",
+        "columns": ["email", "name", "age"],
+    }
     result = ReorderColumnsStrategy(transformation).run(sample_df)
     assert result.columns.tolist() == ["email", "name", "age"]
     pd.testing.assert_frame_equal(result, sample_df[["email", "name", "age"]])
