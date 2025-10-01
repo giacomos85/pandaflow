@@ -2,7 +2,8 @@ import pytest
 from click.testing import CliRunner
 from unittest.mock import patch
 
-from pandaflow.cli.run import run  # Adjust import to match your CLI module
+from pandaflow.cli.run import run
+from pandaflow.core.config import config_parser  # Adjust import to match your CLI module
 
 
 @pytest.fixture
@@ -35,7 +36,7 @@ def input_dir(tmp_path):
 def test_run_single_file_to_stdout(
     mock_write, mock_transform, mock_read, mock_config, input_file, config_file
 ):
-    mock_config.return_value = {"transformations": []}
+    mock_config.return_value = config_parser({"transformations": []})
     mock_read.return_value = {input_file: "df"}
     mock_transform.return_value = {input_file: "df"}
 
@@ -55,7 +56,7 @@ def test_run_single_file_to_stdout(
 def test_run_directory_to_file(
     mock_write, mock_transform, mock_read, mock_config, input_dir, config_file, tmp_path
 ):
-    mock_config.return_value = {"transformations": []}
+    mock_config.return_value = config_parser({"transformations": []})
     mock_read.return_value = {input_dir / "a.csv": "df1", input_dir / "b.csv": "df2"}
     mock_transform.return_value = {
         input_dir / "a.csv": "df1",
@@ -91,7 +92,7 @@ def test_run_directory_to_file(
 def test_run_skipped_files(
     mock_write, mock_transform, mock_read, mock_config, input_file, config_file
 ):
-    mock_config.return_value = {"transformations": []}
+    mock_config.return_value = config_parser({"transformations": []})
     mock_read.return_value = {input_file: None}
     mock_transform.return_value = {input_file: None}
 
