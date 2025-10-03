@@ -92,6 +92,10 @@ def run(input: str, output: str, config: str, format: str, watch: bool, profile:
         observer.join()
     else:
         # One-shot mode
-        input_df_mapping = extract(config_data, input)
-        output_df_mapping = transform(input_df_mapping, config_data, output_path=output)
-        load(output_df_mapping, output, output_format=format)
+        try:
+            input_df_mapping = extract(config_data, input)
+            output_df_mapping = transform(input_df_mapping, config_data, output_path=output)
+            load(output_df_mapping, output, output_format=format)
+        except Exception as e:
+            click.echo(f"Error while processing {input_df_mapping.keys()}")
+            raise e
