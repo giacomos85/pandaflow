@@ -58,7 +58,7 @@ It is useful for duplicating fields, normalizing formats, or creating derived co
 
         df[self.config.field] = df[col].apply(parse_number).apply(format_value)
 
-        if self.config.fillna:
+        if self.config.fillna != None:
             df[self.config.field] = (
                 df[self.config.field]
                 .replace("", self.config.fillna)
