@@ -235,6 +235,9 @@
             "$ref": "#/components/schemas/calculate_ratio:1.0.0"
           },
           {
+            "$ref": "#/components/schemas/cast_columns:1.0.0"
+          },
+          {
             "$ref": "#/components/schemas/constant:1.0.0"
           },
           {
@@ -410,6 +413,87 @@
           "denominator"
         ],
         "title": "CalculateRatioTransformation",
+        "type": "object"
+      },
+      "cast_columns:1.0.0": {
+        "properties": {
+          "strategy": {
+            "const": "cast_columns",
+            "description": "Strategy identifier used to select this transformation. Must be 'cast_columns'.",
+            "example": "cast_columns",
+            "title": "Strategy",
+            "type": "string"
+          },
+          "version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "Optional version string to track the strategy implementation or schema evolution.",
+            "title": "Version"
+          },
+          "fields": {
+            "description": "List of column names to cast.",
+            "example": [
+              "amount",
+              "discount"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "title": "Fields",
+            "type": "array"
+          },
+          "target_type": {
+            "description": "Target type to cast each column to.",
+            "enum": [
+              "int",
+              "float",
+              "str",
+              "bool"
+            ],
+            "example": "float",
+            "title": "Target Type",
+            "type": "string"
+          },
+          "errors": {
+            "default": "raise",
+            "description": "Error handling mode: 'raise' for strict, 'coerce' to convert invalid values to NaN, 'ignore' to skip errors.",
+            "enum": [
+              "raise",
+              "coerce",
+              "ignore"
+            ],
+            "example": "coerce",
+            "title": "Errors",
+            "type": "string"
+          },
+          "fallback": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "Optional fallback value to fill in for failed conversions (e.g., 0, '').",
+            "example": "0",
+            "title": "Fallback"
+          }
+        },
+        "required": [
+          "strategy",
+          "fields",
+          "target_type"
+        ],
+        "title": "CastColumnsTransformation",
         "type": "object"
       },
       "constant:1.0.0": {
@@ -703,11 +787,6 @@
             "description": "Optional version string to track the strategy implementation or schema evolution.",
             "title": "Version"
           },
-          "field": {
-            "description": "Name of the column to apply the filtering formula to.",
-            "title": "Field",
-            "type": "string"
-          },
           "formula": {
             "description": "Filtering expression to evaluate. Should be a valid pandas-compatible formula (e.g., 'value > 10').",
             "title": "Formula",
@@ -729,7 +808,6 @@
         },
         "required": [
           "strategy",
-          "field",
           "formula"
         ],
         "title": "FilterByFormulaTransformation",
