@@ -34,3 +34,27 @@ doc-serve:
 # Clean artifacts
 clean:
 	rm -rf __pycache__ .pytest_cache .mypy_cache dist build "*.egg-info"
+
+
+demo-%:  ## Run strategy demo for a given strategy name (e.g., make demo-replace)
+	@echo "🔍 Running demo for strategy: $*"
+	@poetry run pandaflow run \
+		--config docs/source/data/$*/pandaflow-config.json \
+		--input docs/source/data/$*/input.csv \
+		--output tmp/output-$*.csv
+	@echo "✅ Demo completed for $*"
+
+validate-%:  demo-%
+	@echo "🔎 Validating output for strategy: $*"
+	@diff -u docs/source/data/$*/output.csv tmp/output-$*.csv || echo "⚠️ Differences found in $*"
+
+SKIP_STRATEGIES := uuid debug
+
+validate-all:  ## Run all strategy demos
+	@for s in $(shell ls docs/source/data); do \
+		if ! echo "$(SKIP_STRATEGIES)" | grep -qw "$$s"; then \
+            $(MAKE) validate-$$s; \
+        else \
+            echo "⏭️ Skipping $$s"; \
+        fi; \
+	done
