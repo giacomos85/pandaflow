@@ -1,4 +1,6 @@
-from typing import Literal
+from typing import Literal, Optional
+import numpy as np
+from pandaflow.utils import get_output_formatter
 import pandas as pd
 from pydantic import Field
 from pandaflow.strategies.base import TransformationStrategy
@@ -22,6 +24,7 @@ class CalculateRatioTransformation(PandaFlowTransformation):
         default=None,
         description="Optional number of digits to round the result to. If None, no rounding is applied.",
     )
+    formatter: Optional[str] = Field(None, description='Optional formatter (e.g. `"float_2dec"`)')
 
 
 class CalculateRatioStrategy(TransformationStrategy):
@@ -45,10 +48,15 @@ class CalculateRatioStrategy(TransformationStrategy):
             raise ValueError(
                 f"Denominator column '{self.config.denominator}' not found in DataFrame"
             )
-
+        df[self.config.numerator] = pd.to_numeric(df[self.config.numerator])
+        df[self.config.denominator] = pd.to_numeric(df[self.config.denominator])
         result = df[self.config.numerator] / df[self.config.denominator]
         if self.config.round_digits is not None:
             result = result.round(self.config.round_digits)
 
         df[self.config.field] = result
+        format_value = get_output_formatter(self.config.formatter)
+
+        df = df.replace([np.inf, -np.inf], "")
+        df[self.config.field] = df[self.config.field].apply(format_value)
         return df
