@@ -12,9 +12,6 @@ class FilterByFormulaTransformation(PandaFlowTransformation):
     strategy: Literal["filter"] = Field(
         description="Strategy identifier used to select this transformation. Must be 'filter'."
     )
-    field: str = Field(
-        description="Name of the column to apply the filtering formula to."
-    )
     formula: str = Field(
         description="Filtering expression to evaluate. Should be a valid pandas-compatible formula (e.g., 'value > 10')."
     )
@@ -45,13 +42,6 @@ It supports logical expressions involving column values and can optionally forma
 
             # Filter the DataFrame
             df_filtered = df[mask].copy()
-
-            # Optional: format output field if needed
-            format_value = get_output_formatter(self.config.formatter)
-            if self.config.field in df_filtered.columns:
-                df_filtered[self.config.field] = df_filtered[self.config.field].apply(
-                    format_value
-                )
 
             return df_filtered
 

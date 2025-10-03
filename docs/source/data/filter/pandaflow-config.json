@@ -1,6 +1,11 @@
 {
     "transformations": [
         {
+            "fields": ["amount"],
+            "strategy": "cast_columns",
+            "target_type": "int"
+        },
+        {
             "field": "description",
             "strategy": "filter",
             "formula": "amount > 0"

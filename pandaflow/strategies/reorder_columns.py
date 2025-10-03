@@ -20,7 +20,7 @@ class ReorderColumnsStrategy(TransformationStrategy):
         "name": "reorder_columns",
         "version": "1.0.0",
         "author": "pandaflow team",
-        "description": """Reorders columns in a DataFrame to match a specified sequence,\ 
+        "description": """Reorders columns in a DataFrame to match a specified sequence, \\ 
 ensuring consistent layout for downstream processing or export."""    
     }
 

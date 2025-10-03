@@ -1,5 +1,6 @@
 from datetime import datetime
 import locale
+from pathlib import Path
 
 
 def parse_date(format, locale_value=None):
@@ -113,3 +114,8 @@ def get_output_formatter(name: str):
             f"Output formatter '{name}' not found in predefined formatters or configuration"
         )
     return formatters[name]
+
+def resolve_input_path(base_path: str, relative_input: str):
+    base_dir = Path(base_path).parent
+    rel_path = base_dir / relative_input
+    return rel_path.resolve()

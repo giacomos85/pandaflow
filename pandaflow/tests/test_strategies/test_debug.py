@@ -9,7 +9,7 @@ def sample_df():
 
 
 def test_debug_strategy_prints_field_and_head(sample_df, capsys):
-    transformation = {"field": "A"}
+    transformation = {"strategy": "debug"}
     strategy = DebugStrategy(transformation)
     strategy.run(sample_df)
 
@@ -19,7 +19,7 @@ def test_debug_strategy_prints_field_and_head(sample_df, capsys):
 
 
 def test_debug_strategy_does_not_modify_df(sample_df):
-    transformation = {"field": "A"}
+    transformation = {"strategy": "debug"}
     strategy = DebugStrategy(transformation)
     original = sample_df.copy()
     strategy.run(sample_df)

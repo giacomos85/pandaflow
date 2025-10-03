@@ -22,7 +22,10 @@ def transform_dataframe(
     for i, tr in enumerate(config.transformations):
         strategy_name = tr.meta.get("name")
         start = time.time()
-        df = tr.run(df)
+        if strategy_name == "lookup_external":
+            df = tr.run(df, output=output_path)
+        else:
+            df = tr.run(df)
         if config._profile:
             duration = time.time() - start
             logger.info(f"⏱️ step_{i}_{strategy_name}: {duration:.3f}s")

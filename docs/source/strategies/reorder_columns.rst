@@ -1,7 +1,7 @@
 reorder_columns
 ---------------
 
-Reorders columns in a DataFrame to match a specified sequence,\ 
+Reorders columns in a DataFrame to match a specified sequence, \ 
 ensuring consistent layout for downstream processing or export.
 
 Metadata:

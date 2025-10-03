@@ -1,3 +1,3 @@
-amount,category,description
-100,Sales,A
-200,Sales,C
+"amount","category","description"
+"100","Sales","A"
+"200","Sales","C"

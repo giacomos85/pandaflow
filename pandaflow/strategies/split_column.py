@@ -47,6 +47,7 @@ class SplitColumnStrategy(TransformationStrategy):
 
         split_cols = (
             df[self.config.column]
+            .fillna("")
             .astype(str)
             .str.split(
                 self.config.delimiter,
@@ -58,6 +59,7 @@ class SplitColumnStrategy(TransformationStrategy):
             f"{self.config.prefix}_{i}" for i in range(split_cols.shape[1])
         ]
 
+        clean_split_cols = split_cols.fillna("")
         result = pd.concat(
             [
                 (
@@ -65,7 +67,7 @@ class SplitColumnStrategy(TransformationStrategy):
                     if self.config.drop_original
                     else df
                 ),
-                split_cols,
+                clean_split_cols,
             ],
             axis=1,
         )

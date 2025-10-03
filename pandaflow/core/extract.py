@@ -4,11 +4,7 @@ from typing import Dict
 
 import pandas as pd
 
-
-def resolve_input_path(config_path: str, relative_input: str):
-    config_dir = Path(config_path).parent
-    input_path = config_dir / relative_input
-    return input_path.resolve()
+from pandaflow.utils import resolve_input_path
 
 
 def rule_matches_file(match: dict, file_path: Path) -> bool:
@@ -39,9 +35,9 @@ def read_csv(input_path: str, config: dict) -> pd.DataFrame | None:
         Transformed DataFrame, or None if skipped due to match transformations.
     """
     meta = config.meta
-    skiprows = meta.get("skiprows", 0)
-    sep = meta.get("csv_separator", ",")
-    match = meta.get("match", {})
+    skiprows = meta.skiprows
+    sep = meta.sep
+    match = meta.match
 
     # If input is a Path, apply match transformations
     input_source = Path(input_path)

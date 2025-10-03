@@ -32,11 +32,6 @@ filter schema
      - False
      - Optional version string to track the strategy implementation or schema evolution.
 
-   * - ``field``
-     - str
-     - True
-     - Name of the column to apply the filtering formula to.
-
    * - ``formula``
      - str
      - True
