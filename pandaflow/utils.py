@@ -34,12 +34,14 @@ def parse_float(currency_symbols, thousands_sep, decimal_sep, default_value):
     return parser
 
 
-def formatter_float(decimals, decimals_sep, as_string, prefix, suffix):
+def formatter_float(decimals, decimals_sep, as_string, prefix, suffix, absolute: bool = False):
     def format_float(val):
         try:
             val = float(val)
         except (ValueError, TypeError):
             val = 0.0
+        if absolute:
+            val = abs(val)
         if as_string:
             return f"{prefix}{val:.{decimals}f}{suffix}".replace(".", decimals_sep)
         return round(val, decimals)
@@ -94,6 +96,9 @@ def get_input_parser(name: str):
 
 def get_output_formatter(name: str):
     formatters = {
+        "float_0dec": formatter_float(
+            decimals=0, decimals_sep=",", as_string=True, prefix="", suffix=""
+        ),
         "float_2dec": formatter_float(
             decimals=2, decimals_sep=",", as_string=True, prefix="", suffix=""
         ),
@@ -106,6 +111,9 @@ def get_output_formatter(name: str):
         "iso_dashed_date": formatter_date(output_format="%Y-%m-%d", as_string=True),
         "italian_dashed_date": formatter_date(output_format="%d-%m-%Y", as_string=True),
         "str_upper": lambda x: str(x).upper(),
+        "absolute_float_2dec": formatter_float(
+            decimals=2, decimals_sep=",", as_string=True, prefix="", suffix="", absolute=True
+        ),
     }
     if name is None:
         return lambda x: x
