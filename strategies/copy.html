@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Drop Columns Strategy" href="drop_columns.html" /><link rel="prev" title="Constant Strategy" href="constant.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="debug" href="debug.html" /><link rel="prev" title="constant" href="constant.html" />
 
     <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
-        <title>Copy - PandaFlow</title>
+        <title>copy - PandaFlow</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=302659d7" />
@@ -207,20 +207,25 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Strategies</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="calculate_amount.html">Calculate Amount Strategy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="calculate_ratio.html">Calculate Ratio Strategy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="constant.html">Constant Strategy</a></li>
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Copy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="drop_columns.html">Drop Columns Strategy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="drop_duplicates.html">Drop Duplicates Strategy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="filter.html">Filter</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hash.html">Hash</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lookup_external.html">Lookup External Strategy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="regex.html">RegEx</a></li>
-<li class="toctree-l1"><a class="reference internal" href="replace.html">Replace Strategy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sort_by_column.html">Sort By Column</a></li>
-<li class="toctree-l1"><a class="reference internal" href="split_column.html">Split Column</a></li>
-<li class="toctree-l1"><a class="reference internal" href="uuid.html">UUID</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculate_amount.html">calculate_amount</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculate_ratio.html">calculate_ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="constant.html">constant</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">copy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="debug.html">debug</a></li>
+<li class="toctree-l1"><a class="reference internal" href="drop_columns.html">drop_columns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="drop_duplicates.html">drop_duplicates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filter.html">filter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="find_duplicates.html">find_duplicates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hash.html">hash</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lookup_external.html">lookup_external</a></li>
+<li class="toctree-l1"><a class="reference internal" href="merge.html">merge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="merge_formula.html">merge_formula</a></li>
+<li class="toctree-l1"><a class="reference internal" href="regex.html">regex</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reorder_columns.html">reorder_columns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="replace.html">replace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sort_by_column.html">sort_by_column</a></li>
+<li class="toctree-l1"><a class="reference internal" href="split_column.html">split_column</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uuid.html">uuid</a></li>
 </ul>
 
 </div>
@@ -262,23 +267,97 @@
         </div>
         <article role="main" id="furo-main-content">
           <section id="copy">
-<h1>Copy<a class="headerlink" href="#copy" title="Link to this heading">¶</a></h1>
+<h1>copy<a class="headerlink" href="#copy" title="Link to this heading">¶</a></h1>
 <p>The <strong>copy</strong> strategy transfers values from one column to another, optionally applying input parsing, output formatting, and fill-in logic.
 It is useful for duplicating fields, normalizing formats, or creating derived columns with fallback behavior.</p>
-<section id="metadata">
-<h2>Metadata<a class="headerlink" href="#metadata" title="Link to this heading">¶</a></h2>
-<ul class="simple">
+<dl class="simple">
+<dt>Metadata:</dt><dd><ul class="simple">
 <li><p><strong>Name</strong>: <cite>copy</cite></p></li>
 <li><p><strong>Version</strong>: <cite>1.0.0</cite></p></li>
-<li><p><strong>Author</strong>: Pandaflow Team</p></li>
-<li><p><strong>Description</strong>: Copies values from one column to another.</p></li>
+<li><p><strong>Author</strong>: PandaFlow Team</p></li>
 </ul>
+</dd>
+</dl>
+<section id="copy-schema">
+<h2>copy schema<a class="headerlink" href="#copy-schema" title="Link to this heading">¶</a></h2>
+<div class="table-wrapper colwidths-given docutils container" id="id1">
+<table class="docutils align-default" id="id1">
+<caption><span class="caption-text">copy Fields</span><a class="headerlink" href="#id1" title="Link to this table">¶</a></caption>
+<colgroup>
+<col style="width: 16.7%" />
+<col style="width: 16.7%" />
+<col style="width: 16.7%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">strategy</span></code></p></td>
+<td><p>Literal</p></td>
+<td><p>True</p></td>
+<td><p>Strategy identifier used to select this transformation. Must be ‘copy’.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">version</span></code></p></td>
+<td><p>str | None</p></td>
+<td><p>False</p></td>
+<td><p>Optional version string to track the strategy implementation or schema evolution.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">field</span></code></p></td>
+<td><p>str</p></td>
+<td><p>True</p></td>
+<td><p>Name of the output column that will receive the copied or transformed value.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">source</span></code></p></td>
+<td><p>Optional</p></td>
+<td><p>False</p></td>
+<td><p>Name of the source column to copy from. If None, the field will be filled using ‘fillna’ or left empty.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">fillna</span></code></p></td>
+<td><p>Union</p></td>
+<td><p>False</p></td>
+<td><p>Optional fallback value to use if the source column is missing or contains nulls.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">parser</span></code></p></td>
+<td><p>Optional</p></td>
+<td><p>False</p></td>
+<td><p>Optional parser function name to apply to the source value before copying.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">formatter</span></code></p></td>
+<td><p>Optional</p></td>
+<td><p>False</p></td>
+<td><p>Optional formatter function name to apply after parsing, before assigning to the output column.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 </section>
-<section id="transformation-format">
-<h2>Transformation Format<a class="headerlink" href="#transformation-format" title="Link to this heading">¶</a></h2>
-<p>The rule must specify the target field and source column. Optional keys allow for parsing, formatting, and fallback values.</p>
-<div class="literal-block-wrapper docutils container" id="id1">
-<div class="code-block-caption"><span class="caption-text">Example Transformation Definition</span><a class="headerlink" href="#id1" title="Link to this code">¶</a></div>
+<section id="example-input-dataset">
+<h2>Example input Dataset<a class="headerlink" href="#example-input-dataset" title="Link to this heading">¶</a></h2>
+<div class="table-wrapper colwidths-auto docutils container" id="id2">
+<table class="docutils align-default" id="id2">
+<caption><span class="caption-text">Input DataFrame</span><a class="headerlink" href="#id2" title="Link to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Amount</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>€1.234,56</p></td>
+</tr>
+<tr class="row-odd"><td><p>€2.345,67</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="copy-example">
+<h2>copy example<a class="headerlink" href="#copy-example" title="Link to this heading">¶</a></h2>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">copy Rule Example</span><a class="headerlink" href="#id3" title="Link to this code">¶</a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="p">{</span>
 <span class="linenos"> 2</span><span class="w">    </span><span class="nt">&quot;data_sources&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="linenos"> 3</span><span class="w">        </span><span class="p">{</span>
@@ -301,37 +380,12 @@ It is useful for duplicating fields, normalizing formats, or creating derived co
 </pre></div>
 </div>
 </div>
-<ul class="simple">
-<li><p><cite>field</cite>: Target column to populate.</p></li>
-<li><p><cite>source</cite>: Source column to copy from. Defaults to <cite>field</cite> if omitted.</p></li>
-<li><p><cite>parser</cite>: Optional parser to apply to source values.</p></li>
-<li><p><cite>formatter</cite>: Optional formatter to apply to parsed values.</p></li>
-<li><p><cite>fillna</cite>: Optional fallback value for empty or missing entries.</p></li>
-</ul>
-</section>
-<section id="input-example">
-<h2>Input Example<a class="headerlink" href="#input-example" title="Link to this heading">¶</a></h2>
-<div class="table-wrapper colwidths-auto docutils container" id="id2">
-<table class="docutils align-default" id="id2">
-<caption><span class="caption-text">Input DataFrame</span><a class="headerlink" href="#id2" title="Link to this table">¶</a></caption>
-<thead>
-<tr class="row-odd"><th class="head"><p>Amount</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>€1.234,56</p></td>
-</tr>
-<tr class="row-odd"><td><p>€2.345,67</p></td>
-</tr>
-</tbody>
-</table>
-</div>
 </section>
 <section id="result">
 <h2>Result<a class="headerlink" href="#result" title="Link to this heading">¶</a></h2>
-<div class="table-wrapper colwidths-auto docutils container" id="id3">
-<table class="docutils align-default" id="id3">
-<caption><span class="caption-text">Transformed Output</span><a class="headerlink" href="#id3" title="Link to this table">¶</a></caption>
+<div class="table-wrapper colwidths-auto docutils container" id="id4">
+<table class="docutils align-default" id="id4">
+<caption><span class="caption-text">Transformed Output</span><a class="headerlink" href="#id4" title="Link to this table">¶</a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Amount</p></th>
 <th class="head"><p>__total__</p></th>
@@ -348,15 +402,6 @@ It is useful for duplicating fields, normalizing formats, or creating derived co
 </table>
 </div>
 </section>
-<section id="behavior-notes">
-<h2>Behavior Notes<a class="headerlink" href="#behavior-notes" title="Link to this heading">¶</a></h2>
-<ul class="simple">
-<li><p>If <cite>source</cite> is missing, the strategy assumes <cite>source == field</cite>.</p></li>
-<li><p>If <cite>parser</cite> or <cite>formatter</cite> are provided, they are applied in sequence.</p></li>
-<li><p>If <cite>fillna</cite> is defined, empty strings and <cite>NaN</cite> values are replaced accordingly.</p></li>
-<li><p>Raises <cite>ValueError</cite> if the source column is not found in the input DataFrame.</p></li>
-</ul>
-</section>
 </section>
 
         </article>
@@ -364,12 +409,12 @@ It is useful for duplicating fields, normalizing formats, or creating derived co
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="drop_columns.html">
+          <a class="next-page" href="debug.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Drop Columns Strategy</div>
+                <div class="title">debug</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -380,7 +425,7 @@ It is useful for duplicating fields, normalizing formats, or creating derived co
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Constant Strategy</div>
+                <div class="title">constant</div>
                 
               </div>
             </a>
@@ -414,12 +459,11 @@ It is useful for duplicating fields, normalizing formats, or creating derived co
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">Copy</a><ul>
-<li><a class="reference internal" href="#metadata">Metadata</a></li>
-<li><a class="reference internal" href="#transformation-format">Transformation Format</a></li>
-<li><a class="reference internal" href="#input-example">Input Example</a></li>
+<li><a class="reference internal" href="#">copy</a><ul>
+<li><a class="reference internal" href="#copy-schema">copy schema</a></li>
+<li><a class="reference internal" href="#example-input-dataset">Example input Dataset</a></li>
+<li><a class="reference internal" href="#copy-example">copy example</a></li>
 <li><a class="reference internal" href="#result">Result</a></li>
-<li><a class="reference internal" href="#behavior-notes">Behavior Notes</a></li>
 </ul>
 </li>
 </ul>

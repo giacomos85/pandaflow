@@ -207,20 +207,25 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Strategies</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="strategies/calculate_amount.html">Calculate Amount Strategy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="strategies/calculate_ratio.html">Calculate Ratio Strategy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="strategies/constant.html">Constant Strategy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="strategies/copy.html">Copy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="strategies/drop_columns.html">Drop Columns Strategy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="strategies/drop_duplicates.html">Drop Duplicates Strategy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="strategies/filter.html">Filter</a></li>
-<li class="toctree-l1"><a class="reference internal" href="strategies/hash.html">Hash</a></li>
-<li class="toctree-l1"><a class="reference internal" href="strategies/lookup_external.html">Lookup External Strategy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="strategies/regex.html">RegEx</a></li>
-<li class="toctree-l1"><a class="reference internal" href="strategies/replace.html">Replace Strategy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="strategies/sort_by_column.html">Sort By Column</a></li>
-<li class="toctree-l1"><a class="reference internal" href="strategies/split_column.html">Split Column</a></li>
-<li class="toctree-l1"><a class="reference internal" href="strategies/uuid.html">UUID</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strategies/calculate_amount.html">calculate_amount</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strategies/calculate_ratio.html">calculate_ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strategies/constant.html">constant</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strategies/copy.html">copy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strategies/debug.html">debug</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strategies/drop_columns.html">drop_columns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strategies/drop_duplicates.html">drop_duplicates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strategies/filter.html">filter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strategies/find_duplicates.html">find_duplicates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strategies/hash.html">hash</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strategies/lookup_external.html">lookup_external</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strategies/merge.html">merge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strategies/merge_formula.html">merge_formula</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strategies/regex.html">regex</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strategies/reorder_columns.html">reorder_columns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strategies/replace.html">replace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strategies/sort_by_column.html">sort_by_column</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strategies/split_column.html">split_column</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strategies/uuid.html">uuid</a></li>
 </ul>
 
 </div>
@@ -280,7 +285,7 @@ No need to write custom functions — just define what you want in a JSON rule, 
 <h2>Basic Example<a class="headerlink" href="#basic-example" title="Link to this heading">¶</a></h2>
 <p>Let’s say you want to copy values from one column to another and format them to two decimal places.</p>
 <ol class="arabic">
-<li><p><strong>Create a transformations files</strong> (save as <cite>my_transformations.json</cite>):</p>
+<li><p>Create a <strong>transformations file</strong> named <cite>pandaflow-config.json</cite>:</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;transformations&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">        </span><span class="p">{</span>
@@ -304,7 +309,7 @@ No need to write custom functions — just define what you want in a JSON rule, 
 </div>
 </li>
 <li><p><strong>Run PandaFlow</strong>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pandaflow<span class="w"> </span>run<span class="w"> </span>--input<span class="w"> </span>mydata.csv<span class="w"> </span>--output<span class="w"> </span>results.csv<span class="w"> </span>--config<span class="w"> </span>my_transformations.json
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pandaflow<span class="w"> </span>run<span class="w"> </span>--input<span class="w"> </span>mydata.csv<span class="w"> </span>--output<span class="w"> </span>results.csv<span class="w"> </span>--config<span class="w"> </span>pandaflow-config.json
 </pre></div>
 </div>
 </li>
@@ -320,19 +325,6 @@ No need to write custom functions — just define what you want in a JSON rule, 
 <li><p><strong>filter</strong>: Keep only rows that match a condition</p></li>
 </ul>
 <p>Each strategy has its own rule format. You can find examples in the [Strategy Reference](strategies/index).</p>
-</section>
-<section id="using-rules-from-files">
-<h2>Using Rules from Files<a class="headerlink" href="#using-rules-from-files" title="Link to this heading">¶</a></h2>
-<p>You can store your transformations in <cite>.json</cite> files and reuse them across projects:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pandaflow.engine</span><span class="w"> </span><span class="kn">import</span> <span class="n">apply_rule</span>
-
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;transformations/drop.json&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-    <span class="n">transformation</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-
-<span class="n">df</span> <span class="o">=</span> <span class="n">apply_rule</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">rule</span><span class="p">)</span>
-</pre></div>
-</div>
 </section>
 <section id="tips-for-end-users">
 <h2>Tips for End Users<a class="headerlink" href="#tips-for-end-users" title="Link to this heading">¶</a></h2>
@@ -412,7 +404,6 @@ No need to write custom functions — just define what you want in a JSON rule, 
 <li><a class="reference internal" href="#installation">Installation</a></li>
 <li><a class="reference internal" href="#basic-example">Basic Example</a></li>
 <li><a class="reference internal" href="#what-you-can-do">What You Can Do</a></li>
-<li><a class="reference internal" href="#using-rules-from-files">Using Rules from Files</a></li>
 <li><a class="reference internal" href="#tips-for-end-users">Tips for End Users</a></li>
 <li><a class="reference internal" href="#need-help">Need Help?</a></li>
 </ul>

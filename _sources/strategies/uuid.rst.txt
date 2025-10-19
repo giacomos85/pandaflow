@@ -1,50 +1,63 @@
-UUID
+uuid
 ----
 
 The **uuid** strategy generates a unique UUIDv7 value for each row in a DataFrame.  
 This is useful for assigning identifiers, anonymizing records, or tracking row-level lineage.
 
-Metadata
-~~~~~~~~
+Metadata:
+    - **Name**: `uuid`
+    - **Version**: `1.0.0`
+    - **Author**: PandaFlow Team
 
-- **Name**: `uuid`
-- **Version**: `1.0.0`
-- **Author**: Pandaflow Team
-- **Description**: Generates UUIDv7 values for a specified column.
 
-Transformation Format
+uuid schema
 ~~~~~~~~~~~
 
-The rule must specify:
+.. list-table:: uuid Fields
+   :header-rows: 1
+   :widths: 20 20 20 60
 
-- `field`: The column name where UUIDs will be stored
+   * - Field
+     - Type
+     - Required
+     - Description
 
-.. literalinclude:: ../data/uuid/pandaflow-config.json
-   :language: json
-   :linenos:
-   :caption: UUID Rule Example
+   * - ``strategy``
+     - Literal
+     - True
+     - Strategy identifier used to select this transformation. Must be 'uuid'.
 
-Input Example
-~~~~~~~~~~~~~
+   * - ``version``
+     - str | None
+     - False
+     - Optional version string to track the strategy implementation or schema evolution.
+
+   * - ``field``
+     - str
+     - True
+     - Name of the output column that will store the generated UUID value.
+
+
+
+Example input Dataset
+~~~~~~~~~~~~~~~~~~~~~
 
 .. csv-table:: Input DataFrame
    :file: ../data/uuid/input.csv
    :header-rows: 1
    :widths: auto
 
+uuid example
+~~~~~~~~~~~~
+.. literalinclude:: ../data/uuid/pandaflow-config.json
+   :language: json
+   :linenos:
+   :caption: uuid Rule Example
+
 Result
 ~~~~~~
 
-.. csv-table:: Output with UUIDs
+.. csv-table:: Transformed Output
    :file: ../data/uuid/output.csv
    :header-rows: 1
    :widths: auto
-
-Behavior Notes
-~~~~~~~~~~~~~~
-
-- Each row receives a unique UUIDv7 value.
-- The strategy does not depend on existing column values.
-- If the `field` already exists, it will be overwritten.
-- Requires the `uuid_extension` package for UUIDv7 generation.
-

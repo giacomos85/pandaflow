@@ -1,49 +1,68 @@
-Constant Strategy
-=================
+constant
+--------
 
 The **constant** strategy sets a specified column in a DataFrame to a fixed value across all rows.  
 This is useful for injecting default flags, labels, or placeholder values during data transformation.
 
 Metadata:
-   - **Name**: `constant`
-   - **Version**: `1.0.0`
-   - **Author**: Pandaflow Team
-   - **Description**: Sets a specified column to a constant value.
+    - **Name**: `constant`
+    - **Version**: `1.0.0`
+    - **Author**: PandaFlow Team
 
-Transformation Format:
-   - Rules for this strategy must define the target field and the constant value to assign.
 
-Example Transformation
-------------
+constant schema
+~~~~~~~~~~~~~~~
 
-.. literalinclude:: ../data/constant/pandaflow-config.json
-   :language: json
-   :linenos:
-   :caption: Example Transformation Definition
+.. list-table:: constant Fields
+   :header-rows: 1
+   :widths: 20 20 20 60
 
-Input Data
-----------
+   * - Field
+     - Type
+     - Required
+     - Description
 
-The following table shows the input DataFrame before applying the strategy:
+   * - ``strategy``
+     - Literal
+     - True
+     - Strategy identifier used to select this transformation. Must be 'constant'.
+
+   * - ``version``
+     - str | None
+     - False
+     - Optional version string to track the strategy implementation or schema evolution.
+
+   * - ``field``
+     - str
+     - True
+     - Name of the output column that will receive the constant value.
+
+   * - ``value``
+     - str
+     - False
+     - Constant value to assign to the specified output column. Defaults to an empty string.
+
+
+
+Example input Dataset
+~~~~~~~~~~~~~~~~~~~~~
 
 .. csv-table:: Input DataFrame
    :file: ../data/constant/input.csv
    :header-rows: 1
    :widths: auto
 
-Result
-------
+constant example
+~~~~~~~~~~~~~~~~
+.. literalinclude:: ../data/constant/pandaflow-config.json
+   :language: json
+   :linenos:
+   :caption: constant Rule Example
 
-After applying the constant strategy, the output DataFrame includes the new column with the specified constant value:
+Result
+~~~~~~
 
 .. csv-table:: Transformed Output
    :file: ../data/constant/output.csv
    :header-rows: 1
    :widths: auto
-
-Usage Notes
-~~~~~~~~~~~
-
-- If the target field already exists, its values will be overwritten.
-- If no `value` is provided in the rule, an empty string (`""`) will be used by default.
-- This strategy is schema-safe and does not alter other columns.

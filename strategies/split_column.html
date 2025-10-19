@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="UUID" href="uuid.html" /><link rel="prev" title="Sort By Column" href="sort_by_column.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="uuid" href="uuid.html" /><link rel="prev" title="sort_by_column" href="sort_by_column.html" />
 
     <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
-        <title>Split Column - PandaFlow</title>
+        <title>split_column - PandaFlow</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=302659d7" />
@@ -207,20 +207,25 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Strategies</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="calculate_amount.html">Calculate Amount Strategy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="calculate_ratio.html">Calculate Ratio Strategy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="constant.html">Constant Strategy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="copy.html">Copy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="drop_columns.html">Drop Columns Strategy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="drop_duplicates.html">Drop Duplicates Strategy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="filter.html">Filter</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hash.html">Hash</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lookup_external.html">Lookup External Strategy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="regex.html">RegEx</a></li>
-<li class="toctree-l1"><a class="reference internal" href="replace.html">Replace Strategy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sort_by_column.html">Sort By Column</a></li>
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Split Column</a></li>
-<li class="toctree-l1"><a class="reference internal" href="uuid.html">UUID</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculate_amount.html">calculate_amount</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculate_ratio.html">calculate_ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="constant.html">constant</a></li>
+<li class="toctree-l1"><a class="reference internal" href="copy.html">copy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="debug.html">debug</a></li>
+<li class="toctree-l1"><a class="reference internal" href="drop_columns.html">drop_columns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="drop_duplicates.html">drop_duplicates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filter.html">filter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="find_duplicates.html">find_duplicates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hash.html">hash</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lookup_external.html">lookup_external</a></li>
+<li class="toctree-l1"><a class="reference internal" href="merge.html">merge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="merge_formula.html">merge_formula</a></li>
+<li class="toctree-l1"><a class="reference internal" href="regex.html">regex</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reorder_columns.html">reorder_columns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="replace.html">replace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sort_by_column.html">sort_by_column</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">split_column</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uuid.html">uuid</a></li>
 </ul>
 
 </div>
@@ -262,28 +267,105 @@
         </div>
         <article role="main" id="furo-main-content">
           <section id="split-column">
-<h1>Split Column<a class="headerlink" href="#split-column" title="Link to this heading">¶</a></h1>
+<h1>split_column<a class="headerlink" href="#split-column" title="Link to this heading">¶</a></h1>
 <p>Splits a string column into multiple columns using a delimiter.</p>
 <dl class="simple">
 <dt>Metadata:</dt><dd><ul class="simple">
-<li><p>name: “split_column”</p></li>
-<li><p>version: “1.0.0”</p></li>
-<li><p>author: “pandaflow team”</p></li>
-</ul>
-</dd>
-<dt>Transformation Format:</dt><dd><ul class="simple">
-<li><p>column: str — Column to split</p></li>
-<li><p>delimiter: str — Delimiter to use</p></li>
-<li><p>maxsplit: Optional[int] — Max number of splits (-1 = no limit)</p></li>
-<li><p>prefix: Optional[str] — Prefix for new columns (default: “split”)</p></li>
-<li><p>drop_original: Optional[bool] — Whether to drop the original column</p></li>
+<li><p><strong>Name</strong>: <cite>split_column</cite></p></li>
+<li><p><strong>Version</strong>: <cite>1.0.0</cite></p></li>
+<li><p><strong>Author</strong>: PandaFlow Team</p></li>
 </ul>
 </dd>
 </dl>
-<section id="example-transformation">
-<h2>Example Transformation<a class="headerlink" href="#example-transformation" title="Link to this heading">¶</a></h2>
-<div class="literal-block-wrapper docutils container" id="id1">
-<div class="code-block-caption"><span class="caption-text">Split_column Rule Example</span><a class="headerlink" href="#id1" title="Link to this code">¶</a></div>
+<section id="split-column-schema">
+<h2>split_column schema<a class="headerlink" href="#split-column-schema" title="Link to this heading">¶</a></h2>
+<div class="table-wrapper colwidths-given docutils container" id="id1">
+<table class="docutils align-default" id="id1">
+<caption><span class="caption-text">split_column Fields</span><a class="headerlink" href="#id1" title="Link to this table">¶</a></caption>
+<colgroup>
+<col style="width: 16.7%" />
+<col style="width: 16.7%" />
+<col style="width: 16.7%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">strategy</span></code></p></td>
+<td><p>Literal</p></td>
+<td><p>True</p></td>
+<td><p>Strategy identifier used to select this transformation. Must be ‘split_column’.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">version</span></code></p></td>
+<td><p>str | None</p></td>
+<td><p>False</p></td>
+<td><p>Optional version string to track the strategy implementation or schema evolution.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">column</span></code></p></td>
+<td><p>str</p></td>
+<td><p>True</p></td>
+<td><p>Name of the column whose string values will be split using the specified delimiter.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">delimiter</span></code></p></td>
+<td><p>str</p></td>
+<td><p>True</p></td>
+<td><p>Delimiter string used to split the column values (e.g., ‘,’ or ‘|’).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">maxsplit</span></code></p></td>
+<td><p>int</p></td>
+<td><p>False</p></td>
+<td><p>Maximum number of splits to perform. Use -1 for no limit.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prefix</span></code></p></td>
+<td><p>str</p></td>
+<td><p>False</p></td>
+<td><p>Prefix to use when naming the new columns created from the split operation.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">drop_original</span></code></p></td>
+<td><p>bool</p></td>
+<td><p>False</p></td>
+<td><p>Whether to drop the original column after splitting. Defaults to False.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="example-input-dataset">
+<h2>Example input Dataset<a class="headerlink" href="#example-input-dataset" title="Link to this heading">¶</a></h2>
+<div class="table-wrapper colwidths-auto docutils container" id="id2">
+<table class="docutils align-default" id="id2">
+<caption><span class="caption-text">Input DataFrame</span><a class="headerlink" href="#id2" title="Link to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>full_name</p></th>
+<th class="head"><p>age</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Alice Smith</p></td>
+<td><p>13.00</p></td>
+</tr>
+<tr class="row-odd"><td><p>Bob Jones</p></td>
+<td><p>99.00</p></td>
+</tr>
+<tr class="row-even"><td><p>Charlie</p></td>
+<td><p>45.00</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>11.00</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="split-column-example">
+<h2>split_column example<a class="headerlink" href="#split-column-example" title="Link to this heading">¶</a></h2>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">split_column Rule Example</span><a class="headerlink" href="#id3" title="Link to this code">¶</a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="p">{</span>
 <span class="linenos"> 2</span><span class="w">    </span><span class="nt">&quot;transformations&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="linenos"> 3</span><span class="w">        </span><span class="p">{</span>
@@ -298,38 +380,11 @@
 </div>
 </div>
 </section>
-<section id="input-dataframe">
-<h2>Input DataFrame<a class="headerlink" href="#input-dataframe" title="Link to this heading">¶</a></h2>
-<div class="table-wrapper colwidths-auto docutils container" id="id2">
-<table class="docutils align-default" id="id2">
-<caption><span class="caption-text">Input DataFrame</span><a class="headerlink" href="#id2" title="Link to this table">¶</a></caption>
-<thead>
-<tr class="row-odd"><th class="head"><p>full_name</p></th>
-<th class="head"><p>age</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>Alice Smith</p></td>
-<td><p>13</p></td>
-</tr>
-<tr class="row-odd"><td><p>Bob Jones</p></td>
-<td><p>99</p></td>
-</tr>
-<tr class="row-even"><td><p>Charlie</p></td>
-<td><p>45</p></td>
-</tr>
-<tr class="row-odd"><td></td>
-<td><p>11</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-</section>
-<section id="expected-output">
-<h2>Expected Output<a class="headerlink" href="#expected-output" title="Link to this heading">¶</a></h2>
-<div class="table-wrapper colwidths-auto docutils container" id="id3">
-<table class="docutils align-default" id="id3">
-<caption><span class="caption-text">Input DataFrame</span><a class="headerlink" href="#id3" title="Link to this table">¶</a></caption>
+<section id="result">
+<h2>Result<a class="headerlink" href="#result" title="Link to this heading">¶</a></h2>
+<div class="table-wrapper colwidths-auto docutils container" id="id4">
+<table class="docutils align-default" id="id4">
+<caption><span class="caption-text">Transformed Output</span><a class="headerlink" href="#id4" title="Link to this table">¶</a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>full_name</p></th>
 <th class="head"><p>age</p></th>
@@ -374,7 +429,7 @@
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">UUID</div>
+                <div class="title">uuid</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -385,7 +440,7 @@
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Sort By Column</div>
+                <div class="title">sort_by_column</div>
                 
               </div>
             </a>
@@ -419,10 +474,11 @@
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">Split Column</a><ul>
-<li><a class="reference internal" href="#example-transformation">Example Transformation</a></li>
-<li><a class="reference internal" href="#input-dataframe">Input DataFrame</a></li>
-<li><a class="reference internal" href="#expected-output">Expected Output</a></li>
+<li><a class="reference internal" href="#">split_column</a><ul>
+<li><a class="reference internal" href="#split-column-schema">split_column schema</a></li>
+<li><a class="reference internal" href="#example-input-dataset">Example input Dataset</a></li>
+<li><a class="reference internal" href="#split-column-example">split_column example</a></li>
+<li><a class="reference internal" href="#result">Result</a></li>
 </ul>
 </li>
 </ul>

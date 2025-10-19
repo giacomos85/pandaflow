@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Filter" href="filter.html" /><link rel="prev" title="Drop Columns Strategy" href="drop_columns.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="filter" href="filter.html" /><link rel="prev" title="drop_columns" href="drop_columns.html" />
 
     <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
-        <title>Drop Duplicates Strategy - PandaFlow</title>
+        <title>drop_duplicates - PandaFlow</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=302659d7" />
@@ -207,20 +207,25 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Strategies</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="calculate_amount.html">Calculate Amount Strategy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="calculate_ratio.html">Calculate Ratio Strategy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="constant.html">Constant Strategy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="copy.html">Copy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="drop_columns.html">Drop Columns Strategy</a></li>
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Drop Duplicates Strategy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="filter.html">Filter</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hash.html">Hash</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lookup_external.html">Lookup External Strategy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="regex.html">RegEx</a></li>
-<li class="toctree-l1"><a class="reference internal" href="replace.html">Replace Strategy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sort_by_column.html">Sort By Column</a></li>
-<li class="toctree-l1"><a class="reference internal" href="split_column.html">Split Column</a></li>
-<li class="toctree-l1"><a class="reference internal" href="uuid.html">UUID</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculate_amount.html">calculate_amount</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculate_ratio.html">calculate_ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="constant.html">constant</a></li>
+<li class="toctree-l1"><a class="reference internal" href="copy.html">copy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="debug.html">debug</a></li>
+<li class="toctree-l1"><a class="reference internal" href="drop_columns.html">drop_columns</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">drop_duplicates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filter.html">filter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="find_duplicates.html">find_duplicates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hash.html">hash</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lookup_external.html">lookup_external</a></li>
+<li class="toctree-l1"><a class="reference internal" href="merge.html">merge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="merge_formula.html">merge_formula</a></li>
+<li class="toctree-l1"><a class="reference internal" href="regex.html">regex</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reorder_columns.html">reorder_columns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="replace.html">replace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sort_by_column.html">sort_by_column</a></li>
+<li class="toctree-l1"><a class="reference internal" href="split_column.html">split_column</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uuid.html">uuid</a></li>
 </ul>
 
 </div>
@@ -261,39 +266,70 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="drop-duplicates-strategy">
-<h1>Drop Duplicates Strategy<a class="headerlink" href="#drop-duplicates-strategy" title="Link to this heading">¶</a></h1>
+          <section id="drop-duplicates">
+<h1>drop_duplicates<a class="headerlink" href="#drop-duplicates" title="Link to this heading">¶</a></h1>
 <p>Drops duplicate rows from a DataFrame, optionally based on a subset of columns.</p>
 <dl class="simple">
 <dt>Metadata:</dt><dd><ul class="simple">
-<li><p>name: “drop_duplicates”</p></li>
-<li><p>version: “1.0.0”</p></li>
-<li><p>author: “pandaflow team”</p></li>
-</ul>
-</dd>
-<dt>Transformation Format:</dt><dd><ul class="simple">
-<li><p>subset: Optional[List[str]] — Columns to consider for identifying duplicates</p></li>
-<li><p>keep: Optional[str] — “first”, “last”, or False (default: “first”)</p></li>
-<li><p>reset_index: Optional[bool] — Whether to reset the index after dropping</p></li>
+<li><p><strong>Name</strong>: <cite>drop_duplicates</cite></p></li>
+<li><p><strong>Version</strong>: <cite>1.0.0</cite></p></li>
+<li><p><strong>Author</strong>: PandaFlow Team</p></li>
 </ul>
 </dd>
 </dl>
-<section id="example-transformation">
-<h2>Example Transformation<a class="headerlink" href="#example-transformation" title="Link to this heading">¶</a></h2>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;strategy&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop_duplicates&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;subset&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;age&quot;</span><span class="p">],</span>
-<span class="w">    </span><span class="nt">&quot;keep&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;first&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;reset_index&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
-<span class="p">}</span>
-</pre></div>
+<section id="drop-duplicates-schema">
+<h2>drop_duplicates schema<a class="headerlink" href="#drop-duplicates-schema" title="Link to this heading">¶</a></h2>
+<div class="table-wrapper colwidths-given docutils container" id="id1">
+<table class="docutils align-default" id="id1">
+<caption><span class="caption-text">drop_duplicates Fields</span><a class="headerlink" href="#id1" title="Link to this table">¶</a></caption>
+<colgroup>
+<col style="width: 16.7%" />
+<col style="width: 16.7%" />
+<col style="width: 16.7%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">strategy</span></code></p></td>
+<td><p>Literal</p></td>
+<td><p>True</p></td>
+<td><p>Strategy identifier used to select this transformation. Must be ‘drop_duplicates’.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">version</span></code></p></td>
+<td><p>str | None</p></td>
+<td><p>False</p></td>
+<td><p>Optional version string to track the strategy implementation or schema evolution.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">subset</span></code></p></td>
+<td><p>Optional</p></td>
+<td><p>False</p></td>
+<td><p>Optional list of column names to consider when identifying duplicates. If None, all columns are used.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">keep</span></code></p></td>
+<td><p>Optional</p></td>
+<td><p>False</p></td>
+<td><p>Determines which duplicate to keep: ‘first’, ‘last’, or False to drop all duplicates.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">reset_index</span></code></p></td>
+<td><p>Optional</p></td>
+<td><p>False</p></td>
+<td><p>Whether to reset the DataFrame index after dropping duplicates. Defaults to False.</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </section>
-<section id="input-dataframe">
-<h2>Input DataFrame<a class="headerlink" href="#input-dataframe" title="Link to this heading">¶</a></h2>
-<div class="table-wrapper docutils container" id="id1">
-<table class="docutils align-default" id="id1">
-<caption><span class="caption-text">Input DataFrame</span><a class="headerlink" href="#id1" title="Link to this table">¶</a></caption>
+<section id="example-input-dataset">
+<h2>Example input Dataset<a class="headerlink" href="#example-input-dataset" title="Link to this heading">¶</a></h2>
+<div class="table-wrapper colwidths-auto docutils container" id="id2">
+<table class="docutils align-default" id="id2">
+<caption><span class="caption-text">Input DataFrame</span><a class="headerlink" href="#id2" title="Link to this table">¶</a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>name</p></th>
 <th class="head"><p>age</p></th>
@@ -319,11 +355,29 @@
 </table>
 </div>
 </section>
-<section id="expected-output">
-<h2>Expected Output<a class="headerlink" href="#expected-output" title="Link to this heading">¶</a></h2>
-<div class="table-wrapper docutils container" id="id2">
-<table class="docutils align-default" id="id2">
-<caption><span class="caption-text">Output DataFrame</span><a class="headerlink" href="#id2" title="Link to this table">¶</a></caption>
+<section id="drop-duplicates-example">
+<h2>drop_duplicates example<a class="headerlink" href="#drop-duplicates-example" title="Link to this heading">¶</a></h2>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">drop_duplicates Rule Example</span><a class="headerlink" href="#id3" title="Link to this code">¶</a></div>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="p">{</span>
+<span class="linenos"> 2</span><span class="w">    </span><span class="nt">&quot;transformations&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">        </span>
+<span class="linenos"> 3</span><span class="w">        </span><span class="p">{</span>
+<span class="linenos"> 4</span><span class="w">            </span><span class="nt">&quot;strategy&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop_duplicates&quot;</span><span class="p">,</span>
+<span class="linenos"> 5</span><span class="w">            </span><span class="nt">&quot;subset&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;age&quot;</span><span class="p">],</span>
+<span class="linenos"> 6</span><span class="w">            </span><span class="nt">&quot;keep&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;first&quot;</span><span class="p">,</span>
+<span class="linenos"> 7</span><span class="w">            </span><span class="nt">&quot;reset_index&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="linenos"> 8</span><span class="w">        </span><span class="p">}</span>
+<span class="linenos"> 9</span><span class="w">    </span><span class="p">]</span>
+<span class="linenos">10</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="result">
+<h2>Result<a class="headerlink" href="#result" title="Link to this heading">¶</a></h2>
+<div class="table-wrapper colwidths-auto docutils container" id="id4">
+<table class="docutils align-default" id="id4">
+<caption><span class="caption-text">Transformed Output</span><a class="headerlink" href="#id4" title="Link to this table">¶</a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>name</p></th>
 <th class="head"><p>age</p></th>
@@ -355,7 +409,7 @@
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Filter</div>
+                <div class="title">filter</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -366,7 +420,7 @@
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Drop Columns Strategy</div>
+                <div class="title">drop_columns</div>
                 
               </div>
             </a>
@@ -400,10 +454,11 @@
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">Drop Duplicates Strategy</a><ul>
-<li><a class="reference internal" href="#example-transformation">Example Transformation</a></li>
-<li><a class="reference internal" href="#input-dataframe">Input DataFrame</a></li>
-<li><a class="reference internal" href="#expected-output">Expected Output</a></li>
+<li><a class="reference internal" href="#">drop_duplicates</a><ul>
+<li><a class="reference internal" href="#drop-duplicates-schema">drop_duplicates schema</a></li>
+<li><a class="reference internal" href="#example-input-dataset">Example input Dataset</a></li>
+<li><a class="reference internal" href="#drop-duplicates-example">drop_duplicates example</a></li>
+<li><a class="reference internal" href="#result">Result</a></li>
 </ul>
 </li>
 </ul>

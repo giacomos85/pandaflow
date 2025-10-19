@@ -1,32 +1,62 @@
-Drop Columns Strategy
-=====================
+drop_columns
+------------
 
 Drops one or more columns from the DataFrame.
 
 Metadata:
-    - name: "dropcolumns"
-    - version: "1.0.0"
-    - author: "pandaflow team"
+    - **Name**: `drop_columns`
+    - **Version**: `1.0.0`
+    - **Author**: PandaFlow Team
 
-Transformation Format:
-    - columns: List[str] — List of column names to drop
-    - errors: Optional[str] — "raise" or "ignore" if column is missing (default: "raise")
 
-Example Transformation
-------------
+drop_columns schema
+~~~~~~~~~~~~~~~~~~~
 
-.. literalinclude:: ../data/drop_columns/pandaflow-config.json
-   :language: json
-   :linenos:
-   :caption: Example Transformation Definition
+.. list-table:: drop_columns Fields
+   :header-rows: 1
+   :widths: 20 20 20 60
 
-Input Example
-~~~~~~~~~~~~~
+   * - Field
+     - Type
+     - Required
+     - Description
+
+   * - ``strategy``
+     - Literal
+     - True
+     - Strategy identifier used to select this transformation. Must be 'drop_columns'.
+
+   * - ``version``
+     - str | None
+     - False
+     - Optional version string to track the strategy implementation or schema evolution.
+
+   * - ``columns``
+     - List
+     - True
+     - List of column names to drop from the DataFrame. All names must be strings.
+
+   * - ``errors``
+     - str
+     - False
+     - Behavior when a specified column is missing. Use 'raise' to throw an error or 'ignore' to skip silently.
+
+
+
+Example input Dataset
+~~~~~~~~~~~~~~~~~~~~~
 
 .. csv-table:: Input DataFrame
    :file: ../data/drop_columns/input.csv
    :header-rows: 1
    :widths: auto
+
+drop_columns example
+~~~~~~~~~~~~~~~~~~~~
+.. literalinclude:: ../data/drop_columns/pandaflow-config.json
+   :language: json
+   :linenos:
+   :caption: drop_columns Rule Example
 
 Result
 ~~~~~~

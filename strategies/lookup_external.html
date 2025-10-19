@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="RegEx" href="regex.html" /><link rel="prev" title="Hash" href="hash.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="merge" href="merge.html" /><link rel="prev" title="hash" href="hash.html" />
 
     <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
-        <title>Lookup External Strategy - PandaFlow</title>
+        <title>lookup_external - PandaFlow</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=302659d7" />
@@ -207,20 +207,25 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Strategies</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="calculate_amount.html">Calculate Amount Strategy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="calculate_ratio.html">Calculate Ratio Strategy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="constant.html">Constant Strategy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="copy.html">Copy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="drop_columns.html">Drop Columns Strategy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="drop_duplicates.html">Drop Duplicates Strategy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="filter.html">Filter</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hash.html">Hash</a></li>
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Lookup External Strategy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="regex.html">RegEx</a></li>
-<li class="toctree-l1"><a class="reference internal" href="replace.html">Replace Strategy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sort_by_column.html">Sort By Column</a></li>
-<li class="toctree-l1"><a class="reference internal" href="split_column.html">Split Column</a></li>
-<li class="toctree-l1"><a class="reference internal" href="uuid.html">UUID</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculate_amount.html">calculate_amount</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calculate_ratio.html">calculate_ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="constant.html">constant</a></li>
+<li class="toctree-l1"><a class="reference internal" href="copy.html">copy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="debug.html">debug</a></li>
+<li class="toctree-l1"><a class="reference internal" href="drop_columns.html">drop_columns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="drop_duplicates.html">drop_duplicates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filter.html">filter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="find_duplicates.html">find_duplicates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hash.html">hash</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">lookup_external</a></li>
+<li class="toctree-l1"><a class="reference internal" href="merge.html">merge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="merge_formula.html">merge_formula</a></li>
+<li class="toctree-l1"><a class="reference internal" href="regex.html">regex</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reorder_columns.html">reorder_columns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="replace.html">replace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sort_by_column.html">sort_by_column</a></li>
+<li class="toctree-l1"><a class="reference internal" href="split_column.html">split_column</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uuid.html">uuid</a></li>
 </ul>
 
 </div>
@@ -261,46 +266,85 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="lookup-external-strategy">
-<h1>Lookup External Strategy<a class="headerlink" href="#lookup-external-strategy" title="Link to this heading">¶</a></h1>
-<p>Looks up values from an external CSV file based on a key column.</p>
+          <section id="lookup-external">
+<h1>lookup_external<a class="headerlink" href="#lookup-external" title="Link to this heading">¶</a></h1>
+<p>Looks up values from an external CSV file based on a key column</p>
 <dl class="simple">
 <dt>Metadata:</dt><dd><ul class="simple">
-<li><p>name: “lookup_external”</p></li>
-<li><p>version: “1.0.0”</p></li>
-<li><p>author: “pandaflow team”</p></li>
-<li><p>description: “Looks up values from an external CSV file based on a key column”</p></li>
-</ul>
-</dd>
-<dt>Transformation Format:</dt><dd><ul class="simple">
-<li><p>field: str — Name of the output column to store mapped values</p></li>
-<li><p>source: str — Column in the input DataFrame to match (defaults to <cite>field</cite>)</p></li>
-<li><p>file: str — Path to external CSV file (supports <cite>${output}</cite> and <cite>${year}</cite> placeholders)</p></li>
-<li><p>key: str — Column name in the CSV to match against <cite>source</cite></p></li>
-<li><p>value: str — Column name in the CSV to use as the mapped value</p></li>
-<li><p>not_found: Optional[str] — Fallback value if no match is found</p></li>
+<li><p><strong>Name</strong>: <cite>lookup_external</cite></p></li>
+<li><p><strong>Version</strong>: <cite>1.0.0</cite></p></li>
+<li><p><strong>Author</strong>: PandaFlow Team</p></li>
 </ul>
 </dd>
 </dl>
-<section id="example-transformation">
-<h2>Example Transformation<a class="headerlink" href="#example-transformation" title="Link to this heading">¶</a></h2>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;strategy&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;lookup_external&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;country_name&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;source&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;country_code&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;file&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data/${year}/${output}_lookup.csv&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;code&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;name&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;not_found&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>
-<span class="p">}</span>
-</pre></div>
+<section id="lookup-external-schema">
+<h2>lookup_external schema<a class="headerlink" href="#lookup-external-schema" title="Link to this heading">¶</a></h2>
+<div class="table-wrapper colwidths-given docutils container" id="id1">
+<table class="docutils align-default" id="id1">
+<caption><span class="caption-text">lookup_external Fields</span><a class="headerlink" href="#id1" title="Link to this table">¶</a></caption>
+<colgroup>
+<col style="width: 16.7%" />
+<col style="width: 16.7%" />
+<col style="width: 16.7%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">strategy</span></code></p></td>
+<td><p>Literal</p></td>
+<td><p>True</p></td>
+<td><p>Strategy identifier used to select this transformation. Must be ‘lookup_external’.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">version</span></code></p></td>
+<td><p>str | None</p></td>
+<td><p>False</p></td>
+<td><p>Optional version string to track the strategy implementation or schema evolution.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">field</span></code></p></td>
+<td><p>str</p></td>
+<td><p>True</p></td>
+<td><p>Name of the output column that will store the looked-up value.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">source</span></code></p></td>
+<td><p>str</p></td>
+<td><p>True</p></td>
+<td><p>Name of the column in the current DataFrame whose values will be used as lookup keys.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">file</span></code></p></td>
+<td><p>str</p></td>
+<td><p>True</p></td>
+<td><p>Path to the external file containing the lookup table (e.g., CSV or JSON).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">key</span></code></p></td>
+<td><p>str</p></td>
+<td><p>True</p></td>
+<td><p>Name of the column in the external file that contains the lookup keys.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">value</span></code></p></td>
+<td><p>str</p></td>
+<td><p>True</p></td>
+<td><p>Name of the column in the external file that contains the values to assign.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">not_found</span></code></p></td>
+<td><p>Optional</p></td>
+<td><p>False</p></td>
+<td><p>Optional fallback value to assign when a key is not found in the external file. If None, missing keys will result in nulls.</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </section>
-<section id="input-dataframe">
-<h2>Input DataFrame<a class="headerlink" href="#input-dataframe" title="Link to this heading">¶</a></h2>
-<div class="table-wrapper docutils container" id="id1">
-<table class="docutils align-default" id="id1">
-<caption><span class="caption-text">Input DataFrame</span><a class="headerlink" href="#id1" title="Link to this table">¶</a></caption>
+<section id="example-input-dataset">
+<h2>Example input Dataset<a class="headerlink" href="#example-input-dataset" title="Link to this heading">¶</a></h2>
+<div class="table-wrapper colwidths-auto docutils container" id="id2">
+<table class="docutils align-default" id="id2">
+<caption><span class="caption-text">Input DataFrame</span><a class="headerlink" href="#id2" title="Link to this table">¶</a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>country_code</p></th>
 </tr>
@@ -318,35 +362,32 @@
 </table>
 </div>
 </section>
-<section id="external-csv-data-2025-countries-lookup-csv">
-<h2>External CSV (<cite>data/2025/countries_lookup.csv</cite>)<a class="headerlink" href="#external-csv-data-2025-countries-lookup-csv" title="Link to this heading">¶</a></h2>
-<div class="table-wrapper docutils container" id="id2">
-<table class="docutils align-default" id="id2">
-<caption><span class="caption-text">Lookup Table</span><a class="headerlink" href="#id2" title="Link to this table">¶</a></caption>
-<thead>
-<tr class="row-odd"><th class="head"><p>code</p></th>
-<th class="head"><p>name</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>IT</p></td>
-<td><p>Italy</p></td>
-</tr>
-<tr class="row-odd"><td><p>FR</p></td>
-<td><p>France</p></td>
-</tr>
-<tr class="row-even"><td><p>DE</p></td>
-<td><p>Germany</p></td>
-</tr>
-</tbody>
-</table>
+<section id="lookup-external-example">
+<h2>lookup_external example<a class="headerlink" href="#lookup-external-example" title="Link to this heading">¶</a></h2>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">lookup_external Rule Example</span><a class="headerlink" href="#id3" title="Link to this code">¶</a></div>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="p">{</span>
+<span class="linenos"> 2</span><span class="w">    </span><span class="nt">&quot;transformations&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="linenos"> 3</span><span class="w">        </span><span class="p">{</span>
+<span class="linenos"> 4</span><span class="w">            </span><span class="nt">&quot;strategy&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;lookup_external&quot;</span><span class="p">,</span>
+<span class="linenos"> 5</span><span class="w">            </span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;country_name&quot;</span><span class="p">,</span>
+<span class="linenos"> 6</span><span class="w">            </span><span class="nt">&quot;source&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;country_code&quot;</span><span class="p">,</span>
+<span class="linenos"> 7</span><span class="w">            </span><span class="nt">&quot;file&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data/${year}/${output}_lookup.csv&quot;</span><span class="p">,</span>
+<span class="linenos"> 8</span><span class="w">            </span><span class="nt">&quot;key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;code&quot;</span><span class="p">,</span>
+<span class="linenos"> 9</span><span class="w">            </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;name&quot;</span><span class="p">,</span>
+<span class="linenos">10</span><span class="w">            </span><span class="nt">&quot;not_found&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>
+<span class="linenos">11</span><span class="w">        </span><span class="p">}</span>
+<span class="linenos">12</span><span class="w">    </span><span class="p">]</span>
+<span class="linenos">13</span><span class="p">}</span>
+</pre></div>
+</div>
 </div>
 </section>
-<section id="expected-output">
-<h2>Expected Output<a class="headerlink" href="#expected-output" title="Link to this heading">¶</a></h2>
-<div class="table-wrapper docutils container" id="id3">
-<table class="docutils align-default" id="id3">
-<caption><span class="caption-text">Output DataFrame</span><a class="headerlink" href="#id3" title="Link to this table">¶</a></caption>
+<section id="result">
+<h2>Result<a class="headerlink" href="#result" title="Link to this heading">¶</a></h2>
+<div class="table-wrapper colwidths-auto docutils container" id="id4">
+<table class="docutils align-default" id="id4">
+<caption><span class="caption-text">Transformed Output</span><a class="headerlink" href="#id4" title="Link to this table">¶</a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>country_code</p></th>
 <th class="head"><p>country_name</p></th>
@@ -376,12 +417,12 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="regex.html">
+          <a class="next-page" href="merge.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">RegEx</div>
+                <div class="title">merge</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -392,7 +433,7 @@
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Hash</div>
+                <div class="title">hash</div>
                 
               </div>
             </a>
@@ -426,11 +467,11 @@
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">Lookup External Strategy</a><ul>
-<li><a class="reference internal" href="#example-transformation">Example Transformation</a></li>
-<li><a class="reference internal" href="#input-dataframe">Input DataFrame</a></li>
-<li><a class="reference internal" href="#external-csv-data-2025-countries-lookup-csv">External CSV (<cite>data/2025/countries_lookup.csv</cite>)</a></li>
-<li><a class="reference internal" href="#expected-output">Expected Output</a></li>
+<li><a class="reference internal" href="#">lookup_external</a><ul>
+<li><a class="reference internal" href="#lookup-external-schema">lookup_external schema</a></li>
+<li><a class="reference internal" href="#example-input-dataset">Example input Dataset</a></li>
+<li><a class="reference internal" href="#lookup-external-example">lookup_external example</a></li>
+<li><a class="reference internal" href="#result">Result</a></li>
 </ul>
 </li>
 </ul>
